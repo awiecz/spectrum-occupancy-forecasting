@@ -22,3 +22,6 @@ docs/research_note/*.log
 docs/research_note/*.out
 docs/research_note/*.fls
 docs/research_note/*.fdb_latexmk
+
+# Local reproductions and synthetic demonstrations
+/reproductions/

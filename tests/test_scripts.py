@@ -20,7 +20,7 @@ from spectrum_occupancy_forecasting.experiments.protocol import TestSetAlreadyUs
 
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
 MAIN_GUARDED = ("extract_aerpaw_blocks", "run_window_dev", "run_test_once", "run_second_node",
-                "run_transfer", "run_dev_baselines", "sanity_checks")
+                "run_transfer", "run_dev_baselines", "sanity_checks", "run_synthetic_demo")
 
 
 @pytest.fixture(scope="module")
@@ -120,3 +120,12 @@ def test_small_utility_scripts(blocks, tmp_path, monkeypatch, capsys):
     monkeypatch.setattr(sys, "argv", ["explore_blocks.py", str(blocks)])
     runpy.run_path(str(SCRIPTS / "explore_blocks.py"), run_name="__main__")
     assert "main session" in capsys.readouterr().out
+
+
+def test_synthetic_demo_labels_outputs_and_runs_without_downloads(tmp_path, monkeypatch):
+    mod = load(monkeypatch, "run_synthetic_demo")
+    run(monkeypatch, mod, "--out-dir", tmp_path / "demo")
+    result = json.loads((tmp_path / "demo" / "synthetic_window_forecast.json").read_text())
+    assert result["synthetic"] is True
+    assert result["windows"]["900s"]["n_eval"][0] > 0
+    assert (tmp_path / "demo" / "figures" / "fig2_method_comparison.png").exists()

@@ -15,6 +15,7 @@ result files; it computes nothing new on the test region.
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
@@ -111,6 +112,9 @@ def evidence_age():
 
 
 def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--out", type=Path, default=ROOT / "results" / "sanity_checks.json")
+    a = ap.parse_args()
     res = {"controls": {n: controls(n) for n in ("CC1", "LW1")}, "evidence_age": evidence_age()}
     for node, c in res["controls"].items():
         factor = (1 - c["window_autocorr_15_30_60_120min"][0]) / (1 + c["window_autocorr_15_30_60_120min"][0])
@@ -137,9 +141,10 @@ def main():
         fac = res["effective_fraction"]["LW1" if name == "LW1" else "CC1"]
         res.setdefault("nominal_vs_effective_windows", {})[name] = [n, n * fac]
         print(f"   {name}: {n} windows -> ~{n * fac:.0f} effective")
-    out = ROOT / "results" / "sanity_checks.json"
+    out = a.out
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(res, indent=1, default=float))
-    print(f"\nwrote {out.relative_to(ROOT).as_posix()}")
+    print(f"\nwrote {out.as_posix()}")
 
 
 if __name__ == "__main__":

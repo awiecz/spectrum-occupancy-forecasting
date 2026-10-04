@@ -55,7 +55,7 @@ def main():
     site = Path(a.npz).stem.split("_")[1]
     out = Path(a.out) if a.out else ROOT / "results" / f"node_{site}_window_forecast.json"
     lock_path = Path(a.lock) if a.lock else ROOT / "results" / f"NODE_{site}_RUN_LOCK.json"
-    fp = fingerprint(FROZEN_FILES)
+    fp = fingerprint(FROZEN_FILES, root=ROOT)
     lock = acquire_lock(lock_path, fp, a.acknowledge_rerun)
     print(f"site {site}\nfingerprint {fp}\nlock written ({lock['status']})", flush=True)
 

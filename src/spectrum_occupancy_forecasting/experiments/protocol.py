@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
 import time
 from collections.abc import Iterable
@@ -22,17 +23,32 @@ class TestSetAlreadyUsedError(RuntimeError):
     __test__ = False  # not a pytest test class
 
 
-def fingerprint(paths: Iterable[str | Path]) -> str:
-    """SHA-256 over the (relative name, bytes) of every file; directories are walked for *.py.
+def fingerprint(paths: Iterable[str | Path], *, root: str | Path | None = None) -> str:
+    """SHA-256 over root-relative names and LF-normalised contents of the selected files.
 
-    Line endings are normalised to LF so the value does not depend on the checkout's autocrlf."""
-    h = hashlib.sha256()
+    Experiment scripts pass the repository root explicitly. Other callers default to the common
+    parent directory of the selected files. Files outside an explicit root are rejected.
+    Historical locks used absolute paths; their hashes are preserved, not migrated.
+    """
     files: list[Path] = []
     for p in map(Path, paths):
         files.extend(sorted(p.rglob("*.py")) if p.is_dir() else [p])
-    for f in sorted(set(files)):
-        h.update(f.as_posix().encode())
-        h.update(f.read_bytes().replace(b"\r\n", b"\n"))
+    files = sorted({f.resolve() for f in files})
+    if not files:
+        raise ValueError("fingerprint requires at least one file")
+    base = Path(root).resolve() if root is not None else Path(
+        os.path.commonpath([str(f.parent) for f in files])
+    )
+    named = sorted((f.relative_to(base).as_posix(), f) for f in files)
+    h = hashlib.sha256()
+    h.update(b"spectrum-occupancy-fingerprint-v2\0")
+    for name, f in named:
+        content = f.read_bytes().replace(b"\r\n", b"\n")
+        encoded = name.encode("utf-8")
+        h.update(len(encoded).to_bytes(8, "big"))
+        h.update(encoded)
+        h.update(len(content).to_bytes(8, "big"))
+        h.update(content)
     return h.hexdigest()
 
 
@@ -67,6 +83,7 @@ def acquire_lock(lock_path: str | Path, fp: str, acknowledge_rerun: bool = False
         "status": "started",
         "started": time.strftime("%Y-%m-%d %H:%M:%S %z"),
         "fingerprint": fp,
+        "fingerprint_scheme": "root-relative-v2",
         "git": git_state(lock_path.parent),
         "reruns": (prior.get("reruns", 0) + 1) if prior else 0,
         "previous": prior,

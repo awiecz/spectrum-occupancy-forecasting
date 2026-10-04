@@ -115,8 +115,9 @@ def event_tradeoff(y_frac, score, theta: float, false_busy_budgets=(0.1, 0.2)) -
     """Compare forecasters on the event ``y_frac >= theta`` at EQUAL false-busy rates.
 
     For each budget the decision threshold on ``score`` is set so that this fraction of non-event
-    windows is flagged busy (a dev-set oracle, used only to put models on the same footing); the
-    false-idle rate is then the fraction of event windows scored below it. Also returns ROC AUC.
+    windows is flagged busy. This uses the supplied evaluation labels: it is an oracle ROC
+    comparison, not a threshold selected on development data or a deployable false-busy guarantee.
+    The false-idle rate is the fraction of event windows scored below it. Also returns ROC AUC.
     """
     from sklearn.metrics import roc_auc_score
 

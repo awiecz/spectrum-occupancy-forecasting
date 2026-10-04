@@ -58,3 +58,24 @@ def test_lock_records_git_state_or_none(tmp_path):
     rec = acquire_lock(tmp_path / "L.json", "fp")
     assert set(rec["git"]) == {"commit", "dirty"}
     assert git_state(tmp_path / "does-not-exist") == {"commit": None, "dirty": None}
+
+
+def test_fingerprint_is_portable_across_checkout_roots(tmp_path):
+    roots = [tmp_path / "checkout-a", tmp_path / "checkout-b"]
+    for root in roots:
+        (root / "src").mkdir(parents=True)
+        (root / "src" / "model.py").write_bytes(b"x = 1\r\n")
+        (root / "config.yaml").write_text("window: 900\n")
+    hashes = [fingerprint([root / "src", root / "config.yaml"], root=root) for root in roots]
+    assert hashes[0] == hashes[1]
+    (roots[1] / "src" / "model.py").rename(roots[1] / "src" / "renamed.py")
+    assert hashes[0] != fingerprint([roots[1] / "src", roots[1] / "config.yaml"], root=roots[1])
+
+
+def test_fingerprint_rejects_files_outside_root(tmp_path):
+    root = tmp_path / "repo"
+    root.mkdir()
+    outside = tmp_path / "outside.py"
+    outside.write_text("x = 1\n")
+    with pytest.raises(ValueError):
+        fingerprint([outside], root=root)

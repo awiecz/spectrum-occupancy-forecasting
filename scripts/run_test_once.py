@@ -64,7 +64,7 @@ def main():
 
     cfg = yaml.safe_load(CONFIG.read_text())
     check_config_matches_code(cfg)
-    fp = fingerprint(FROZEN_FILES)
+    fp = fingerprint(FROZEN_FILES, root=ROOT)
     lock = acquire_lock(ROOT / a.lock, fp, a.acknowledge_rerun)
     print(f"fingerprint {fp}\nlock written ({lock['status']}); loading data", flush=True)
 

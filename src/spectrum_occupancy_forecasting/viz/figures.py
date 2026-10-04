@@ -240,10 +240,14 @@ def figure2_methods(results_json: str | Path, out_dir: str | Path, region: str =
         note = ("Top row is inflated by level drift (dev days quieter than training); the bottom "
                 "row removes the level and shows how little within-day variation any method "
                 "explains.")
+    elif region == "synthetic":
+        title = "SYNTHETIC DEMO ONLY: 15-minute forecast"
+        note = "Workflow demonstration on synthetic data;\nnot evidence for the real-data study."
     elif region == "lw1":
         title = ("Second node LW1 (rural, 3 rolling folds, design frozen on CC1): method "
                  "comparison, channel-6 band")
-        note = ("Confirmation run, no tuning; 30-min and decayed memories score better than the "
+        note = ("Design fixed on CC1; selection overlap disclosed in docs/lw1_results.md; "
+                "30-min and decayed memories score better than the "
                 "2 h average on point estimates, and learned models match but do not beat them; "
                 "see docs/lw1_results.md.")
     else:

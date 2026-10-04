@@ -139,7 +139,7 @@ def main():
     if not a.rehearsal and not (a.cc1_npz and a.lw1_npz):
         ap.error("give both npz files (or --rehearsal NPZ)")
 
-    fp = fingerprint(FROZEN_FILES)
+    fp = fingerprint(FROZEN_FILES, root=ROOT)
     lock = acquire_lock(a.lock, fp, a.acknowledge_rerun)
     print(f"fingerprint {fp}\nlock written ({lock['status']})", flush=True)
 
