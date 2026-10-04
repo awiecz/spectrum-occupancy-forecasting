@@ -68,6 +68,21 @@ def artifact_hashes(out):
     }
 
 
+def node_manifest(result):
+    """Keep calibration and fold status here; detailed selection records live in selections.json."""
+    return {
+        **result,
+        "folds": [
+            {
+                key: value
+                for key, value in fold.items()
+                if key not in {"selected", "candidates", "operating_thresholds"}
+            }
+            for fold in result["folds"]
+        ],
+    }
+
+
 def rebuild(out):
     manifest = json.loads((out / "manifest.json").read_text())
     for name in ("config.yaml", "predictions.parquet", "selections.json"):
@@ -280,7 +295,7 @@ def main():
                     out / "_parts",
                     task_names=["primary"] if a.mode == "synthetic-rehearsal" else None,
                 )
-                manifest["node_results"][node] = result
+                manifest["node_results"][node] = node_manifest(result)
                 records.extend(result["folds"])
                 write_json(out / "manifest.json", manifest)
             parts = list((out / "_parts").glob("*.parquet"))

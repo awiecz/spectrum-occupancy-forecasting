@@ -6,11 +6,6 @@ registered yet. CC2 confirmation is pending and must not run.** The investigator
 disclosure is that CC2 activity has not been inspected. Do not download, summarize, plot or
 score CC2 until the package is independently timestamped and the executable gate verifies it.
 
-Pre-archive revision 1 addresses the subsequent code review: last-observed target/cross-channel
-states and their ages expire outside the same finite support, and confirmation verifies and
-records the raw archive checksum before reading the derived CC2 product. No independent archive
-or CC2 activity inspection occurred before this revision. The earlier local package is superseded.
-
 This protocol and `configs/followup_v2.yaml` are authoritative together with the exact frozen
 source package. `scripts/freeze_followup.py` creates `followup_v2_freeze.zip`, containing both,
 all executable Python sources, entry points, dependency specification/lock and cryptographic
