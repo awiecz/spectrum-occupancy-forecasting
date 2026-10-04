@@ -141,6 +141,16 @@ class NodeData:
                 power_col="mean_dbm",
             )
             X = with_derived(X, cfg["timezone"])
+            # Match the finite-history lower boundary (origin-delay-lookback, origin-delay].
+            # Expired ages must also disappear: retaining them still refers to an older sweep.
+            lookback = maximum_lookback(cfg)
+            expired = X["age_s"] - deg.delay_s >= lookback
+            X.loc[expired, ["last_occ", "age_s"]] = np.nan
+            for column in X:
+                if column.startswith("x_age_s_"):
+                    expired = X[column] - deg.delay_s >= lookback
+                    state = column.replace("x_age_s_", "x_last_occ_")
+                    X.loc[expired, [state, column]] = np.nan
             for tau in cfg["decay_taus_s"]:
                 fraction, weight = bounded_decay(
                     self.d,

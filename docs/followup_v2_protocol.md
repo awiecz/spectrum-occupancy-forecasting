@@ -6,6 +6,11 @@ registered yet. CC2 confirmation is pending and must not run.** The investigator
 disclosure is that CC2 activity has not been inspected. Do not download, summarize, plot or
 score CC2 until the package is independently timestamped and the executable gate verifies it.
 
+Pre-archive revision 1 addresses the subsequent code review: last-observed target/cross-channel
+states and their ages expire outside the same finite support, and confirmation verifies and
+records the raw archive checksum before reading the derived CC2 product. No independent archive
+or CC2 activity inspection occurred before this revision. The earlier local package is superseded.
+
 This protocol and `configs/followup_v2.yaml` are authoritative together with the exact frozen
 source package. `scripts/freeze_followup.py` creates `followup_v2_freeze.zip`, containing both,
 all executable Python sources, entry points, dependency specification/lock and cryptographic
@@ -38,6 +43,9 @@ establish seasonal generalization. No data-driven channel substitution is permit
   may remove different origins at different leads; disclose this rather than filling labels.
 - Predictor observations must end by origin minus simulated delay. Decayed histories have
   finite support of five time constants; maximum clean feature look-back is ten hours.
+  Last-observed states and ages are missing when their observation ends at or before
+  origin minus delay minus ten hours. Under delay, this support is anchored to availability
+  time; elapsed age includes the additional latency.
   Fitting targets finish by outer fold start minus this bound. Apply the same embargo at each
   inner validation block. Training origins are spaced three minutes apart.
 - Use the last twelve hours before the eligible outer fitting cutoff for two chronological
@@ -130,6 +138,14 @@ download CC2, verify the source deposit's published archive checksum, extract th
 and run `--mode confirmation` once with the same archive reference. Preserve the raw archive
 checksum verification in the run record alongside the derived input hash. The software's
 one-shot lock is created before CC2 input access and retained after failure.
+
+Confirmation requires `--cc2-raw-archive`, `--cc2-expected-sha256` and
+`--cc2-checksum-source`. The investigator supplies the checksum copied from the published
+source and its HTTPS reference. The runner verifies the actual archive bytes against that
+digest and records expected/actual hashes, source and verification time in the run manifest.
+A mismatch leaves a failed run and retained lock, without loading the derived NPZ. This
+does not automatically authenticate the investigator's supplied checksum reference or prove
+that the derived product came from that archive; retain the extraction record as well.
 
 Evaluate every eligible later CC2 fold with the frozen settings. Do not inspect alternate bands,
 change offsets/leads, extend training searches or tune acceptance thresholds after seeing CC2.

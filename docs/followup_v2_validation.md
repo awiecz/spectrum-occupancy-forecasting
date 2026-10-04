@@ -3,8 +3,8 @@
 Validation performed on 2026-10-04 using the locked environment on Windows.
 
 - `uv run ruff check .`: passed.
-- `uv run pytest -o addopts='' -q`: 115 tests passed, including 20 v2 tests.
-- Final-code synthetic rehearsal: `reproductions/followup_v2/rehearsal_03`, completed. Generated
+- `uv run pytest -o addopts='' -q`: 119 tests passed, including 24 v2 tests.
+- Final-code synthetic rehearsal: `reproductions/followup_v2/rehearsal_boundfix`, completed. Generated
   RF inputs are not committed and synthetic scores are not research evidence.
 - Exploratory study: CC1 five folds and LW1 three folds; all 13 staged tasks completed.
   The prediction product contains 275,268 rows, including scenario/method/mask repetitions.
@@ -22,15 +22,18 @@ Validation performed on 2026-10-04 using the locked environment on Windows.
   succeeded, three pages, no overfull boxes. All three rendered pages reviewed. The built-in
   editor compiler returned a platform-directory error; the existing local compiler supplied
   the verified PDF.
-- Frozen package created locally at `reproductions/followup_v2_freeze.zip`; its actual contents
+- Frozen package created locally at `reproductions/followup_v2_boundfix/followup_v2_freeze.zip`; its actual contents
   verify against the current protocol, configuration and source hashes. The independent
   archive gate is **not satisfied**. The package was not uploaded and CC2 was not accessed.
 
-The fitting run's manifest records its original source fingerprint. Report-only additions
-(standalone threshold export and lead-skill curve) were then regenerated without refitting;
-the report-builder fingerprint is retained separately. The frozen package uses the final code.
-The machine-generated [freeze manifest](followup_v2_freeze_manifest.json) records the package's
-source/configuration/protocol hashes; it does not itself establish an independent timestamp.
+The original run and its report-builder provenance remain preserved. The corrected pipeline
+was rerun into `results/followup_v2/exploratory_20261004_boundfix/`; all 275,268 prediction rows
+and all candidate scores, selections and thresholds exactly match the original run. Its fitting
+fingerprint now covers the final bounded-state implementation and reporting code. New tests
+check long-gap state/age expiry, invariance to expired observations, raw checksum provenance,
+and a mismatched archive failing before derived-data access while retaining its lock.
+The refreshed [freeze manifest](followup_v2_freeze_manifest.json) records the corrected package;
+the earlier local package is superseded and never independently archived.
 
 The experiment runner refuses existing output directories and protects the future confirmation
 with a persistent one-shot lock. Tests cover those controls and actual archive-byte verification,

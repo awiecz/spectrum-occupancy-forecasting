@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import importlib
 import io
 import json
@@ -41,6 +42,7 @@ from spectrum_occupancy_forecasting.experiments.followup_reporting import (
     summarize,
     temporal_blocks,
 )
+from spectrum_occupancy_forecasting.robustness.degrade import Degradation
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -107,6 +109,34 @@ def test_initial_calibration_is_not_reestimated(config, raw):
     altered.loc[altered["t_start_s"] >= node.t0 + config["calibration_s"], "mean_dbm"] += 20
     other = NodeData(altered, config, 3)
     assert node.thresholds == other.thresholds
+
+
+def test_last_states_and_ages_expire_beyond_available_lookback(config, raw):
+    at = raw["t_start_s"].min() + 2 * 86400
+    gap = raw[~((raw["t_start_s"] > at - 12 * 3600) & (raw["t_start_s"] < at))].copy()
+    node = NodeData(gap, config, 3)
+    features = node.features([at])
+    columns = ["last_occ", "age_s"] + [
+        c for c in features if c.startswith(("x_last_occ_", "x_age_s_"))
+    ]
+    assert features[columns].isna().all().all()
+    # The support is anchored to availability time; simulated latency is additional age.
+    delayed = node.features([at], Degradation(delay_s=3 * 3600))
+    assert delayed["last_occ"].notna().all()
+    assert (delayed["age_s"] - 3 * 3600 < maximum_lookback(config)).all()
+
+
+def test_expired_state_cannot_change_current_features(config, raw):
+    at = raw["t_start_s"].min() + 2 * 86400
+    gap = raw[~((raw["t_start_s"] > at - 12 * 3600) & (raw["t_start_s"] < at))].copy()
+    altered = gap.copy()
+    altered.loc[
+        (altered["t_start_s"] > at - 13 * 3600) & (altered["t_start_s"] <= at - 12 * 3600),
+        "mean_dbm",
+    ] += 100
+    pd.testing.assert_frame_equal(
+        NodeData(gap, config, 3).features([at]), NodeData(altered, config, 3).features([at])
+    )
 
 
 def test_bounded_decay_observation_end_delay_and_support():
@@ -370,3 +400,67 @@ def test_run_refuses_existing_output_before_generating_data(monkeypatch, tmp_pat
     )
     with pytest.raises(FileExistsError):
         mod.main()
+
+
+def test_raw_archive_verification_records_expected_actual_and_source(monkeypatch, tmp_path):
+    monkeypatch.syspath_prepend(str(ROOT / "scripts"))
+    mod = importlib.import_module("run_followup")
+    raw_archive = tmp_path / "synthetic_archive.zip"
+    raw_archive.write_bytes(b"synthetic archive bytes")
+    expected = hashlib.sha256(raw_archive.read_bytes()).hexdigest()
+    result = mod.verify_raw_archive(
+        raw_archive, expected.upper(), "https://example.org/published-checksums"
+    )
+    assert result["verified"] and result["actual_sha256"] == result["expected_sha256"] == expected
+    assert result["checksum_source"] == "https://example.org/published-checksums"
+    assert result["verified_at"]
+    assert not mod.verify_raw_archive(raw_archive, "0" * 64, result["checksum_source"])["verified"]
+    with pytest.raises(ValueError):
+        mod.verify_raw_archive(raw_archive, "bad-digest", result["checksum_source"])
+    with pytest.raises(ValueError):
+        mod.verify_raw_archive(raw_archive, expected, "file:///local-claim")
+
+
+def test_checksum_mismatch_stops_confirmation_before_derived_data(monkeypatch, tmp_path):
+    monkeypatch.syspath_prepend(str(ROOT / "scripts"))
+    mod = importlib.import_module("run_followup")
+    monkeypatch.setattr(mod, "ROOT", tmp_path / "repo")
+    monkeypatch.setattr(mod, "freeze_manifest", lambda *a: {})
+    monkeypatch.setattr(mod, "verify_archive", lambda *a: {"verified": True})
+    monkeypatch.setattr(
+        mod, "band_table_from_blocks", lambda *a, **k: pytest.fail("derived data read")
+    )
+    archive = tmp_path / "synthetic.zip"
+    archive.write_bytes(b"mismatched synthetic archive")
+    out = tmp_path / "run"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "run_followup",
+            "--mode",
+            "confirmation",
+            "--config",
+            str(ROOT / "configs/followup_v2.yaml"),
+            "--archive-url",
+            "https://example.org/freeze",
+            "--cc2-npz",
+            str(tmp_path / "aerpaw_CC2_never_read.npz"),
+            "--cc2-raw-archive",
+            str(archive),
+            "--cc2-expected-sha256",
+            "0" * 64,
+            "--cc2-checksum-source",
+            "https://example.org/checksums",
+            "--out",
+            str(out),
+        ],
+    )
+    # Source fingerprinting is unrelated to this test's temporary confirmation repository.
+    monkeypatch.setattr(mod, "fingerprint", lambda *a, **k: "synthetic-test-fingerprint")
+    with pytest.raises(ValueError, match="raw archive checksum mismatch"):
+        mod.main()
+    manifest = json.loads((out / "manifest.json").read_text())
+    assert manifest["status"] == "failed"
+    assert manifest["raw_archive_verification"]["verified"] is False
+    assert (mod.ROOT / "results/followup_v2/CC2_CONFIRMATION_LOCK.json").exists()

@@ -61,7 +61,7 @@ predictions, are averaged over the five masks before temporal resampling.
 Only after exploratory review, freeze the completed protocol and executable sources:
 
 ```powershell
-uv run python scripts/freeze_followup.py --out reproductions/followup_v2_freeze.zip
+uv run python scripts/freeze_followup.py --out reproductions/followup_v2_boundfix/followup_v2_freeze.zip
 ```
 
 This creates a package locally; it does not upload anything. Keep the repository and package
@@ -83,10 +83,14 @@ extract it using the existing extraction workflow. Do not run exploratory script
 Run the frozen pipeline once:
 
 ```powershell
-uv run python scripts/run_followup.py --mode confirmation --archive-url YOUR_ARCHIVE_API_URL --cc2-npz data/processed/aerpaw_CC2_blocks5MHz.npz --out results/followup_v2/confirmation_CC2
+uv run python scripts/run_followup.py --mode confirmation --archive-url YOUR_ARCHIVE_API_URL --cc2-npz data/processed/aerpaw_CC2_blocks5MHz.npz --cc2-raw-archive PATH_TO_CC2_ARCHIVE --cc2-expected-sha256 PUBLISHED_SHA256 --cc2-checksum-source PUBLISHED_CHECKSUM_HTTPS_URL --out results/followup_v2/confirmation_CC2
 ```
 
 The persistent `CC2_CONFIRMATION_LOCK.json` prevents reruns even after a failed attempt.
+The supplied raw archive is hashed only after the independent gate and one-shot lock succeed.
+Expected and actual SHA-256, the supplied published checksum reference, verification time and
+status are saved in `manifest.json`. A mismatch fails before the derived product is read. The
+reference and expected checksum are supplied by the investigator, not fetched automatically.
 Failures need an explicitly versioned amendment, not removal of the lock. Gate verification
 does not itself prove that the investigator never inspected CC2; preserve the investigator's
 disclosure and archive chronology. Changing frozen source/configuration/protocol invalidates

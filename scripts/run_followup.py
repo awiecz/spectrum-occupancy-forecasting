@@ -8,6 +8,7 @@ import json
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
+from urllib.parse import urlparse
 
 import pandas as pd
 from threadpoolctl import threadpool_limits
@@ -34,6 +35,26 @@ def timestamp():
 
 def write_json(path, value):
     Path(path).write_text(json.dumps(value, indent=2, allow_nan=False))
+
+
+def verify_raw_archive(path, expected_sha256, checksum_source):
+    """Verify bytes against the investigator-supplied published digest; record its source."""
+    expected = expected_sha256.lower()
+    source = urlparse(checksum_source)
+    if len(expected) != 64 or any(c not in "0123456789abcdef" for c in expected):
+        raise ValueError("CC2 expected archive checksum must be a 64-character SHA-256")
+    if source.scheme != "https" or not source.netloc:
+        raise ValueError("CC2 checksum source must be the published HTTPS checksum reference")
+    actual = sha256_file(path)
+    return {
+        "file": Path(path).name,
+        "expected_sha256": expected,
+        "actual_sha256": actual,
+        "checksum_source": checksum_source,
+        "verified": actual == expected,
+        "verified_at": timestamp(),
+        "expected_digest_provenance": "investigator-supplied published checksum",
+    }
 
 
 def artifact_hashes(out):
@@ -134,6 +155,9 @@ def main():
         "--lw1-npz", type=Path, default=ROOT / "data/processed/aerpaw_LW1_blocks5MHz.npz"
     )
     ap.add_argument("--cc2-npz", type=Path)
+    ap.add_argument("--cc2-raw-archive", type=Path)
+    ap.add_argument("--cc2-expected-sha256")
+    ap.add_argument("--cc2-checksum-source")
     ap.add_argument("--archive-url")
     ap.add_argument("--verify-gate-only", action="store_true")
     a = ap.parse_args()
@@ -149,6 +173,10 @@ def main():
             return
         if a.cc2_npz is None:
             ap.error("supply the verified CC2 block product only after the gate succeeds")
+        if not (a.cc2_raw_archive and a.cc2_expected_sha256 and a.cc2_checksum_source):
+            ap.error(
+                "confirmation requires --cc2-raw-archive, --cc2-expected-sha256 and --cc2-checksum-source"
+            )
     if a.mode == "report":
         if a.out is None:
             ap.error("report mode requires --out pointing to an existing v2 run")
@@ -221,6 +249,7 @@ def main():
         "fingerprint_scheme": "root-relative-v2",
         "config_sha256": hashlib.sha256(normalized_bytes(a.config)).hexdigest(),
         "archive_verification": gate,
+        "raw_archive_verification": None,
         "inputs": {},
         "node_results": {},
     }
@@ -228,6 +257,17 @@ def main():
     write_json(out / "manifest.json", manifest)
     records = []
     try:
+        if a.mode == "confirmation":
+            manifest["raw_archive_verification"] = verify_raw_archive(
+                a.cc2_raw_archive,
+                a.cc2_expected_sha256,
+                a.cc2_checksum_source,
+            )
+            write_json(out / "manifest.json", manifest)
+            if not manifest["raw_archive_verification"]["verified"]:
+                raise ValueError(
+                    "CC2 raw archive checksum mismatch; derived data will not be loaded"
+                )
         with threadpool_limits(limits=1):
             for node, path in inputs.items():
                 if node != "SYN" and f"aerpaw_{node}_" not in path.name:

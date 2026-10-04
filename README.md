@@ -56,7 +56,7 @@ higher MSE than independently selected history. Eight-hour intervals include no 
 LW1 has only eight blocks. Individual family improvements and unsuccessful event calibration
 are reported alongside these primary outcomes.
 
-This is exploratory follow-up, with auditable [saved predictions and reports](results/followup_v2/exploratory_20261004/).
+This is exploratory follow-up, with auditable [saved predictions and reports](results/followup_v2/exploratory_20261004_boundfix/).
 It preserves the historical protocols, locks and results. The [CC2 protocol](docs/followup_v2_protocol.md)
 is prepared privately; confirmation remains blocked until the frozen package has an independently
 verified timestamp. CC2 has not been inspected. See [v2 commands and archive gating](docs/followup_v2_reproduction.md).
