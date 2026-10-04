@@ -46,7 +46,22 @@ evaluation fold, so the pooled LW1 results are not an entirely independent confi
 [protocol and fingerprint caveats](docs/index.md#protocols-and-historical-locks) and
 [measurement sanity checks](docs/sanity_checks.md).
 
-## Experimental design
+## V2 scientific follow-up
+
+The separate [v2 report](docs/followup_v2_results.md) adds explicit forecast leads, earlier-only
+model/history selection, first-day calibration, feature ablations, label sensitivity and paired
+temporal-block uncertainty. The primary target is a 15-minute busy fraction **starting 15 minutes
+ahead**. On reused CC1/LW1 recordings, the validation-selected learned strategy has 8.7%/5.5%
+higher MSE than independently selected history. Eight-hour intervals include no difference;
+LW1 has only eight blocks. Individual family improvements and unsuccessful event calibration
+are reported alongside these primary outcomes.
+
+This is exploratory follow-up, with auditable [saved predictions and reports](results/followup_v2/exploratory_20261004/).
+It preserves the historical protocols, locks and results. The [CC2 protocol](docs/followup_v2_protocol.md)
+is prepared privately; confirmation remains blocked until the frozen package has an independently
+verified timestamp. CC2 has not been inspected. See [v2 commands and archive gating](docs/followup_v2_reproduction.md).
+
+## Historical experimental design
 
 Each AERPAW sweep supplies a band-mean power snapshot (averaged in linear power). A sweep is labeled
 busy when the band mean exceeds the channel's training-period fifth-percentile noise floor by

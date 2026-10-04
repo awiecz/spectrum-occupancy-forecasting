@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Preserve audited v2 artifact bytes so manifest checksums survive platform changes.
+results/followup_v2/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

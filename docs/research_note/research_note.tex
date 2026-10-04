@@ -15,7 +15,7 @@ an exploratory study on public AERPAW measurements}\vspace{-0.4em}}
 \maketitle
 \vspace{-1.6em}
 
-\textbf{Summary.} Using two public sweep sessions (urban node CC1 and rural node LW1, 87--6019~MHz,
+\textbf{Historical study.} Using two public sweep sessions (urban node CC1 and rural node LW1, 87--6019~MHz,
 February 2022), I forecast the \emph{fraction of observed sweeps detected busy in the 2.4~GHz channel-6 band} (activity
 consistent with Wi-Fi, not decoded) over the next 5, 15 and 60 minutes, and measure how forecast quality
 degrades when evidence is dropped, interrupted or delayed. Three results matter most.
@@ -143,8 +143,15 @@ or uncertainty-aware abstention under distribution shift, do better?
 and several co-located sensors show the same evidence-ageing behaviour as the simulated gaps used here?
 \end{enumerate}
 
-\textbf{Reproducibility.} Commands: \texttt{docs/reproduction.md}. Code, original protocols,
-historical locks, results and plots are in the repository. New hashes use repository-relative paths;
-original locks are preserved and do not independently establish registration chronology. Data are
-not redistributed (CC0 source above).
+\textbf{V2 exploratory follow-up.} A separate study predicts 15-min fractions starting 15~min ahead,
+using first-day calibration and earlier validation selection. On reused CC1/LW1 data, the selected
+learned strategy has 8.7\,\% / 5.5\,\% higher MSE than independently selected history. Eight-hour
+paired-block intervals include no difference (15 / 8 blocks; LW1 evidence is weak). Event calibration
+is insufficient in seven of eight folds; the one calibrated strategy misses all four positive
+windows. Lead, label, feature and degradation analyses are in \texttt{docs/followup\_v2\_results.md}.
+CC2 remains uninspected, pending independent timestamping of its frozen protocol.
+
+\textbf{Reproducibility.} Commands: \texttt{docs/reproduction.md} and
+\texttt{docs/followup\_v2\_reproduction.md}. Original protocols, locks and numerical results are
+preserved; they do not independently establish registration chronology. Data are not redistributed.
 \end{document}

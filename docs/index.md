@@ -12,6 +12,11 @@ New here? Read in this order (about 20 minutes):
 
 ## What is where
 
+The separate [v2 exploratory report](followup_v2_results.md),
+[executable workflow](followup_v2_reproduction.md) and
+[pending CC2 protocol](followup_v2_protocol.md) cover the scientific follow-up. Its outputs live
+under `results/followup_v2/`; the historical results and locks below remain unchanged.
+
 | Path | Contents |
 |---|---|
 | `src/spectrum_occupancy_forecasting/` | The library: `data/` (AERPAW reader, dwell schema, synthetic generator for tests and the demo), `occupancy/` (power units, detection), `features/` (causal age-aware features, window targets), `models/` (baselines, learned models), `evaluation/` (splits with embargo, metrics, bootstrap, diagnostics), `robustness/` (degradations of predictor inputs only), `experiments/` (the window-forecast experiment, transfer, one-shot protocol locks), `viz/` (figures) |
