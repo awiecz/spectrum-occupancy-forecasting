@@ -1,0 +1,24 @@
+# Data (never commit raw/processed RF recordings): top-level folder only, so the
+# src/spectrum_occupancy_forecasting/data/ package is NOT ignored
+/data/
+*.tar.gz
+*.csv.gz
+*.parquet
+
+# Python / tooling
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.egg-info/
+dist/
+build/
+
+# LaTeX build files
+docs/research_note/*.aux
+docs/research_note/*.log
+docs/research_note/*.out
+docs/research_note/*.fls
+docs/research_note/*.fdb_latexmk

@@ -1,0 +1,30 @@
+
+== CC1: 23647 sweeps, 5.23 d (CC1: development region only)
+1. negative control (busy prevalence in idle 5 GHz bands): 5200 0.0000, 5240 0.0000, 5280 0.0000, 5745 0.0001, 5785 0.0000   | target ch6: 0.166
+2. drift: idle-band hourly medians span 0.10 dB; target quiet level spans 0.45 dB (threshold 3 dB)
+3. spectral shape: busy-minus-idle excess +3.5 dB in 2430-2445 MHz vs +0.3 dB in 2455-2490 MHz
+4. dependence: autocorr at 15/30/60/120 min = [0.67, 0.59, 0.6, 0.47]; 502 windows -> ~98 effective (factor 0.19)
+
+== LW1: 13620 sweeps, 4.75 d (CC1: development region only)
+1. negative control (busy prevalence in idle 5 GHz bands): 5200 0.0002, 5240 0.0003, 5280 0.0000, 5745 0.0004, 5785 0.0006   | target ch6: 0.097
+2. drift: idle-band hourly medians span 0.12 dB; target quiet level spans 0.13 dB (threshold 3 dB)
+3. spectral shape: busy-minus-idle excess +2.7 dB in 2430-2445 MHz vs +0.0 dB in 2455-2490 MHz
+4. dependence: autocorr at 15/30/60/120 min = [0.57, 0.55, 0.41, 0.23]; 456 windows -> ~127 effective (factor 0.28)
+
+5. value of old evidence (W = 15 min; MSE skill vs train mean at delay 0/1/10/30/60/120 min):
+   CC1 dev  recent_7200s  +0.70  +0.70  +0.69  +0.65  +0.60  +0.48   half-life inf min
+   CC1 dev  decayed       +0.69  +0.69  +0.70  +0.64  +0.49  +0.02   half-life 78 min
+   CC1 dev  hgb           +0.51  +0.51  +0.51  +0.49  +0.50  +0.46   half-life inf min
+   CC1 test recent_7200s  +0.69  +0.68  +0.64  +0.54  +0.40  +0.14   half-life 72 min
+   CC1 test decayed       +0.79  +0.78  +0.75  +0.63  +0.37  +0.01   half-life 57 min
+   CC1 test hgb           +0.45  +0.44  +0.42  +0.40  +0.39  +0.26   half-life inf min
+   LW1      recent_7200s  +0.34  +0.34  +0.29  +0.18  +0.09  +0.04   half-life 32 min
+   LW1      decayed       +0.45  +0.43  +0.44  +0.26  +0.17  +0.01   half-life 44 min
+   LW1      hgb           +0.41  +0.45  +0.42  +0.31  +0.26  +0.30   half-life inf min
+
+Nominal windows scored at W = 15 min and the indicative effective numbers (dependence measured on CC1 dev / LW1):
+   CC1 dev: 307 windows -> ~60 effective
+   CC1 test: 169 windows -> ~33 effective
+   LW1: 261 windows -> ~72 effective
+
+wrote results/sanity_checks.json

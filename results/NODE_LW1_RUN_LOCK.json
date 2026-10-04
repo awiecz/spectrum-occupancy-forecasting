@@ -1,0 +1,9 @@
+{
+ "status": "completed",
+ "started": "2026-10-03 16:29:16 +0100",
+ "fingerprint": "7afc149a9e3e7312796f6fed02d5048d748ce233bcb66cda0d6e941c8e3d7301",
+ "reruns": 0,
+ "previous": null,
+ "completed": "2026-10-03 16:29:30 +0100",
+ "results_sha256": "67c2703c2aef27af118b4ab2f5d63d31e7a02a1b8b926c8d6065a701bbb57343"
+}

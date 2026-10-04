@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Spectrum Occupancy Forecasting: occupancy prediction under sparse RF monitoring"
+type: software
+license: MIT
+version: 0.1.0
+authors:
+  - family-names: "Wieczorkowski"
+    given-names: "Art"
+    alias: "awiecz"

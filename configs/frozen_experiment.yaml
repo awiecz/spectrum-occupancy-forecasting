@@ -1,0 +1,37 @@
+# Frozen design for the held-out test evaluation (written BEFORE the test region was read).
+# scripts/run_test_once.py asserts these values equal the code constants, so this file cannot
+# silently drift from what is executed.
+dataset:
+  archive: ResultsCC1Feb2022_SigMF.zip          # AERPAW node CC1, Dryad doi:10.5061/dryad.hmgqnk9zn
+  sha256: c2b1e6d9172f4738b11d78d874c2ca2e3d4232330a99d2b278eb1e05b642f747
+  session: 0                                    # main 7-day session; the 2.7 h tail is not used
+  block_mhz: 5.0
+target:
+  channel_mhz: 2437.0                           # Wi-Fi channel 6, 20 MHz band from 5 MHz blocks
+  channels_for_features_mhz: [2412.0, 2437.0, 2462.0]
+  occupancy: band_mean_dbm > train_noise_floor + x_db
+  noise_floor: 5th percentile of training-period band mean, per channel
+  x_db: 3.0
+  windows_s: [300, 900, 3600]
+  primary_window_s: 900
+features:
+  tau_s: 900
+  windows_s: [300, 1800, 7200]
+  cross_channel: true
+split:
+  development_fraction_of_week: 0.75            # first 75 % = train + dev; last 25 % = test
+  embargo: max look-back (7200 s) + window length
+  training_origin_stride: window_s / 5 (min 60 s)
+  evaluation_origins: non-overlapping windows, stride = window_s
+metrics:
+  reference_model: recent_7200s
+  event_thetas: [0.1, 0.2, 0.3]
+  event_tradeoff_theta: 0.2
+  bootstrap_block_s: 7200
+  bootstrap_resamples: 1000
+robustness:
+  random_mask_seeds: 5
+  dropout: [0.5, 0.9, 0.99]
+  outages: {lengths_s: [900, 3600], covered_fraction: 0.25}
+  delays_s: [60, 600, 1800, 3600, 7200]
+  window_s: 900
