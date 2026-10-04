@@ -1,4 +1,4 @@
-# Second node (LW1, rural): confirmation of the frozen design
+# Second node (LW1, rural): evaluation of the design frozen on CC1
 
 Protocol: [lw1_protocol.md](lw1_protocol.md) (including Addendum A), written before the archive was
 downloaded. Raw numbers: `results/node_LW1_window_forecast.json`; figures: `results/figures_lw1/`;
@@ -15,14 +15,26 @@ console log: `results/node_LW1_run_log.txt`.
   discarded every LW1 window); plotting code. These are recorded in the protocol addendum.
 * Unlike CC1 there is **no separate held-out split on LW1**: the design was frozen on CC1, so all
   three LW1 folds ([2, 3), [3, 4), [4, 4.75) days of the 4.75-day main session; 261 windows at
-  W = 900) are confirmation data. The folds share training data (expanding windows) and are not
-  independent; one node, one week, one band.
+  W = 900) evaluate a design fixed on CC1. The channel-selection overlap below limits the
+  confirmation claim. The folds share training data (expanding windows) and are not independent;
+  one node, 4.75 days, one band.
+
+## Channel-selection overlap
+
+The protocol selects the target channel and checks its minimum prevalence using the first 60% of
+the 4.75-day session, ending near day 2.85. The first evaluation fold is [2, 3) days, so roughly
+0.85 days of that fold also inform channel selection. Fixing the selection rule beforehand does
+not make those evaluation observations unseen: the pooled LW1 results are not an entirely
+independent confirmation, even though forecast features and model training remain chronological.
+The later folds start after the selection period, but the reported pooled scores include the
+first fold. No revised scores have been computed here. Restricting selection to an earlier period
+or reporting later folds separately would be a new, disclosed follow-up analysis.
 
 ## What the data looked like
 
 LW1 is much quieter than CC1. Channel selection (first 60 % of the session): channel 6 (2437 MHz)
 prevalence 0.128 at +3 dB, channels 1 and 11 only 0.003 each, so the target was **not degenerate** and
-channel 6 was selected by the pre-registered rule. Pooled mean busy fraction at W = 900 is 0.073
+channel 6 was selected by the protocol-specified rule. Pooled mean busy fraction at W = 900 is 0.073
 (CC1: 0.17-0.20 in training, 0.19 on its test region); fold means 0.118, 0.044, 0.053.
 
 ## Scoring of the registered hypotheses
@@ -78,6 +90,11 @@ reach 0.3 (a few dozen and about ten windows).
   0.073-0.081). A level-shift explanation does not hold up: the level also moved a lot on LW1
   (fold means 0.118, 0.044, 0.053) and on CC1's development days (drifting down). I have no tested
   explanation for why boosting suffers on CC1 only.
-* Limits unchanged: one week per node, one band, simulated rather than native sparsity, uncalibrated
+* Limits: 7.0 days on CC1, 4.75 days on LW1, one band, simulated rather than native sparsity, uncalibrated
   per-bin power; "busy" is detected power above a threshold at one sensor, not transmitter activity
   or permission to transmit. No claim is made about other sites, seasons or bands.
+
+
+Equal-false-busy event comparisons, where reported, use evaluation-label oracle thresholds;
+see [the CC1 interpretation note](test_results.md#event-threshold-interpretation).
+Historical registration and fingerprint limits are in [the documentation index](index.md#protocols-and-historical-locks).

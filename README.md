@@ -1,130 +1,105 @@
 # Spectrum Occupancy Forecasting
 
-**Spectrum occupancy prediction under sparse RF monitoring**, on real public measurements.
+**Short-term spectrum occupancy forecasting under sparse RF monitoring, on public measurements.**
 
 [![ci](https://github.com/awiecz/spectrum-occupancy-forecasting/actions/workflows/ci.yml/badge.svg)](https://github.com/awiecz/spectrum-occupancy-forecasting/actions/workflows/ci.yml)
-&nbsp;New here? Start with the [documentation index and repository map](docs/index.md).
 
-> Status: **first complete study done** (two nodes, one week each, one band). Held-out test regions
-> evaluated once under pre-registered protocols; see [docs/test_results.md](docs/test_results.md) (what
-> held, what did not), [docs/lw1_results.md](docs/lw1_results.md),
-> [docs/transfer_results.md](docs/transfer_results.md),
-> [docs/sanity_checks.md](docs/sanity_checks.md) (is the signal real? how much independent data is
-> there?), [docs/dev_results.md](docs/dev_results.md) and
-> [docs/dataset_investigation.md](docs/dataset_investigation.md) (data provenance and quirks).
+Start with the [three-page research note](docs/research_note/research_note.pdf), then the
+[documentation index](docs/index.md). Try the [download-free synthetic demo](#quick-start) or follow
+[the full reproduction guide](docs/reproduction.md).
 
-**Headline.** AERPAW nodes CC1 (urban) and LW1 (rural); the measured quantity is power in the
-2.4 GHz channel-6 band (activity consistent with Wi-Fi, not decoded); forecasting the busy share of
-the next 5-60 min. Controls that the signal is real (negative control, receiver drift, spectral
-shape) are in [docs/sanity_checks.md](docs/sanity_checks.md).
+## Question and scope
 
-1. **Evidence ages within about an hour.** For a short-memory estimator, forecast skill falls to
-   half when the newest usable sweep is 45-80 min old (on both nodes); long-memory averages and
-   boosting degrade more slowly.
-2. **Occupancy labels depend on calibration.** A ~1 dB difference in noise floor changes the busy
-   prevalence 2-25x, so a busy/idle label from uncalibrated power is meaningful only relative to a
-   node's own floor, and cannot be compared across nodes by an absolute threshold.
-3. **Single sweeps are nearly unpredictable; the busy share of the next 5-60 min is predictable
-   mostly from the recent level** (within-region R^2 0.2-0.8).
-4. **Learned models never clearly beat tuned moving averages.** Read this with care: the models were
-   trained on only 2-5 days, each evaluation set holds only about 33-72 effective independent windows
-   (AR(1) estimate), and the reported intervals are probably too narrow. Models trained on the *other*
-   node mostly lose (1.3-3.7x in MSE for CC1 -> LW1 at 15 min, up to 8x for ridge; boosting did not lose
-   in the reverse direction) while history averages transfer unchanged.
-5. The best memory length was not stable across days or nodes, and robustness differs sharply
-   between methods (simple averages degrade gracefully; a clean-trained ridge model is unstable).
+How well can the busy share of the next 5, 15 or 60 minutes be forecast from past RF measurements,
+and how does forecast quality change when those measurements are missing or stale?
 
-Registered predictions that failed are reported as failures: two of four on CC1's test region, one of
-four on LW1, one of four in the transfer analysis. This is an exploratory study of two weeks of two
-nodes, not evidence about other sites, seasons or bands.
+This is a completed **exploratory study** of AERPAW fixed nodes CC1 (urban) and LW1 (rural), recorded
+in February 2022. The analyzed main sessions span approximately **7.0 days on CC1 and 4.75 days on
+LW1**. The target is power-derived activity in the 2437 MHz channel-6 band, consistent with Wi-Fi
+but not decoded. Sparsity is simulated by degrading predictor inputs; targets use the intact stream.
 
-![Method comparison on the held-out test region](results/figures_test/fig2_method_comparison.png)
+## Main findings
 
-**Second node (LW1, rural; design frozen on CC1, confirmation run, see
-[docs/lw1_results.md](docs/lw1_results.md)):** only the channel-6 band showed activity and the node is much
-quieter. Learned models again did not beat the best simple history (N1, N3, N4 supported; N2
-rejected: gradient boosting was fine here), while the best memory length again differed from CC1's
-development days. Two of the four CC1 hypotheses and one of the four LW1 hypotheses failed and are
-reported as such.
+1. **Evidence ages quickly.** For a short-memory estimator, skill falls to half when the newest
+   usable sweep is about 45-80 minutes old. Longer-memory averages and boosting retain skill longer.
+2. **Labels depend on calibration.** Applying another node's absolute thresholds (noise floors
+   differ by about 1 dB) changes busy prevalence by 2-25x. Cross-node labels need careful calibration.
+3. **Tracking the recent activity level explains most forecast skill.** Learned models did not
+   clearly outperform the best simple histories in this study; preferred memory lengths changed
+   across days and nodes. Clean-trained ridge was unstable under sparse or delayed evidence, and
+   models trained on the other node usually lost skill.
 
-**Cross-node transfer** ([docs/transfer_results.md](docs/transfer_results.md), pre-registered):
-history averages transfer unchanged, while learned models trained on the other node usually lose:
-CC1 -> LW1 at 15 min, 1.3x to 3.7x in MSE (ridge 8.2x at 60 min); LW1 -> CC1 (exploratory), ridge 4.2x
-and its residual variant 6.3x, but boosting no loss. Residual-on-level models lose least in the primary
-direction only; training on both nodes is a safe default. One of four
-registered predictions failed (adding the other node did help boosting). A ~1 dB difference in noise
-floor changes the busy prevalence 2-25x, so occupancy labels from uncalibrated power are meaningful
-only relative to each node's own floor.
+These are limited observations from two short sessions and one band. Models had only 2-5 days of
+training data; evaluation sets contain about 33-72 effective independent windows by an AR(1)
+approximation, and the two-hour bootstrap intervals may be too narrow. Nearby model rankings remain
+unresolved. Pooling nodes was approximately neutral or beneficial for the tested learned models;
+this does not establish a generally safe pooling strategy.
 
-![Cross-node transfer penalties](results/figures_transfer/fig4_transfer.png)
+![Method comparison on the held-out CC1 test region](results/figures_test/fig2_method_comparison.png)
 
-## Research question
+The [CC1 test results](docs/test_results.md), [LW1 results](docs/lw1_results.md), and
+[transfer results](docs/transfer_results.md) report all planned predictions, including failures.
+Protocols were written before their corresponding evaluations according to the project record;
+the repository does not provide evidence of external or independently timestamped registration.
+Original protocols and run locks are preserved. LW1 channel selection overlaps part of its first
+evaluation fold, so the pooled LW1 results are not an entirely independent confirmation. See the
+[protocol and fingerprint caveats](docs/index.md#protocols-and-historical-locks) and
+[measurement sanity checks](docs/sanity_checks.md).
 
-How accurately can short-term RF occupancy be predicted from real monitoring records, and how do
-sampling frequency, observation age and missing measurements affect reliability — in particular
-the **false-idle rate** (busy channels predicted idle) and probability calibration?
+## Experimental design
 
-Data: AERPAW fixed-node sub-6 GHz sweeps (nodes CC1 and LW1, February 2022). Sparsity is simulated by
-degrading the predictor's inputs. The study was planned around the NIST *Distributed Sensing of Radio
-Spectrum Occupancy Amid COVID-19* release, whose file server was unreachable throughout, so it was not
-used. See `DATA_ATTRIBUTION.md`.
+Each AERPAW sweep supplies a band-mean power snapshot (averaged in linear power). A sweep is labeled
+busy when the band mean exceeds the channel's training-period fifth-percentile noise floor by
+3 dB. The target is the **fraction of observed sweeps** labeled busy in a future window, an occupancy
+proxy rather than a directly measured continuous-time duty cycle. Windows need at least 80% of the
+expected sweep count; the expected interval is about 19 seconds on CC1 and 30 seconds on LW1.
 
-## What this is not
+Features use only sweeps that ended before the forecast origin, accounting for simulated delay:
+recent and decayed activity, mean power, observation age and cross-channel evidence. Missing values
+remain explicit. Baselines are the training mean, hour-of-day prior, 5-minute/30-minute/2-hour
+history averages, and decayed history. Learned models are ridge, gradient boosting, and corrections
+to the 2-hour history. Chronological folds have a look-back-plus-target-window embargo; preprocessing
+is fitted on training periods. Dropout, contiguous outages and delay affect predictor inputs only.
+Equal-false-busy event comparisons use evaluation-label oracle thresholds and describe ROC operating
+points, not deployment guarantees.
 
-* "Occupied" means **detected activity at one sensor above a power threshold** — not transmitter
-  activity, interference at another receiver, or permission to transmit.
-* A predicted-idle channel is **not** evidence that transmitting on it is harmless or authorised.
-* No GNN/MARL and no live transmission. Heuristics may well beat ML; that is a
-  valid result.
+Detected activity at one sensor does not establish transmitter identity, interference elsewhere,
+or permission to transmit. A predicted-idle band does not imply transmission would be harmless.
 
-## Design in one paragraph
+## Quick start
 
-Each dwell (105 ms of 0.5 ms bins) at a (site, channel) is labelled occupied if it contains an
-occupancy event above a threshold derived from training data only. Features are strictly causal and
-**age-aware** (last state, time since last observation, decayed history, cross-channel evidence;
-missing evidence is `NaN` + age, never 0 power or "idle"). Baselines (climatology, hour-of-week,
-persistence, decayed history, age-conditioned persistence) and light ML (logistic regression,
-gradient boosting) are compared under chronological splits with an embargo, then stress-tested by
-degrading **only the predictor-visible stream** (dropout, contiguous outages, delay).
-
-## Reproduce
-
-Download `ResultsCC1Feb2022_SigMF.zip` (19 GB) from Dryad
-([doi:10.5061/dryad.hmgqnk9zn](https://doi.org/10.5061/dryad.hmgqnk9zn); scripted downloads are
-blocked, use a browser) into `data/raw/aerpaw/`, check its SHA-256
-(`c2b1e6d9172f4738b11d78d874c2ca2e3d4232330a99d2b278eb1e05b642f747`, `scripts/sha256.py`), then:
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and use Python 3.11 or 3.12
+(the versions tested in CI). From the repository root:
 
 ```bash
-uv run python scripts/extract_aerpaw_blocks.py data/raw/aerpaw/ResultsCC1Feb2022_SigMF.zip   # ~1 min
-uv run python scripts/run_window_dev.py data/processed/aerpaw_CC1_blocks5MHz.npz              # dev only
-uv run python scripts/make_figures.py data/processed/aerpaw_CC1_blocks5MHz.npz results/dev_window_forecast.json
-# second node (after downloading ResultsLW1Feb2022_SigMF.zip, 12.5 GB, sha256 595e7ea4...11401951):
-uv run python scripts/extract_aerpaw_blocks.py data/raw/aerpaw/ResultsLW1Feb2022_SigMF.zip
-uv run python scripts/sanity_checks.py   # controls + evidence-age table (needs both blocks files)
+uv sync --locked
+uv run python scripts/run_synthetic_demo.py
 ```
 
-`scripts/run_transfer.py` runs the CC1 <-> LW1 transfer analysis (one-shot, `docs/transfer_protocol.md`).
-`scripts/run_test_once.py` evaluates the frozen design on the held-out test region and refuses to run
-twice (see `docs/test_protocol.md`); its recorded output is in `results/test_window_forecast.json`.
+The demo creates a small synthetic spectrogram, fits all ten base models for a 15-minute target,
+and writes clearly labeled synthetic JSON, PNG/PDF figures and a plotted-values CSV under
+`reproductions/synthetic_demo/` (git-ignored). It uses one evaluation day, 100 bootstrap resamples
+and no robustness grid. **Demo output is not evidence for the real-data findings.**
+
+To reproduce the study, download the two archives from
+[Dryad](https://doi.org/10.5061/dryad.hmgqnk9zn) (about 32 GB total); follow
+[docs/reproduction.md](docs/reproduction.md) for extraction, separate output/lock paths, and figures.
+Raw and processed recordings are git-ignored and not redistributed. The planned NIST dataset was
+not used because its file server was unavailable during the project; see [data attribution](DATA_ATTRIBUTION.md).
 
 ## Development
 
 ```bash
-uv sync
 uv run pytest
 uv run ruff check .
 ```
 
-If the repository lives in a OneDrive/Dropbox-synced folder, `uv` may fail to rebuild `.venv`
-("access denied"): point it elsewhere, e.g. `UV_PROJECT_ENVIRONMENT=C:/venvs/rfsi`, or run
-`uv run --no-sync ...`.
+Tests use synthetic data and cover units, labels, causality, degradations, locks, transfer, and
+script integration. If a synced OneDrive/Dropbox folder prevents environment creation, set
+`UV_PROJECT_ENVIRONMENT` to a directory outside that folder before running `uv sync --locked`.
+For example, in PowerShell: `$env:UV_PROJECT_ENVIRONMENT = "C:/venvs/spectrum-occupancy"`.
 
-The tests (all on synthetic data) cover the library (units, labelling, leakage and
-causality, degradations, locks, transfer) and run every script end to end on a small synthetic
-archive. Layout and a plan-versus-what-happened table are in [docs/index.md](docs/index.md). Raw and
-processed data live in `data/` (git-ignored, not redistributed). Synthetic data
-(`src/spectrum_occupancy_forecasting/data/synthetic.py`) exists for tests only and is never used for results.
+## License and citation
 
-## Licence
-
-Code: MIT. Data: see `DATA_ATTRIBUTION.md` (NIST open licence; AERPAW CC0).
+Code: MIT. Data: AERPAW CC0; see [DATA_ATTRIBUTION.md](DATA_ATTRIBUTION.md).
+Citation metadata is in [CITATION.cff](CITATION.cff).

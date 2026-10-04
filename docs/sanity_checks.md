@@ -1,6 +1,7 @@
 # Sanity checks on the measurements and the headline numbers
 
-Reproduce with `uv run python scripts/sanity_checks.py` (writes `results/sanity_checks.json`; console
+Reproduce with `uv run python scripts/sanity_checks.py --out reproductions/sanity_checks.json`
+(writes a separate reproduction; original console
 output in `results/sanity_checks_log.txt`). The descriptive controls use whole-period noise floors, no
 forecasting, and the CC1 *development* region only (the held-out CC1 test region is never read by this
 script). Section 5 reads stored result files and computes nothing new on any test data.

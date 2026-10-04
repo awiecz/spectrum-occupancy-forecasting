@@ -61,8 +61,10 @@ is consistent across windows, so the registered claim "no gain for any learned m
   bias accounts for roughly a third to a half of their excess MSE (from pooled RMSE and bias), the rest
   is a mis-specified response. Residual-on-level models, whose forecast is anchored to the target's own
   recent level, lose much less (bias +0.02 for the GB correction).
-* **Pooling is a safe default.** Training on both nodes was at least as good as training on LW1 alone
-  for every learned model within noise, and slightly better for boosting.
+* **Pooling was approximately neutral or beneficial here.** At 15 minutes, joint-training penalties
+  for the four learned models ranged from 0.94 to 1.07, with intervals including 1. Boosting had
+  a lower point estimate; the other three had slightly higher ones. This limited comparison does
+  not establish a generally safe pooling strategy.
 
 ## Exploratory: train on LW1, forecast CC1's development folds (W = 900, 307 windows)
 
@@ -95,3 +97,12 @@ channel, three overlapping folds per direction, many models and windows compared
 not confirmatory), in-node models trained on only 2-4 days. Sparsity is simulated, power is
 uncalibrated, and "busy" is detected power above a threshold at one sensor, not transmitter activity or
 permission to transmit. Nothing here supports general claims about transfer across sites.
+
+
+## Additional interpretation limits
+
+The LW1 target-channel selection period overlaps its first scored fold, including the target
+windows reused here; see [the selection-overlap note](lw1_results.md#channel-selection-overlap).
+Any equal-false-busy metrics in the result JSON are evaluation-label oracle ROC comparisons,
+not frozen operating thresholds. Historical registration and fingerprint limits are described
+in [the documentation index](index.md#protocols-and-historical-locks).

@@ -13,9 +13,10 @@ figures: `results/figures_test/` (each with a CSV of the plotted values).
 * The test region is the last 25 % of the CC1 main session (5.23 to 7.00 days after the session start; about 1.77 days,
   from Sunday 13 Feb ~18:20 to Tuesday 15 Feb 12:50 local, including the whole of Monday). Training used everything before `test_start - (7200 s + W)`, so the
   former development days were in the training set. Noise floors were refit on that period.
-* After the run I edited only plotting code (`viz/figures.py`, `scripts/make_figures.py`: titles,
+* At the time of this results write-up, post-run edits were only to plotting code (`viz/figures.py`, `scripts/make_figures.py`: titles,
   axis limits, label placement) and regenerated development figures; no evaluation code changed.
-  The lock's fingerprint therefore differs from today's repository state by plotting code only.
+  The lock's fingerprint differed from that state by plotting code only. The current source also
+  includes later portability and documentation changes; see [historical-lock notes](index.md#protocols-and-historical-locks).
 * Before the run, one *registered prediction* (H3) was corrected to match development evidence; the
   corrected text is the one in the protocol file.
 * Many models x windows x metrics are reported and compared, so single intervals below should not be
@@ -50,6 +51,16 @@ figures: `results/figures_test/` (each with a CSV of the plotted values).
 W = 5 and 60 min: the history averages and ridge cluster near RMSE 0.10-0.12 (5 min) and 0.07-0.09
 (60 min); gradient boosting is again worse than the 2 h reference (-0.03 and -0.43); there are only
 42 windows at 60 min, so those intervals are wide.
+
+## Event-threshold interpretation
+
+The equal-false-busy rates reported below are **oracle ROC comparisons**: for each model,
+`event_tradeoff` uses the evaluated region's non-event labels to choose its score threshold.
+The thresholds were not selected on development data and then frozen for this test region.
+These numbers describe separation at empirical ROC operating points, not an achieved deployment
+false-busy budget or a prospective false-idle guarantee. Discrete scores and ties also mean the
+quantile rule need not attain exactly 10% or 20% false-busy. A deployable evaluation would freeze
+thresholds on earlier data and report both realized rates on later data as a separate analysis.
 
 ## What changed relative to development
 
