@@ -1,0 +1,17 @@
+study: operational-learning
+base_config: adaptive_learning.yaml
+protocols: [historical-cold-start, continuous-operational]
+controllers: [selected-hard, fixed-hard, fixed-soft]
+count_half_lives_h: [0.5, 2, 6]
+count_standard_deviations: [0.5, 1]
+count_dispersions: [0, 0.1]
+count_strengths: [0.5, 1]
+count_bin_s: 300
+count_coverage: 0.8
+minimum_count_initialization: 48
+grid_nodes: 801
+grid_limit: 16
+numerical_tolerance: 0.001
+count_fallback: fixed-hard
+count_cache_budget_bytes: 10000000
+stopping_rule: stop-after-declared-grid

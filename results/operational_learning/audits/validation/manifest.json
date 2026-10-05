@@ -1,0 +1,24 @@
+{
+  "study": "operational-learning",
+  "phase": "validation-audit",
+  "mode": "report",
+  "status": "completed",
+  "CC2_accessed": false,
+  "all_results_exploratory": true,
+  "git": {
+    "commit": "43ed0a5b13652fa1b9d009e8bee63f77e6796524",
+    "dirty": true
+  },
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "implementation_hash": "a4f2fe7917996668671b4f2479a74c647b0d3faf347eca630ff4a9a13d92ef28",
+  "source_byte_hash": "a7a9a48bfb1ff680eb77512cbdc32c50e8500b727696a44f6ec7a64fd045d534",
+  "configuration_hash": "fa2fd47ccf13660032ce03cbc42f9a6aaa24c306189c98d22af67673310330e8",
+  "artifact_hashes": {
+    "audit.json": "9f952d80d7a55ee36cca1efdbe5a98329eaee3d66b0ab7c26722fba67c17d105",
+    "candidate_scores.csv": "186baf2358d901fa91c75c7bed8197aa9a3779a204d538ad14ae128c8e55b19e",
+    "configuration.json": "94db638cb6d1e4e91d38a4ae4d1688c9a16693c0e2b76857f5e86bf314407c88",
+    "protocol_comparison.csv": "5504c4971329dfffdb64e346d6065f3bacdf626808225387fef311a77adc10a4",
+    "selections.json": "b111e6cfffa9eeabf4116de4b02aeed09e8e21bf40745e7e0f307525e84f7f2f",
+    "validation_predictions.parquet": "c5056eca3ab71acca71bba4b617d56002b83b7e00bd9819aff0c0834d8cbd123"
+  }
+}

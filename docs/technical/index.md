@@ -13,6 +13,7 @@ versions of the repository.
 | Chronological model selection, leads and sensitivity | [Study results](followup_v2_results.md) | [Predictions, selections and figures](../../results/followup_v2/exploratory/) |
 | History mixture and adaptive development | [Development results](forecast_development.md) | [Mixture outputs and experiment ledger](../../results/followup_v2/history_mixture/) |
 | Local adaptation and prior transfer outcome | [Illustrated results](../adaptive_learning.md) | [Predictions, selections and audit](../../results/adaptive_learning/) |
+| Registered operational validation, controllers and activity counts | [Illustrated results](../operational_learning.md) | [Reviewed evidence and registry tables](../../results/operational_learning/) |
 | Original urban-site development | [Development](dev_results.md) | [Original outputs](../../results/) |
 | Original urban-site test | [Test results](test_results.md) | [Protocol](test_protocol.md) |
 | Original rural-site evaluation | [Rural-site results](lw1_results.md) | [Protocol](lw1_protocol.md) |

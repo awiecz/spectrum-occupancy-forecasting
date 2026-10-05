@@ -1,0 +1,6 @@
+{
+  "historical_selections_reproduced": true,
+  "continuous_states_source": "immutable uninterrupted saved operational replay",
+  "adoption_reason": "matches declared deployment; not selected by favorable performance",
+  "shared_history_controls": true
+}

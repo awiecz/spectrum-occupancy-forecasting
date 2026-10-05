@@ -140,6 +140,65 @@ reproduces numerical tables from saved forecasts and validation predictions with
 Filter updates and state snapshots additionally expose the delivered anchors and covariance.
 Synthetic runs are workflow checks and are not evidence of measurement-data performance.
 
+## Registered operational learning
+
+The [operational study](operational_learning.md) audits validation and controllers before
+testing one declared activity-count grid. Existing recordings are development data. These
+commands download nothing; all output directories must be fresh.
+
+```bash
+uv run python scripts/run_operational_learning.py --phase count-model --mode synthetic-rehearsal --out-dir reproductions/count_numerical
+uv run python scripts/run_operational_learning.py --phase validation-audit --mode synthetic-rehearsal --out-dir reproductions/validation_demo
+uv run python scripts/run_operational_learning.py --phase controller-audit --mode synthetic-rehearsal --out-dir reproductions/controller_demo
+uv run python scripts/run_operational_learning.py --phase count-model --mode report --predictions-dir results/operational_learning/run --out-dir reproductions/count_report
+uv run python scripts/run_operational_learning.py --phase validation-audit --mode report --predictions-dir results/operational_learning/audits/validation --out-dir reproductions/validation_report
+uv run python scripts/run_operational_learning.py --phase controller-audit --mode report --predictions-dir results/operational_learning/audits/controller --out-dir reproductions/controller_report
+```
+
+Rehearsal checks numerical convergence on synthetic persistent, changing, missing and random
+activity, including all-idle/all-busy cases. It selected 1,601 nodes before real execution.
+Report commands use saved predictions and need no recordings or fitting. Validation report
+regeneration also reads the retained adaptive/residual prediction files in this repository.
+
+The count model's 439/239/81 scoring population, frozen labels, 24 configurations, selection
+margin, controller and degradation seeds are fixed by `configs/operational_learning.yaml`
+and its retained base configurations. `--config`, `--cache`, `--registry`, `--parent-attempt`,
+`--hypothesis`, `--evidence`, `--attempt-kind`, `--reproduction`, `--numerical-dir` and
+`--out-dir` make declarations and inputs explicit. Exploratory mode requires the three
+checksum-verified caches described above; it never downloads or extracts recordings.
+
+Inspect the registry before proposing another attempt:
+
+```bash
+uv run python scripts/run_operational_learning.py --registry-command list
+uv run python scripts/run_operational_learning.py --registry-command compare --out-dir reproductions/registry_comparison
+uv run python scripts/run_operational_learning.py --registry-command explain --attempt 44e1867afab747ee926510085d49e3f7
+```
+
+The completed count execution is `44e1867afab747ee926510085d49e3f7`. Its parent is an
+interrupted execution of the same grid, retained rather than erased. Re-running an identical
+scientific declaration requires `--reproduction <original-attempt>`; the runner then compares
+every saved numerical outcome. A changed implementation also needs an explanation through
+`--evidence`. A renamed config or changed hypothesis wording cannot bypass duplicate checks.
+For a full reproduction, use the count-model exploratory phase, the matching caches, a
+fresh numerical rehearsal, that reproduction reference and a fresh local output directory.
+No further candidate search is authorized by these commands.
+
+Registry recovery is deliberately explicit. Inspect the process and partial outputs first;
+then use `--registry-command recover --attempt <id> --recovery-reason "<explanation>"`.
+Use `--recover-lock` only after verifying the lock owner is no longer running. Incomplete tails
+are preserved in a recovery backup, and recovery appends an event instead of hiding the interruption.
+`--registry-command migrate` imports historical ledger/provenance records idempotently; missing
+historical settings remain explicitly unknown.
+
+Original fitting manifests and prediction bytes stay unchanged. Publication receipts separately
+record enhanced reporting, checksum verification and visual review. Local detailed/partial outputs
+and checkpoints are under `reproductions/operational_archive_20261005`; no raw recordings are copied.
+Scientific implementation fingerprints use executable ASTs and exclude presentation functions;
+original source-byte fingerprints are retained alongside them. The count fitting manifest's
+configuration fingerprint describes the declared 801-node starting specification, while its
+`artifact_hashes["configuration.json"]` verifies the resolved 1,601-node configuration.
+
 ## Check the code
 
 ```bash

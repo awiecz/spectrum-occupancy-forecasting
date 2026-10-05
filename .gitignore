@@ -31,4 +31,7 @@ docs/research_note/*.fdb_latexmk
 !/results/followup_v2/**/*.parquet
 !/results/adaptive_learning/**/*.parquet
 !/results/residual_state_space/**/*.parquet
+!/results/operational_learning/**/*.parquet
+/results/experiment_registry.jsonl.lock
+/results/experiment_registry.jsonl.recovery-*
 /results/followup_v2/**/aerpaw_SYN_blocks5MHz.npz

@@ -55,6 +55,10 @@ can improve later forecasts. It tested 145 settings for correcting bias, combini
 forecasts and learning from history and power. None achieved robust 5% gains over both history references on all three
 inspected recordings. A [targeted residual follow-up](docs/residual_state_space.md) found
 predictable errors, but its 18 level/trend corrections also failed to improve reliably.
+The [registered operational study](docs/operational_learning.md) audited validation and
+controllers, then tested learning from five-minute activity counts. It retained history on
+two recordings and increased error on the first rural session. Its experiment registry
+keeps earlier attempts and prevents undisclosed repeated searches.
 **History remains the recommended method.**
 
 A learned mixture reduced mean squared error by **1.35% urban and 6.80% rural** against

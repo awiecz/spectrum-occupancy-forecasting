@@ -77,6 +77,12 @@ headroom and persistent errors. Its declared level/trend study nevertheless incr
 MSE by 0.42%/0.22% against two-hour history and selected history-only on both rural recordings.
 Neither family qualifies; controller degradation penalties are reported separately from learning.
 
+The [registered operational study](operational_learning.md) then aligned validation with
+continuous updates and isolated controller effects. Its count model retained fixed history
+on urban and later rural data, while increasing first-session rural MSE by 22.68% against
+fixed history and 45.68% against selected history. No new method qualifies. The append-only
+registry preserves declarations, historical outcomes and the interrupted implementation run.
+
 The recordings are short, nearby forecasts are correlated, and the data were repeatedly
 inspected during development. The mixture's apparent improvements are exploratory; its
 uncertainty estimates do not account for the full adaptive search. Rural-site uncertainty

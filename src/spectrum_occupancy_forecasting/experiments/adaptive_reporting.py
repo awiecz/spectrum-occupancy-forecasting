@@ -17,6 +17,11 @@ from .followup_models import operating_threshold
 from .followup_reporting import dependence, paired_intervals, point_metrics
 
 
+def available_number(value):
+    """Undefined reference skill stays unavailable, never a manufactured zero gain."""
+    return float(value) if value is not None and np.isfinite(value) else None
+
+
 def verify_records(source, cfg, *, candidate_factory=candidates, strategies=None):
     """Recompute scores and conservative selections without fitting or replaying models."""
     validation = pd.read_parquet(source / "validation_predictions.parquet")
@@ -168,7 +173,14 @@ def regenerate(
             positive = float(((folds.mss_vs_fixed > 0) & (folds.mss_vs_selected > 0)).mean())
             degraded = table[(table.recording == recording) & (table.scenario != "clean")]
             ratios = {
-                row.scenario: {"fixed": 1 - row.mss_vs_fixed, "selected": 1 - row.mss_vs_selected}
+                row.scenario: {
+                    "fixed": None
+                    if available_number(row.mss_vs_fixed) is None
+                    else 1 - row.mss_vs_fixed,
+                    "selected": None
+                    if available_number(row.mss_vs_selected) is None
+                    else 1 - row.mss_vs_selected,
+                }
                 for row in degraded.itertuples()
             }
             valid_skill = all(
@@ -176,7 +188,7 @@ def regenerate(
                 for value in (result.mss_vs_fixed, result.mss_vs_selected)
             )
             robust = all(
-                np.isfinite(value) and value <= cfg["maximum_degraded_ratio"]
+                value is not None and np.isfinite(value) and value <= cfg["maximum_degraded_ratio"]
                 for ratio in ratios.values()
                 for value in ratio.values()
             )
@@ -186,8 +198,8 @@ def regenerate(
             node_checks.append(
                 {
                     "recording": recording,
-                    "clean_skill_fixed": float(result.mss_vs_fixed),
-                    "clean_skill_selected": float(result.mss_vs_selected),
+                    "clean_skill_fixed": available_number(result.mss_vs_fixed),
+                    "clean_skill_selected": available_number(result.mss_vs_selected),
                     "clean_pass": bool(valid_skill),
                     "positive_fold_fraction": positive,
                     "fold_count": len(folds),
@@ -205,10 +217,20 @@ def regenerate(
                 )
                 and not failures,
                 "failures_recorded": len(failures),
-                "minimum_clean_skill": min(
+                "minimum_clean_skill": None
+                if any(
+                    c["clean_skill_fixed"] is None or c["clean_skill_selected"] is None
+                    for c in node_checks
+                )
+                else min(
                     min(c["clean_skill_fixed"], c["clean_skill_selected"]) for c in node_checks
                 ),
-                "mean_clean_skill": float(
+                "mean_clean_skill": None
+                if any(
+                    c["clean_skill_fixed"] is None or c["clean_skill_selected"] is None
+                    for c in node_checks
+                )
+                else float(
                     np.mean(
                         [
                             min(c["clean_skill_fixed"], c["clean_skill_selected"])

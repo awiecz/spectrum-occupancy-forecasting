@@ -1,0 +1,101 @@
+[
+  {
+    "recording": "CC1_first",
+    "fold": 0,
+    "origin_s": 1644515434.0,
+    "chosen": {
+      "count": "count_history"
+    },
+    "selected_history": "recent_7200s",
+    "selection_source": "CC1_first",
+    "failure": []
+  },
+  {
+    "recording": "CC1_first",
+    "fold": 1,
+    "origin_s": 1644601834.0,
+    "chosen": {
+      "count": "count_history"
+    },
+    "selected_history": "decay_1800s",
+    "selection_source": "CC1_first",
+    "failure": []
+  },
+  {
+    "recording": "CC1_first",
+    "fold": 2,
+    "origin_s": 1644688234.0,
+    "chosen": {
+      "count": "count_history"
+    },
+    "selected_history": "recent_7200s",
+    "selection_source": "CC1_first",
+    "failure": []
+  },
+  {
+    "recording": "CC1_first",
+    "fold": 3,
+    "origin_s": 1644774634.0,
+    "chosen": {
+      "count": "count_history"
+    },
+    "selected_history": "recent_7200s",
+    "selection_source": "CC1_first",
+    "failure": []
+  },
+  {
+    "recording": "CC1_first",
+    "fold": 4,
+    "origin_s": 1644861034.0,
+    "chosen": {
+      "count": "count_history"
+    },
+    "selected_history": "decay_7200s",
+    "selection_source": "CC1_first",
+    "failure": []
+  },
+  {
+    "recording": "LW1_first",
+    "fold": 0,
+    "origin_s": 1644515876.0,
+    "chosen": {
+      "count": "count_history"
+    },
+    "selected_history": "decay_1800s",
+    "selection_source": "LW1_first",
+    "failure": []
+  },
+  {
+    "recording": "LW1_first",
+    "fold": 1,
+    "origin_s": 1644602276.0,
+    "chosen": {
+      "count": "count_0.5_0.5_0_1"
+    },
+    "selected_history": "decay_900s",
+    "selection_source": "LW1_first",
+    "failure": []
+  },
+  {
+    "recording": "LW1_first",
+    "fold": 2,
+    "origin_s": 1644688676.0,
+    "chosen": {
+      "count": "count_history"
+    },
+    "selected_history": "decay_7200s",
+    "selection_source": "LW1_first",
+    "failure": []
+  },
+  {
+    "recording": "LW1_later",
+    "fold": 0,
+    "origin_s": 1645470273.0,
+    "chosen": {
+      "count": "count_history"
+    },
+    "selected_history": "decay_7200s",
+    "selection_source": "LW1_first_final_fold",
+    "failure": []
+  }
+]

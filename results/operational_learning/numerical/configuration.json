@@ -1,0 +1,234 @@
+{
+  "version": 2,
+  "target_mhz": 2437.0,
+  "channels_mhz": [
+    2437.0
+  ],
+  "timezone": "America/New_York",
+  "window_s": 900,
+  "primary_lead_s": 900,
+  "leads_s": [
+    0,
+    900,
+    1800,
+    3600,
+    7200
+  ],
+  "offsets_db": [
+    2,
+    3,
+    4,
+    6
+  ],
+  "primary_offset_db": 3,
+  "calibration_s": 86400,
+  "first_eval_s": 172800,
+  "fold_s": 86400,
+  "minimum_partial_fold_s": 43200,
+  "minimum_coverage": 0.8,
+  "training_stride_s": 180,
+  "validation_block_s": 21600,
+  "validation_blocks": 2,
+  "history_windows_s": [
+    300,
+    900,
+    1800,
+    7200
+  ],
+  "decay_taus_s": [
+    300,
+    900,
+    1800,
+    7200
+  ],
+  "decay_support_taus": 5,
+  "feature_tau_s": 900,
+  "ablations": [
+    "history",
+    "history_power",
+    "history_age",
+    "history_calendar",
+    "history_cross",
+    "full"
+  ],
+  "ridge_alphas": [
+    1,
+    10,
+    100,
+    1000
+  ],
+  "boosting_depths": [
+    2,
+    3
+  ],
+  "boosting_leaf_sizes": [
+    20,
+    40
+  ],
+  "boosting_iterations": 150,
+  "boosting_learning_rate": 0.05,
+  "residual_boosting_iterations": 100,
+  "residual_boosting_learning_rate": 0.03,
+  "mask_seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "augmentation_seeds": [
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "model_seed": 0,
+  "bootstrap_seed": 0,
+  "bootstrap_resamples": 2000,
+  "bootstrap_blocks_s": [
+    7200,
+    14400,
+    28800,
+    43200
+  ],
+  "main_bootstrap_block_s": 28800,
+  "minimum_interval_blocks": 4,
+  "weak_evidence_blocks": 10,
+  "event_cutoff": 0.2,
+  "false_busy_budgets": [
+    0.1,
+    0.2
+  ],
+  "minimum_validation_events": 10,
+  "minimum_validation_nonevents": 20,
+  "dropout_probabilities": [
+    0.5,
+    0.9,
+    0.99
+  ],
+  "outage_lengths_s": [
+    900,
+    3600
+  ],
+  "outage_fraction": 0.25,
+  "delays_s": [
+    60,
+    600,
+    1800,
+    3600,
+    7200
+  ],
+  "study": "operational-learning",
+  "base_config": "adaptive_learning.yaml",
+  "initialization_s": 86400,
+  "replay_stride_s": 900,
+  "validation_hours": 12,
+  "selection_embargo_s": 36000,
+  "validation_margin": 0.02,
+  "bias_half_lives_h": [
+    0.5,
+    2,
+    6,
+    12
+  ],
+  "aggregation_half_lives_h": [
+    2,
+    6,
+    12,
+    24
+  ],
+  "aggregation_rates": [
+    0.5,
+    2,
+    8
+  ],
+  "ridge_half_lives_h": [
+    2,
+    6,
+    12,
+    24
+  ],
+  "ridge_penalties": [
+    1,
+    10,
+    100,
+    1000
+  ],
+  "feature_sets": [
+    "history",
+    "history_fine"
+  ],
+  "correction_strengths": [
+    0.25,
+    0.5,
+    1
+  ],
+  "correction_cap": 0.1,
+  "maximum_observation_age_s": 900,
+  "minimum_predictor_coverage": 0.5,
+  "feedback_coverage": 0.8,
+  "feedback_window_s": 7200,
+  "minimum_feedback_windows": 4,
+  "maximum_feedback_age_s": 3600,
+  "minimum_clean_skill": 0.05,
+  "maximum_degraded_ratio": 1.1,
+  "minimum_positive_fold_fraction": 0.5,
+  "ridge_jitter": 1e-08,
+  "model_families": [
+    "level",
+    "trend"
+  ],
+  "noise_coefficients": [
+    0.01,
+    0.1,
+    1
+  ],
+  "state_strengths": [
+    0.25,
+    0.5,
+    1
+  ],
+  "trend_half_life_h": 2,
+  "minimum_initialization": 20,
+  "variance_floor": 1e-06,
+  "gate_headroom_skill": 0.02,
+  "gate_correlation": 0.2,
+  "gate_minimum_pairs": 80,
+  "gate_policy": "either",
+  "protocols": [
+    "historical-cold-start",
+    "continuous-operational"
+  ],
+  "controllers": [
+    "selected-hard",
+    "fixed-hard",
+    "fixed-soft"
+  ],
+  "count_half_lives_h": [
+    0.5,
+    2,
+    6
+  ],
+  "count_standard_deviations": [
+    0.5,
+    1
+  ],
+  "count_dispersions": [
+    0,
+    0.1
+  ],
+  "count_strengths": [
+    0.5,
+    1
+  ],
+  "count_bin_s": 300,
+  "count_coverage": 0.8,
+  "minimum_count_initialization": 48,
+  "grid_nodes": 801,
+  "grid_limit": 16,
+  "numerical_tolerance": 0.001,
+  "count_fallback": "fixed-hard",
+  "count_cache_budget_bytes": 10000000,
+  "stopping_rule": "stop-after-declared-grid"
+}
