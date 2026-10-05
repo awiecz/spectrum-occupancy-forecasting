@@ -1,4 +1,4 @@
-"""Cross-node transfer analysis (CC1 <-> LW1). Runs once; see docs/transfer_protocol.md.
+"""Cross-node transfer analysis (CC1 <-> LW1). Runs once; see docs/technical/transfer_protocol.md.
 
     uv run python scripts/run_transfer.py data/processed/aerpaw_CC1_blocks5MHz.npz \
         data/processed/aerpaw_LW1_blocks5MHz.npz
@@ -28,7 +28,7 @@ from spectrum_occupancy_forecasting.experiments.protocol import (
 
 ROOT = Path(__file__).resolve().parents[1]
 FROZEN_FILES = [ROOT / "src", ROOT / "scripts" / "run_transfer.py",
-                ROOT / "configs" / "frozen_experiment.yaml", ROOT / "docs" / "transfer_protocol.md"]
+                ROOT / "configs" / "frozen_experiment.yaml", ROOT / "docs" / "technical" / "transfer_protocol.md"]
 X_DB = 3.0
 WINDOWS = (300.0, 900.0, 3600.0)
 PRIMARY_W = 900.0

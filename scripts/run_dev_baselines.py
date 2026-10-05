@@ -1,7 +1,7 @@
 """SUPERSEDED (kept for the record): single-sweep binary occupancy baselines on the development split.
 
 This was the first experiment. Its negative result (persistence worse than climatology; labels are
-noisy snapshots) motivated the window-fraction targets used everywhere else; see docs/dev_results.md
+noisy snapshots) motivated the window-fraction targets used everywhere else; see docs/technical/dev_results.md
 and scripts/run_window_dev.py. It does not touch the test split. Output defaults to
 results/dev_baselines.json (not tracked).
 

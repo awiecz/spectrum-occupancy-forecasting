@@ -184,7 +184,7 @@ def main():
     if a.mode == "confirmation" or a.verify_gate_only:
         if not a.archive_url:
             ap.error("CC2 remains blocked: supply an independently timestamped freeze archive")
-        expected = freeze_manifest(ROOT, a.config, ROOT / "docs/followup_v2_protocol.md")
+        expected = freeze_manifest(ROOT, a.config, ROOT / "docs/technical/followup_v2_protocol.md")
         gate = verify_archive(a.archive_url, expected)
         if a.verify_gate_only:
             print(json.dumps(gate, indent=2))

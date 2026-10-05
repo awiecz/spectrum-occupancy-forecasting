@@ -1,4 +1,4 @@
-"""Evaluate the frozen design on the HELD-OUT TEST region. Runs once; see docs/test_protocol.md.
+"""Evaluate the frozen design on the HELD-OUT TEST region. Runs once; see docs/technical/test_protocol.md.
 
     uv run python scripts/run_test_once.py data/processed/aerpaw_CC1_blocks5MHz.npz
 
@@ -27,7 +27,7 @@ from spectrum_occupancy_forecasting.experiments.protocol import (
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "configs" / "frozen_experiment.yaml"
 FROZEN_FILES = [ROOT / "src", ROOT / "scripts" / "run_test_once.py", CONFIG,
-                ROOT / "docs" / "test_protocol.md"]
+                ROOT / "docs" / "technical" / "test_protocol.md"]
 X_DB = 3.0
 WINDOWS = (300.0, 900.0, 3600.0)
 PRIMARY_W = 900.0

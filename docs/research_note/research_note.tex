@@ -42,7 +42,7 @@ sweeps every 19~s; LW1: 4.75~days gap-free, every 30~s. The NIST COVID-19 occupa
 (doi:10.18434/mds2-2553) was my first choice because its sensing is natively sparse (77\,\% dead time),
 but its file server returned errors throughout the project, so it was not used. Consequently
 \textbf{sparsity here is simulated}, by degrading the predictor's inputs; labels always come from the
-intact stream. Synthetic data are used only for tests and a separate workflow demo. Controls (\texttt{docs/sanity\_checks.md}): the busy rule fires on $\le0.06\,\%$ of sweeps in idle 5~GHz bands, receiver drift is $\approx0.1$~dB, and the busy state is a bump on the 2430--2445~MHz blocks ($+2.7$ to $+3.5$~dB) that vanishes outside the channel, as a $\sim$20~MHz emitter would produce; nothing was decoded, so ``Wi-Fi'' is an inference.
+intact stream. Synthetic data are used only for tests and a separate workflow demo. Controls (\href{../technical/sanity_checks.md}{measurement checks}): the busy rule fires on $\le0.06\,\%$ of sweeps in idle 5~GHz bands, receiver drift is $\approx0.1$~dB, and the busy state is a bump on the 2430--2445~MHz blocks ($+2.7$ to $+3.5$~dB) that vanishes outside the channel, as a $\sim$20~MHz emitter would produce; nothing was decoded, so ``Wi-Fi'' is an inference.
 
 \section*{3\quad Target and protocol}
 Busy sweep: 20~MHz band-mean power (linear average) $>$ noise floor $+\,3$~dB, the floor being the 5th
@@ -54,9 +54,9 @@ or ``idle''). Baselines: train mean, hour-of-day prior, busy fraction of the las
 decayed history; learned: ridge, gradient boosting, and ``last 2~h + learned correction''.
 Chronological splits use an embargo of look-back plus $W$. CC1: development region = first 75\,\% of
 the week (three rolling one-day folds); the last 1.77~days were evaluated \emph{once} after freezing the
-design and writing predictions (\texttt{docs/test\_protocol.md}); a lock file and a code fingerprint
+design and writing predictions (\href{../technical/test_protocol.md}{test protocol}); a lock file and a code fingerprint
 guard the script. LW1 used the design fixed on CC1; its channel-selection period (first 60\,\%, to day 2.85) overlaps the first scored fold [2,3) days, limiting independent confirmation.
-Uncertainty: block bootstrap over 2~h blocks; robustness is averaged over five random masks. A transfer analysis fits models on one node (alone, or on both) and forecasts the other, with every node's training data cut at the same time so that simultaneous recordings cannot leak (\texttt{docs/transfer\_protocol.md}, predictions written beforehand).
+Uncertainty: block bootstrap over 2~h blocks; robustness is averaged over five random masks. A transfer analysis fits models on one node (alone, or on both) and forecasts the other, with every node's training data cut at the same time so that simultaneous recordings cannot leak (\href{../technical/transfer_protocol.md}{transfer protocol}, predictions written beforehand).
 
 \section*{4\quad Results}
 \begin{center}\small
@@ -107,7 +107,7 @@ and LW1). The intervals are probably too narrow (window autocorrelation 0.57--0.
 (v)~\emph{Robustness} (CC1 test): with 90\,\% of sweeps dropped the 2\,h average keeps skill $0.59$, ridge $0.37$; at
 99\,\% they are $-1.23$ and $-10.5$ while boosting stays at $+0.14$. Simple averages degrade gracefully; a
 clean-trained linear model is unstable.
-(vi)~\emph{Transfer} (CC1$\to$LW1, 15~min; \texttt{docs/transfer\_results.md}): history averages $1.00\times$ MSE, ridge
+(vi)~\emph{Transfer} (CC1$\to$LW1, 15~min; \href{../technical/transfer_results.md}{transfer results}): history averages $1.00\times$ MSE, ridge
 $3.7\times$, boosting $2.6\times$, ``last 2\,h + correction'' $1.3$--$1.9\times$; pooling both nodes is about neutral;
 linear models transfer badly in both directions.
 
@@ -138,12 +138,12 @@ delayed evidence and contiguous outages (mean of 5 masks, bars = SD).}
 \item \textbf{Native sparsity and multiple sites.} Do irregular real sampling and additional sites reproduce these findings?
 \end{enumerate}
 
-\textbf{V2 exploratory follow-up.} A separate study predicts 15-min fractions starting 15~min ahead,
+\textbf{Chronological forecasting study.} A separate study predicts 15-min fractions starting 15~min ahead,
 using first-day calibration and earlier validation selection. On reused CC1/LW1 data, the selected
 learned strategy has 8.7\,\% / 5.5\,\% higher MSE than independently selected history. Eight-hour
 paired-block intervals include no difference (15 / 8 blocks; LW1 evidence is weak). Event calibration
 is insufficient in seven of eight folds; the one calibrated strategy misses all four positive
-windows. Lead, label, feature and degradation analyses are in \texttt{docs/followup\_v2\_results.md}.
+windows. Lead, label, feature and degradation analyses are in \href{../technical/followup_v2_results.md}{detailed study results}.
 CC2 remains uninspected, pending independent timestamping of its frozen protocol.
 
 \textbf{Exploratory method development.} Subsequent adaptive reuse tested bounded corrections and
@@ -151,9 +151,8 @@ history mixtures. The best balanced expanding mixture lowers MSE by 1.35\,\% / 6
 selected history on common eligible CC1/LW1 folds and passes the declared degradation checks.
 It misses the 5\,\%-on-each-node advancement rule; its retrospective selection and short reused
 recordings do not establish learned superiority. All three mixture regimes and a ledger of
-unsuccessful experiments are reported in \texttt{docs/forecast\_development.md}.
+unsuccessful experiments are reported in \href{../technical/forecast_development.md}{development report}.
 
-\textbf{Reproducibility.} Commands: \texttt{docs/reproduction.md} and
-\texttt{docs/followup\_v2\_reproduction.md}. Historical protocols and results are preserved;
+\textbf{Reproducibility.} Commands: \texttt{docs/reproduction.md}. Historical protocols and results are preserved;
 their dates are not independently registered. Raw data are not redistributed.
 \end{document}

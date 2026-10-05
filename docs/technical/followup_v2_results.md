@@ -13,7 +13,7 @@ guarantee identical eligible origins if future recordings have lead-dependent co
 
 ## Primary comparison
 
-All rows below come from [summary.csv](../results/followup_v2/exploratory/summary.csv).
+All rows below come from [summary.csv](../../results/followup_v2/exploratory/summary.csv).
 Skill means `1 - MSE(method)/MSE(selected history)` on paired targets.
 
 | Node | Method | RMSE | MAE | Within-fold R² | Skill vs selected history |
@@ -38,15 +38,15 @@ The eight-hour paired bootstrap MSE-difference intervals are −0.000493 to +0.0
 skill intervals are −0.340 to +0.061 and −0.537 to +0.051. All four block-length sensitivities
 include zero difference. Intervals with fewer than four blocks are suppressed, including in
 the synthetic rehearsal. Blocks never cross nodes, folds or observation gaps. These sensitivity
-checks do not resolve the short-record limitation. See [bootstrap.csv](../results/followup_v2/exploratory/bootstrap.csv).
+checks do not resolve the short-record limitation. See [bootstrap.csv](../../results/followup_v2/exploratory/bootstrap.csv).
 
 Daily selected-strategy skills are CC1: +0.163, −0.773, −0.134, −0.150, +0.042; LW1:
 +0.063, −1.133, −0.004 (zero-based fold order). The pooled result hides substantial instability.
 Lag-15-minute error autocorrelations are 0.399/0.329 (CC1/LW1); paired-loss-difference
-autocorrelations are 0.280/0.147. [daily.csv](../results/followup_v2/exploratory/daily.csv)
-and [dependence.csv](../results/followup_v2/exploratory/dependence.csv) retain all diagnostics.
+autocorrelations are 0.280/0.147. [daily.csv](../../results/followup_v2/exploratory/daily.csv)
+and [dependence.csv](../../results/followup_v2/exploratory/dependence.csv) retain all diagnostics.
 
-![Actual future targets and predictions](../results/followup_v2/exploratory/figures/predictions.png)
+![Actual future targets and predictions](../../results/followup_v2/exploratory/figures/predictions.png)
 
 ## How far ahead is there predictive information?
 
@@ -59,7 +59,7 @@ acceptable horizon. The selected learned strategy is worse than history at every
 LW1 has a small two-hour reversal (0.0957 versus 0.0989), a secondary exploratory finding.
 No lead was chosen after seeing results for confirmation.
 
-![Lead-time skill against training climatology](../results/followup_v2/exploratory/figures/lead_skill.png)
+![Lead-time skill against training climatology](../../results/followup_v2/exploratory/figures/lead_skill.png)
 
 ## Label sensitivity
 
@@ -88,7 +88,7 @@ History-only learned variants have small positive skills (about 1.9% CC1 and 1.6
 all-features strategies lose on both nodes. Adding power helps CC1's point estimate (about
 3.2% skill) but hurts LW1's (about −1.9%). Calendar features do not improve either selected
 strategy. Allowlisted ablations are exploratory comparisons; they do not isolate a universally
-useful feature family. [Ablation values](../results/followup_v2/exploratory/figures/ablations.csv).
+useful feature family. [Ablation values](../../results/followup_v2/exploratory/figures/ablations.csv).
 
 With 90% dropout, selected-history/selected-learned RMSE becomes 0.0951/0.1800 on CC1 and
 0.0966/0.1172 on LW1. At two-hour delay it becomes 0.1025/0.1605 and 0.0982/0.5056.
@@ -100,7 +100,7 @@ the **same degraded history**; `mss_vs_clean_selected` is a separate diagnostic.
 Five paired masks are averaged at the loss level for temporal inference, not counted as five
 independent recordings. `mse_mask_sd` reports variability among seed-specific pooled losses.
 
-![Degradation curves](../results/followup_v2/exploratory/figures/degradations.png)
+![Degradation curves](../../results/followup_v2/exploratory/figures/degradations.png)
 
 ## Frozen event thresholds and historical LW1 overlap
 
@@ -110,13 +110,13 @@ fold the selected strategy's frozen 10%/20% budget thresholds are 0.2342/0.2031.
 0 false-busy out of 84 negative evaluation windows and 4 false-idle out of 4 positive windows.
 That failure is retained. There is no calibrated LW1 operating-rate claim. Tied score groups
 are included whole, and budgets constrain earlier empirical rates, not future guarantees.
-[events.csv](../results/followup_v2/exploratory/events.csv) contains denominators for every
+[events.csv](../../results/followup_v2/exploratory/events.csv) contains denominators for every
 scenario and mask; oracle ROC outputs remain separately labeled descriptive comparisons.
 
 The legacy LW1 sensitivity exactly reproduces all stored pooled RMSEs (maximum difference
 0.0). Excluding its overlapping first fold changes ridge skill vs fixed history from +0.184
 pooled to −0.328 later-fold-only, and boosting from +0.095 to −0.651. This is retrospective
-sensitivity, not fresh confirmation. [Legacy sensitivity table](../results/followup_v2/exploratory/legacy_lw1_overlap.csv).
+sensitivity, not fresh confirmation. [Legacy sensitivity table](../../results/followup_v2/exploratory/legacy_lw1_overlap.csv).
 
 ## Audit and pending confirmation
 

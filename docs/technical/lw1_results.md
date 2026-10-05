@@ -97,4 +97,4 @@ reach 0.3 (a few dozen and about ten windows).
 
 Equal-false-busy event comparisons, where reported, use evaluation-label oracle thresholds;
 see [the CC1 interpretation note](test_results.md#event-threshold-interpretation).
-Historical registration and fingerprint limits are in [the documentation index](index.md#protocols-and-historical-locks).
+Historical registration and fingerprint limits are in [the documentation index](../index.md#protocols-and-historical-locks).

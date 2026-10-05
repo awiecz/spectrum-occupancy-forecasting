@@ -1,4 +1,4 @@
-"""Confirmation run of the frozen design on a second AERPAW node. Runs once; see docs/lw1_protocol.md.
+"""Confirmation run of the frozen design on a second AERPAW node. Runs once; see docs/technical/lw1_protocol.md.
 
     uv run python scripts/run_second_node.py data/processed/aerpaw_LW1_blocks5MHz.npz
 
@@ -23,7 +23,7 @@ from spectrum_occupancy_forecasting.experiments.protocol import (
 
 ROOT = Path(__file__).resolve().parents[1]
 FROZEN_FILES = [ROOT / "src", ROOT / "scripts" / "run_second_node.py",
-                ROOT / "configs" / "frozen_experiment.yaml", ROOT / "docs" / "lw1_protocol.md"]
+                ROOT / "configs" / "frozen_experiment.yaml", ROOT / "docs" / "technical" / "lw1_protocol.md"]
 X_DB = 3.0
 WINDOWS = (300.0, 900.0, 3600.0)
 PRIMARY_W = 900.0

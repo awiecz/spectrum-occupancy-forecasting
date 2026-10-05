@@ -9,7 +9,7 @@ rolling-origin 1-day folds inside the development region (first 75 % of the week
 Choices made before seeing these scores: embargo = max look-back + W; X = 3 dB; fold length
 1 day; reference baselines = train climatology and the 2 h recent fraction. The move from
 single-sweep to window targets, and from one dev day to rolling folds, was made after seeing
-earlier dev scores (disclosed in docs/dev_results.md).
+earlier dev scores (disclosed in docs/technical/dev_results.md).
 """
 
 from __future__ import annotations

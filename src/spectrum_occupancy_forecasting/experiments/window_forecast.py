@@ -233,7 +233,7 @@ def print_report(res, W: float) -> None:
 
 
 # ---------------------------------------------------------------------------------------------
-# Cross-node transfer (see docs/transfer_protocol.md)
+# Cross-node transfer (see docs/technical/transfer_protocol.md)
 # ---------------------------------------------------------------------------------------------
 def _floors(raw, channels, x_db, limit_t):
     """Per-channel busy threshold (dBm): 5th percentile of band-mean power before limit_t, + X."""

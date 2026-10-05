@@ -16,7 +16,7 @@ figures: `results/figures_test/` (each with a CSV of the plotted values).
 * At the time of this results write-up, post-run edits were only to plotting code (`viz/figures.py`, `scripts/make_figures.py`: titles,
   axis limits, label placement) and regenerated development figures; no evaluation code changed.
   The lock's fingerprint differed from that state by plotting code only. The current source also
-  includes later portability and documentation changes; see [historical-lock notes](index.md#protocols-and-historical-locks).
+  includes later portability and documentation changes; see [historical-lock notes](../index.md#protocols-and-historical-locks).
 * Before the run, one *registered prediction* (H3) was corrected to match development evidence; the
   corrected text is the one in the protocol file.
 * Many models x windows x metrics are reported and compared, so single intervals below should not be

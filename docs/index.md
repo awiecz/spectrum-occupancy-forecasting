@@ -1,52 +1,19 @@
-# Repository guide
+# Project guide
 
-Start with the [three-page research note](research_note/research_note.pdf) and
-[README](../README.md). The [v2 report](followup_v2_results.md) contains the current
-exploratory findings and validation record.
+| I want to… | Read |
+|---|---|
+| Understand the project | [README](../README.md) |
+| Understand the findings | [Results overview](results.md) |
+| Read the research summary | [Three-page PDF](research_note/research_note.pdf) |
+| Run the code | [Reproduction guide](reproduction.md) |
+| Check methods and evidence | [Technical reference](technical/index.md) |
 
-## Current follow-up
-
-- [Results](followup_v2_results.md): lead times, fair model selection, label/feature sensitivity,
-  degraded evidence and uncertainty.
-- [Reproduction](followup_v2_reproduction.md): commands, artifacts and archival gate.
-- [Forecast development](forecast_development.md): the reviewed history mixture, compact experiment
-  ledger, unsuccessful outcomes and limits of the adaptive exploratory search.
-- [CC2 protocol](followup_v2_protocol.md): prepared privately; confirmation awaits independent timestamping.
-- [Saved outputs](../results/followup_v2/exploratory/): one canonical result set, including predictions,
-  selections, provenance, summary tables and figures.
-
-## Original study
-
-These are distinct experiments, not alternate copies of v2. Their protocols, numerical
-results and locks remain intact.
-
-| Experiment | Protocol | Findings |
-|---|---|---|
-| CC1 development | Exploratory | [Development](dev_results.md) |
-| CC1 held-out test | [Protocol](test_protocol.md) | [Results](test_results.md) |
-| LW1 evaluation | [Protocol](lw1_protocol.md) | [Results](lw1_results.md) |
-| Cross-node transfer | [Protocol](transfer_protocol.md) | [Results](transfer_results.md) |
-
-[Original-study commands](reproduction.md), [measurement checks](sanity_checks.md),
-[dataset investigation](dataset_investigation.md) and [original plan](original_plan.md)
-provide the supporting record. NIST data were unavailable, so AERPAW input sparsity is
-simulated. The target changed from individual sweeps to window fractions during development.
+`src/` contains forecasting code, `scripts/` the entry points, `configs/` experiment settings,
+`tests/` synthetic checks, and `results/` saved research outputs. Recordings and local runs are
+excluded from Git.
 
 ## Protocols and historical locks
 
-Historical protocol dates are project records, not independently verified registration.
-Their locks use absolute-path fingerprints and cannot be reproduced at a different checkout
-location; current hashes normalize repository-relative paths and line endings. Later code
-changes are not a recovered snapshot of the exact historical evaluation source.
-
-LW1 channel selection overlaps its first scored fold, and historical event operating points
-use evaluation-label oracle thresholds. Those limitations remain disclosed in the results.
-V2 uses earlier validation thresholds and a separate independent-archive requirement for CC2.
-
-## Layout
-
-`src/` contains the library; `scripts/` provides experiment and plotting commands; `configs/`
-contains the original and follow-up specifications; `tests/` uses synthetic data. `results/`
-contains the original study, the canonical v2 reference and one reviewed history-mixture result set.
-Raw recordings and local reproductions
-are ignored by Git. New experiments cannot overwrite existing run directories.
+Historical dates and local locks do not prove independent registration. Some original rural-site
+selection overlaps evaluation. These limitations and the pending third-site evaluation are
+explained in the [technical reference](technical/index.md).

@@ -16,21 +16,21 @@ The declared experiment compares expanding training with six-hour and 24-hour re
 | Six-hour recency | 0.376% | 6.579% | 1.000 |
 | 24-hour recency | 1.310% | 6.529% | 1.000 |
 
-Source: [common summary](../results/followup_v2/history_mixture/common_summary.csv) and [advancement criteria](../results/followup_v2/history_mixture/advancement_criteria.csv). The comparison uses 351 identical CC1 origins across four eligible folds and 151 LW1 origins across two. First-fold insufficient-validation outcomes remain in all-fold tables but are excluded from this common-fold comparison. The fixed two-hour history and canonical v2 learned strategy are additional references at the same origins.
+Source: [common summary](../../results/followup_v2/history_mixture/common_summary.csv) and [advancement criteria](../../results/followup_v2/history_mixture/advancement_criteria.csv). The comparison uses 351 identical CC1 origins across four eligible folds and 151 LW1 origins across two. First-fold insufficient-validation outcomes remain in all-fold tables but are excluded from this common-fold comparison. The fixed two-hour history and canonical v2 learned strategy are additional references at the same origins.
 
 Every dropout, outage and delay comparison uses history under the same degradation, with paired mask losses averaged before comparison. All mixture regimes pass the maximum 1.10 degraded-MSE ratio rule. Expanding training improves three of four eligible CC1 folds and both LW1 folds, but its CC1 improvement is below the unchanged 5% requirement on each node; **no strategy advances**.
 
-![Clean skill by regime](../results/followup_v2/history_mixture/figures/clean_skill.png)
+![Clean skill by regime](../../results/followup_v2/history_mixture/figures/clean_skill.png)
 
 ## Evidence and error diagnosis
 
-For expanding training, the eight-hour exploratory 95% skill interval is -0.108% to +2.904% on CC1 (12 blocks), and +4.017% to +10.696% on LW1 (five blocks, weak evidence). The two-hour LW1 sensitivity includes zero. Intervals do not adjust for repeated development and do not overcome the short-record limitation. [Block sensitivities](../results/followup_v2/history_mixture/common_bootstrap.csv), daily results, dependence diagnostics, earlier-calibrated event thresholds and descriptive oracle outputs are retained.
+For expanding training, the eight-hour exploratory 95% skill interval is -0.108% to +2.904% on CC1 (12 blocks), and +4.017% to +10.696% on LW1 (five blocks, weak evidence). The two-hour LW1 sensitivity includes zero. Intervals do not adjust for repeated development and do not overcome the short-record limitation. [Block sensitivities](../../results/followup_v2/history_mixture/common_bootstrap.csv), daily results, dependence diagnostics, earlier-calibrated event thresholds and descriptive oracle outputs are retained.
 
 Retrospective diagnosis found that the worst 10% of CC1 origins contribute 64.26% of squared loss, and 42 future rises contribute 55.57%. All clean common origins pass the quality gate, none hits the correction cap, and global squared bias contributes only 0.027% of CC1 MSE. These observations motivate caution about rare changes and distribution shift; outcome-defined strata are not deployable features. Diagnostic probes did not produce a joint improvement and were not promoted.
 
 ## Experiment ledger and unsuccessful outcomes
 
-The [machine-readable ledger](../results/followup_v2/history_mixture/experiment_ledger.csv) records all completed real-data development strategies, invalid runs, failed/repeated rehearsals and diagnostic probes. Skills are fractions (multiply by 100 for percent). Each strategy lists its comparison population, node-wise clean skill, worst same-scenario degraded ratio, decision, configuration hash and source fingerprint. Missing robustness values mean not assessed, not passed.
+The [machine-readable ledger](../../results/followup_v2/history_mixture/experiment_ledger.csv) records all completed real-data development strategies, invalid runs, failed/repeated rehearsals and diagnostic probes. Skills are fractions (multiply by 100 for percent). Each strategy lists its comparison population, node-wise clean skill, worst same-scenario degraded ratio, decision, configuration hash and source fingerprint. Missing robustness values mean not assessed, not passed.
 
 Development covered bounded residual ridge, trend corrections, power additions, sequence/burst models, static and contextual history mixtures, validation duration, expert calibration, neighbouring-channel/calendar features, and transition probability/magnitude models. None met advancement. The latest transition models worsened clean MSE on both nodes and reached approximately 3.45/3.49 times history MSE in the worst delayed-input scenario.
 
@@ -38,8 +38,8 @@ The original trend run had invalid recency weights and is explicitly excluded as
 
 ## Reproduction and provenance
 
-The executable specification is `configs/history_mixture.yaml`. Use the [follow-up reproduction guide](followup_v2_reproduction.md) for fresh-output commands, synthetic rehearsal and prediction-only report regeneration. [Saved outputs](../results/followup_v2/history_mixture/) contain the original predictions, validation forecasts, selections, configuration and run manifest; their fitting fingerprints are unchanged. The cleanup audit is separate from original fitting provenance.
+The executable specification is `configs/history_mixture.yaml`. Use the [follow-up reproduction guide](followup_v2_reproduction.md) for fresh-output commands, synthetic rehearsal and prediction-only report regeneration. [Saved outputs](../../results/followup_v2/history_mixture) contain the original predictions, validation forecasts, selections, configuration and run manifest; their fitting fingerprints are unchanged. The cleanup audit is separate from original fitting provenance.
 
 Original study and canonical v2 artifacts remain unchanged. Shared chronological/fallback/reporting helpers were extracted without changing synthetic selections, validation predictions, evaluation predictions or fitted mixture weights. Source cleanup changes the current code fingerprint: earlier local freeze packages do not certify this checkout. A fresh matching package would be required before any future independent archival; no package or CC2 run is created by this consolidation.
 
-The [consolidation audit](../results/followup_v2/history_mixture/cleanup_audit.json) records the current 141-test suite, exact synthetic equivalence, regenerated-table checks, verified archives and visual review. The original `audit.json` records checks at the time of the mixture run; it is retained as historical provenance.
+The [consolidation audit](../../results/followup_v2/history_mixture/cleanup_audit.json) records the current 141-test suite, exact synthetic equivalence, regenerated-table checks, verified archives and visual review. The original `audit.json` records checks at the time of the mixture run; it is retained as historical provenance.

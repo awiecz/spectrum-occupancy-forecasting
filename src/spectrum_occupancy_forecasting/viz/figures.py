@@ -246,17 +246,18 @@ def figure2_methods(results_json: str | Path, out_dir: str | Path, region: str =
     elif region == "lw1":
         title = ("Second node LW1 (rural, 3 rolling folds, design frozen on CC1): method "
                  "comparison, channel-6 band")
-        note = ("Design fixed on CC1; selection overlap disclosed in docs/lw1_results.md; "
+        note = ("Design fixed on CC1; selection overlap disclosed in "
+                "docs/technical/lw1_results.md; "
                 "30-min and decayed memories score better than the "
                 "2 h average on point estimates, and learned models match but do not beat them; "
-                "see docs/lw1_results.md.")
+                "see docs/technical/lw1_results.md.")
     else:
         title = ("Held-out test region (Sun evening to Tue midday, one block): method "
                  "comparison, AERPAW CC1, channel-6 band")
         note = ("Evaluated once with the frozen design. The level rises on Monday: shorter "
                 "memories "
                 "score better than the 2 h average on point estimates (intervals overlap) and "
-                "gradient boosting is unstable; see docs/test_results.md.")
+                "gradient boosting is unstable; see docs/technical/test_results.md.")
     fig.suptitle(title, x=0.01, ha="left", y=0.99, fontsize=11, fontweight="bold")
     fig.text(0.01, -0.035, note, fontsize=8, color=INK2)
     _save(fig, out_dir, "fig2_method_comparison")

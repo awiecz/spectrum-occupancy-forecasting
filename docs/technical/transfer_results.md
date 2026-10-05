@@ -105,4 +105,4 @@ The LW1 target-channel selection period overlaps its first scored fold, includin
 windows reused here; see [the selection-overlap note](lw1_results.md#channel-selection-overlap).
 Any equal-false-busy metrics in the result JSON are evaluation-label oracle ROC comparisons,
 not frozen operating thresholds. Historical registration and fingerprint limits are described
-in [the documentation index](index.md#protocols-and-historical-locks).
+in [the documentation index](../index.md#protocols-and-historical-locks).

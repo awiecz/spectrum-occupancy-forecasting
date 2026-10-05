@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--config", type=Path, default=ROOT / "configs/followup_v2.yaml")
-    ap.add_argument("--protocol", type=Path, default=ROOT / "docs/followup_v2_protocol.md")
+    ap.add_argument("--protocol", type=Path, default=ROOT / "docs/technical/followup_v2_protocol.md")
     ap.add_argument("--out", type=Path, default=ROOT / "reproductions/followup_v2_freeze.zip")
     a = ap.parse_args()
     manifest = create_bundle(ROOT, a.config, a.protocol, a.out)
