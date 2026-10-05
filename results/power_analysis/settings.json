@@ -1,0 +1,9 @@
+{
+  "alpha": 0.05,
+  "power": 0.8,
+  "target_gain": 0.05,
+  "primary_block_windows": 32,
+  "replicates": 4000,
+  "seed": 20261005,
+  "source": "results\\operational_learning\\run"
+}
