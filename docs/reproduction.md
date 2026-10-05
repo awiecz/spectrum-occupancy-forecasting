@@ -53,6 +53,12 @@ Each output includes six PNG figure groups, CSV source tables, `summary.json` an
 manifest with input/configuration/source hashes and completion status. Figures use only those
 saved tables. Outputs are limited to 10 MiB; synthetic fixtures are removed after analysis.
 
+Recording and artifact checksums cover exact bytes; Git preserves data-study artifact bytes.
+New runs normalize CRLF to LF when hashing configuration and Python source, so fingerprints
+are portable between Windows and Linux. The published study's original manifest is preserved;
+its [publication audit](../results/data_study/publication_audit.json) adds portable fingerprints
+of the original run sources and records the line-ending repair without implying a new analysis.
+
 ## Reproduce the forecasting experiments
 
 Follow [download, checksum and extraction instructions](technical/reproduction.md#1-download-and-verify)

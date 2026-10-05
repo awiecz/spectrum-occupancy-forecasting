@@ -2,6 +2,7 @@
 
 import importlib.util
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -168,3 +169,44 @@ def test_short_post_calibration_period_is_explicit(tmp_path):
     (tmp_path / "summary.json").write_text(json.dumps(results), encoding="utf-8")
     make_figures(tmp_path, cfg, synthetic=True)
     assert len(list(tmp_path.glob("*.png"))) == 6
+
+
+@pytest.mark.parametrize("autocrlf", ["true", "false"])
+def test_published_checksums_survive_git_staging(tmp_path, autocrlf):
+    """Exercise Git normalization rather than only hashing the local working copy."""
+    subprocess.run(["git", "init", "--quiet", str(tmp_path)], check=True)
+    subprocess.run(["git", "config", "core.autocrlf", autocrlf], cwd=tmp_path, check=True)
+    (tmp_path / ".gitattributes").write_bytes(b"* text=auto\n")
+    folder = tmp_path / "results/data_study"
+    shutil.copytree(ROOT / "results/data_study", folder)
+    subprocess.run(
+        ["git", "add", ".gitattributes", "results/data_study"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+    )
+    shutil.copyfile(ROOT / ".gitattributes", tmp_path / ".gitattributes")
+    subprocess.run(["git", "add", ".gitattributes"], cwd=tmp_path, check=True, capture_output=True)
+    subprocess.run(
+        ["git", "add", "--renormalize", "results/data_study"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+    )
+    manifest = json.loads((folder / "manifest.json").read_text(encoding="utf-8"))
+    spec = importlib.util.spec_from_file_location("study_cli", ROOT / "scripts/study_data.py")
+    cli = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(cli)
+    for name, expected in manifest["artifact_sha256"].items():
+        indexed = subprocess.run(
+            ["git", "show", ":results/data_study/" + name],
+            cwd=tmp_path,
+            check=True,
+            capture_output=True,
+        ).stdout
+        assert cli.hashlib.sha256(indexed).hexdigest() == expected
+    lf, crlf = tmp_path / "lf.py", tmp_path / "crlf.py"
+    lf.write_bytes(b"first\nsecond\n")
+    crlf.write_bytes(b"first\r\nsecond\r\n")
+    assert cli.text_digest(lf) == cli.text_digest(crlf)
+    assert cli.digest(lf) != cli.digest(crlf)

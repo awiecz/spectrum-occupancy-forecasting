@@ -26,6 +26,11 @@ def digest(path):
     return h.hexdigest()
 
 
+def text_digest(path):
+    """Portable text fingerprint; artifact and recording hashes remain byte-exact."""
+    return hashlib.sha256(Path(path).read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
 def validate_input(path, node):
     """Check identity before opening any recording, including a symlink target."""
     path = Path(path)
@@ -66,10 +71,13 @@ def main():
         "status": "running",
         "created_utc": datetime.now(UTC).isoformat(),
         "configuration": cfg,
-        "config_sha256": digest(args.config),
+        "config_sha256": text_digest(args.config),
+        "config_hash_scheme": "sha256-lf-normalized-v1",
+        "source_hash_scheme": "sha256-lf-normalized-v1",
+        "artifact_hash_scheme": "sha256-raw-bytes",
         "git": git_state(ROOT),
         "source_sha256": {
-            p.relative_to(ROOT).as_posix(): digest(p)
+            p.relative_to(ROOT).as_posix(): text_digest(p)
             for p in sorted([*ROOT.glob("src/**/*.py"), ROOT / "scripts/study_data.py"])
         },
         "inputs": {},
