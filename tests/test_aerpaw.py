@@ -124,8 +124,9 @@ def test_missing_threshold_rejected(tmp_path):
 
 def test_aerpaw_table_feeds_the_feature_builder(tmp_path):
     path = write_synthetic_sweeps(tmp_path / "ResultsCC1Feb2022_SigMF", n_sweeps=40, n_bins=4000)
-    df = label_band_table(extract_band_table(SweepSource(path), [2437.0, 5200.0]),
-                          {2437.0: -80.0, 5200.0: -80.0})
+    df = label_band_table(
+        extract_band_table(SweepSource(path), [2437.0, 5200.0]), {2437.0: -80.0, 5200.0: -80.0}
+    )
     target = (df["freq_mhz"] == 2437.0).to_numpy()
     X = build_features(df, target)
     assert isinstance(X, pd.DataFrame) and len(X) == 40
@@ -155,8 +156,9 @@ def test_mixed_axes_are_refused(tmp_path):
 def test_macos_junk_in_zip_is_ignored(tmp_path):
     import zipfile
 
-    z = write_synthetic_sweeps(tmp_path / "ResultsCC1Feb2022_SigMF.zip", n_sweeps=4, as_zip=True,
-                               n_bins=4000)
+    z = write_synthetic_sweeps(
+        tmp_path / "ResultsCC1Feb2022_SigMF.zip", n_sweeps=4, as_zip=True, n_bins=4000
+    )
     with zipfile.ZipFile(z, "a") as zf:  # AppleDouble stubs like those in the real archive
         for name in list(zf.namelist()):
             if name.endswith(".sigmf-data"):

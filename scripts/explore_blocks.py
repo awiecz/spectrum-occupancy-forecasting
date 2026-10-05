@@ -1,6 +1,6 @@
 """First-look statistics of a block spectrogram: sessions, noise floor and activity per block.
 
-    uv run python scripts/explore_blocks.py data/processed/aerpaw_CC1_blocks5MHz.npz
+uv run python scripts/explore_blocks.py data/processed/aerpaw_CC1_blocks5MHz.npz
 """
 
 from __future__ import annotations
@@ -40,8 +40,10 @@ def show(lo, hi, name, k=8):
     top = idx[np.argsort(-active10[idx])[:k]]
     print(f"\n{name} [{lo}-{hi} MHz]: blocks ranked by P(max bin > floor+10 dB)")
     for i in sorted(top, key=lambda i: -active10[i]):
-        print(f"  {f[i]:7.1f} MHz  floor {floor[i]:7.1f} dBm  P>+6dB {active6[i]:.3f}  "
-              f"P>+10dB {active10[i]:.3f}  std(mean) {var[i]:.2f} dB")
+        print(
+            f"  {f[i]:7.1f} MHz  floor {floor[i]:7.1f} dBm  P>+6dB {active6[i]:.3f}  "
+            f"P>+10dB {active10[i]:.3f}  std(mean) {var[i]:.2f} dB"
+        )
 
 
 show(2400, 2484, "2.4 GHz ISM")

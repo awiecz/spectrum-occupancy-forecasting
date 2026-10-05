@@ -25,7 +25,7 @@ from spectrum_occupancy_forecasting.robustness.degrade import Degradation, sweep
 # ---- window labels -----------------------------------------------------------------------
 def test_window_fraction_counts_half_open_window():
     t = np.arange(0.0, 100.0)  # one obs per second
-    busy = (t % 4 == 0)
+    busy = t % 4 == 0
     frac, n = window_fraction(t, busy, [10.0], 20.0, nominal_dt_s=1.0)
     assert n[0] == 20  # [10, 30): includes 10, excludes 30
     assert frac[0] == pytest.approx(5 / 20)  # busy at 12,16,20,24,28
@@ -115,8 +115,11 @@ def test_power_window_is_a_linear_mean(synth_dwells):
     assert PW_REF_DBM == -130.0
     # arithmetic dBm mean would differ whenever the window mixes strong and weak sweeps
     assert any(
-        abs(10 * np.log10(np.mean(10 ** (p[(t_end <= o) & (t_end > o - 600.0)] / 10)))
-            - p[(t_end <= o) & (t_end > o - 600.0)].mean()) > 0.1
+        abs(
+            10 * np.log10(np.mean(10 ** (p[(t_end <= o) & (t_end > o - 600.0)] / 10)))
+            - p[(t_end <= o) & (t_end > o - 600.0)].mean()
+        )
+        > 0.1
         for o in org["t_start_s"]
     )
 

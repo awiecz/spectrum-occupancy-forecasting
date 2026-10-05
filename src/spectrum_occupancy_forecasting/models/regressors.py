@@ -21,7 +21,7 @@ def with_derived(X: pd.DataFrame, tz: str = "UTC") -> pd.DataFrame:
     """Add busy fractions of the look-back windows and a smooth time-of-day encoding."""
     out = X.copy()
     for c in [c for c in X.columns if c.startswith("cnt_")]:
-        w = c[len("cnt_"):]
+        w = c[len("cnt_") :]
         with np.errstate(invalid="ignore", divide="ignore"):
             out[f"frac_{w}"] = np.where(X[f"n_{w}"] > 0, X[c] / X[f"n_{w}"], np.nan)
     ts = pd.to_datetime(X["t_start_s"].to_numpy(), unit="s", utc=True).tz_convert(tz)
@@ -61,8 +61,10 @@ class HourOfDayFraction:
         self.mean_ = float(y.mean())
         slot = self._slot(X)
         self.table_ = np.array(
-            [y[slot == h].mean() if (slot == h).sum() >= self.min_count else self.mean_
-             for h in range(24)]
+            [
+                y[slot == h].mean() if (slot == h).sum() >= self.min_count else self.mean_
+                for h in range(24)
+            ]
         )
         return self
 
@@ -167,6 +169,7 @@ def residual_ridge(tz: str = "UTC", alpha: float = 300.0, base_window_s: float =
 
 
 def residual_gbt(tz: str = "UTC", seed: int = 0, base_window_s: float = 7200.0):
-    inner = gbt_regressor(tz, seed=seed, max_iter=100, learning_rate=0.03, max_depth=2,
-                          min_samples_leaf=100)
+    inner = gbt_regressor(
+        tz, seed=seed, max_iter=100, learning_rate=0.03, max_depth=2, min_samples_leaf=100
+    )
     return ResidualRegressor(inner, base_window_s, "resid_hgb")

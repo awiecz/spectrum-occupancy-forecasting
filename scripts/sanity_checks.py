@@ -34,8 +34,14 @@ X_DB = 3.0
 TARGET = 2437.0
 CONTROLS = (5200.0, 5240.0, 5280.0, 5745.0, 5785.0)  # 5 GHz U-NII: idle all week on both nodes
 WINDOW_S = 900.0
-DELAY_SCENARIOS = (("clean", 0), ("delay_60s", 1), ("delay_600s", 10), ("delay_1800s", 30),
-                   ("delay_3600s", 60), ("delay_7200s", 120))
+DELAY_SCENARIOS = (
+    ("clean", 0),
+    ("delay_60s", 1),
+    ("delay_600s", 10),
+    ("delay_1800s", 30),
+    ("delay_3600s", 60),
+    ("delay_7200s", 120),
+)
 MODELS = ("recent_7200s", "decayed", "hgb")
 NOMINAL_WINDOWS = {"CC1 dev": 307, "CC1 test": 169, "LW1": 261}  # windows scored at W = 15 min
 
@@ -97,17 +103,23 @@ def controls(node):
 
 
 def evidence_age():
-    sources = {"CC1 dev": "dev_window_forecast.json", "CC1 test": "test_window_forecast.json",
-               "LW1": "node_LW1_window_forecast.json"}
+    sources = {
+        "CC1 dev": "dev_window_forecast.json",
+        "CC1 test": "test_window_forecast.json",
+        "LW1": "node_LW1_window_forecast.json",
+    }
     out = {}
     for name, fname in sources.items():
         rob = json.loads((ROOT / "results" / fname).read_text())["windows"]["900s"]["robustness"]
         out[name] = {}
         for m in MODELS:
             skill = [rob[s][m]["mss"] for s, _ in DELAY_SCENARIOS]
-            out[name][m] = {"skill_by_delay_min": dict(zip((d for _, d in DELAY_SCENARIOS), skill,
-                                                           strict=True)),
-                            "half_life_min": half_life([d for _, d in DELAY_SCENARIOS], skill)}
+            out[name][m] = {
+                "skill_by_delay_min": dict(
+                    zip((d for _, d in DELAY_SCENARIOS), skill, strict=True)
+                ),
+                "half_life_min": half_life([d for _, d in DELAY_SCENARIOS], skill),
+            }
     return out
 
 
@@ -117,26 +129,42 @@ def main():
     a = ap.parse_args()
     res = {"controls": {n: controls(n) for n in ("CC1", "LW1")}, "evidence_age": evidence_age()}
     for node, c in res["controls"].items():
-        factor = (1 - c["window_autocorr_15_30_60_120min"][0]) / (1 + c["window_autocorr_15_30_60_120min"][0])
-        print(f"\n== {node}: {c['sweeps']} sweeps, {c['days']:.2f} d (CC1: development region only)")
-        print("1. negative control (busy prevalence in idle 5 GHz bands): "
-              + ", ".join(f"{k} {v:.4f}" for k, v in c["negative_control_prevalence"].items())
-              + f"   | target ch6: {c['target_prevalence']:.3f}")
-        print(f"2. drift: idle-band hourly medians span {c['idle_band_hourly_median_span_db']:.2f} dB; "
-              f"target quiet level spans {c['target_quiet_level_span_db']:.2f} dB (threshold 3 dB)")
-        print(f"3. spectral shape: busy-minus-idle excess {c['spectral_in_channel_mean_db']:+.1f} dB in "
-              f"2430-2445 MHz vs {c['spectral_out_of_channel_mean_db']:+.1f} dB in 2455-2490 MHz")
-        print(f"4. dependence: autocorr at 15/30/60/120 min = "
-              f"{[round(x, 2) for x in c['window_autocorr_15_30_60_120min']]}; {c['n_windows']} windows "
-              f"-> ~{c['n_effective_ar1']:.0f} effective (factor {factor:.2f})")
+        factor = (1 - c["window_autocorr_15_30_60_120min"][0]) / (
+            1 + c["window_autocorr_15_30_60_120min"][0]
+        )
+        print(
+            f"\n== {node}: {c['sweeps']} sweeps, {c['days']:.2f} d (CC1: development region only)"
+        )
+        print(
+            "1. negative control (busy prevalence in idle 5 GHz bands): "
+            + ", ".join(f"{k} {v:.4f}" for k, v in c["negative_control_prevalence"].items())
+            + f"   | target ch6: {c['target_prevalence']:.3f}"
+        )
+        print(
+            f"2. drift: idle-band hourly medians span {c['idle_band_hourly_median_span_db']:.2f} dB; "
+            f"target quiet level spans {c['target_quiet_level_span_db']:.2f} dB (threshold 3 dB)"
+        )
+        print(
+            f"3. spectral shape: busy-minus-idle excess {c['spectral_in_channel_mean_db']:+.1f} dB in "
+            f"2430-2445 MHz vs {c['spectral_out_of_channel_mean_db']:+.1f} dB in 2455-2490 MHz"
+        )
+        print(
+            f"4. dependence: autocorr at 15/30/60/120 min = "
+            f"{[round(x, 2) for x in c['window_autocorr_15_30_60_120min']]}; {c['n_windows']} windows "
+            f"-> ~{c['n_effective_ar1']:.0f} effective (factor {factor:.2f})"
+        )
         res.setdefault("effective_fraction", {})[node] = factor
-    print("\n5. value of old evidence (W = 15 min; MSE skill vs train mean at delay 0/1/10/30/60/120 min):")
+    print(
+        "\n5. value of old evidence (W = 15 min; MSE skill vs train mean at delay 0/1/10/30/60/120 min):"
+    )
     for name, models in res["evidence_age"].items():
         for m, v in models.items():
             sk = "  ".join(f"{x:+.2f}" for x in v["skill_by_delay_min"].values())
             print(f"   {name:<9}{m:<14}{sk}   half-life {v['half_life_min']:.0f} min")
-    print("\nNominal windows scored at W = 15 min and the indicative effective numbers "
-          "(dependence measured on CC1 dev / LW1):")
+    print(
+        "\nNominal windows scored at W = 15 min and the indicative effective numbers "
+        "(dependence measured on CC1 dev / LW1):"
+    )
     for name, n in NOMINAL_WINDOWS.items():
         fac = res["effective_fraction"]["LW1" if name == "LW1" else "CC1"]
         res.setdefault("nominal_vs_effective_windows", {})[name] = [n, n * fac]

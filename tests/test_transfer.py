@@ -73,8 +73,9 @@ def test_source_training_data_never_passes_the_cutoff(nodes):
     A2 = nodes["A"].copy()
     late = A2["t_start_s"] >= lo - 7200.0  # nothing at/after this time may be used (cutoff + W)
     A2.loc[late, "mean_dbm"] = A2.loc[late, "mean_dbm"] + 25.0
-    changed = wf.run_transfer_fold({"A": A2, "B": nodes["B"]}, ["A"], "B", 900.0, 3.0, lo, hi,
-                                   CH, 2437.0)
+    changed = wf.run_transfer_fold(
+        {"A": A2, "B": nodes["B"]}, ["A"], "B", 900.0, 3.0, lo, hi, CH, 2437.0
+    )
     for name, p in base["preds"]["clean"].items():
         assert np.allclose(p, changed["preds"]["clean"][name], atol=1e-12), name
 
@@ -82,8 +83,9 @@ def test_source_training_data_never_passes_the_cutoff(nodes):
 def test_absolute_threshold_arm_changes_target_labels_only(nodes):
     lo, hi = _bounds(nodes["B"])
     cal = wf.run_transfer_fold(nodes, ["A"], "B", 900.0, 3.0, lo, hi, CH, 2437.0)
-    ab = wf.run_transfer_fold(nodes, ["A"], "B", 900.0, 3.0, lo, hi, CH, 2437.0,
-                              abs_thresholds_from="A")
+    ab = wf.run_transfer_fold(
+        nodes, ["A"], "B", 900.0, 3.0, lo, hi, CH, 2437.0, abs_thresholds_from="A"
+    )
     assert np.array_equal(cal["t"], ab["t"])
     assert ab["thresholds_dbm"] != cal["thresholds_dbm"]
 
@@ -91,8 +93,9 @@ def test_absolute_threshold_arm_changes_target_labels_only(nodes):
 def test_paired_ratio_requires_identical_windows(nodes):
     lo, hi = _bounds(nodes["B"])
     a = wf.run_transfer_fold(nodes, ["B"], "B", 900.0, 3.0, lo, hi, CH, 2437.0)
-    b = wf.run_transfer_fold(nodes, ["B"], "B", 900.0, 3.0, lo, hi, CH, 2437.0,
-                             abs_thresholds_from="A")
+    b = wf.run_transfer_fold(
+        nodes, ["B"], "B", 900.0, 3.0, lo, hi, CH, 2437.0, abs_thresholds_from="A"
+    )
     if not np.array_equal(a["y"], b["y"]):
         with pytest.raises(ValueError):
             wf.paired_mse_ratio([a], [b], "ridge", n_boot=10)

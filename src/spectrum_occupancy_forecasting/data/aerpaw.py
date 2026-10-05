@@ -162,8 +162,13 @@ class SweepSource:
         except (KeyError, FileNotFoundError, json.JSONDecodeError):
             return None
 
-    def sweeps(self, t0: float | None = None, t1: float | None = None, limit: int | None = None,
-               n_bins: int | None = None) -> Iterator[tuple[float, np.ndarray]]:
+    def sweeps(
+        self,
+        t0: float | None = None,
+        t1: float | None = None,
+        limit: int | None = None,
+        n_bins: int | None = None,
+    ) -> Iterator[tuple[float, np.ndarray]]:
         """Yield ``(t_epoch_s, dBm_vector)`` for sweeps with ``t0 <= t < t1`` (time-selected from
         file names, so unselected payloads are never read)."""
         if n_bins is None:
@@ -204,9 +209,7 @@ def extract_band_table(
     if axis.source == "metadata":
         for t in source.times[[len(source) // 2, -1]]:
             other = freq_axis(source.meta(float(t)))
-            if other.source != "metadata" or not np.array_equal(
-                other.freqs_mhz, axis.freqs_mhz
-            ):
+            if other.source != "metadata" or not np.array_equal(other.freqs_mhz, axis.freqs_mhz):
                 raise ValueError("frequency axis differs between sweeps; refusing to mix them")
     masks = {c: band_mask(axis.freqs_mhz, c, bw_mhz) for c in channels_mhz}
     rows = []
@@ -252,8 +255,12 @@ def block_spectrogram(
         means.append(10 * np.log10(lin))
         maxs.append(np.maximum.reduceat(p, starts))
         times.append(t)
-    return (np.asarray(times), centres, np.asarray(means, dtype=np.float32),
-            np.asarray(maxs, dtype=np.float32))
+    return (
+        np.asarray(times),
+        centres,
+        np.asarray(means, dtype=np.float32),
+        np.asarray(maxs, dtype=np.float32),
+    )
 
 
 def sessions(times_s: np.ndarray, gap_s: float = 300.0) -> np.ndarray:
@@ -284,15 +291,19 @@ def band_table_from_blocks(
         sel = np.abs(f - c) <= bw_mhz / 2
         if not sel.any():
             raise ValueError(f"no blocks within +-{bw_mhz / 2} MHz of {c} MHz")
-        frames.append(pd.DataFrame({
-            "site": site,
-            "freq_mhz": float(c),
-            "t_start_s": t[keep],
-            "dwell_s": SNAPSHOT_S,
-            "mean_dbm": 10 * np.log10((10 ** (mean_dbm[keep][:, sel] / 10)).mean(axis=1)),
-            "max_dbm": max_dbm[keep][:, sel].max(axis=1),
-            "axis_source": "metadata",
-        }))
+        frames.append(
+            pd.DataFrame(
+                {
+                    "site": site,
+                    "freq_mhz": float(c),
+                    "t_start_s": t[keep],
+                    "dwell_s": SNAPSHOT_S,
+                    "mean_dbm": 10 * np.log10((10 ** (mean_dbm[keep][:, sel] / 10)).mean(axis=1)),
+                    "max_dbm": max_dbm[keep][:, sel].max(axis=1),
+                    "axis_source": "metadata",
+                }
+            )
+        )
     return pd.concat(frames, ignore_index=True).sort_values("t_start_s", ignore_index=True)
 
 
@@ -312,9 +323,15 @@ def label_band_table(
     return out.sort_values("t_start_s", ignore_index=True)
 
 
-def write_synthetic_sweeps(path: Path, n_sweeps: int = 20, seed: int = 0, as_zip: bool = False,
-                           n_bins: int = N_BINS, t_first: str = "20220208_125000",
-                           include_axis: bool = True) -> Path:
+def write_synthetic_sweeps(
+    path: Path,
+    n_sweeps: int = 20,
+    seed: int = 0,
+    as_zip: bool = False,
+    n_bins: int = N_BINS,
+    t_first: str = "20220208_125000",
+    include_axis: bool = True,
+) -> Path:
     """TEST HELPER: write synthetic AERPAW-style sweeps (never used for results)."""
     rng = np.random.default_rng(seed)
     freqs = np.linspace(ASSUMED_START_MHZ, ASSUMED_STOP_MHZ, n_bins)
@@ -327,9 +344,16 @@ def write_synthetic_sweeps(path: Path, n_sweeps: int = 20, seed: int = 0, as_zip
             p[band_mask(freqs, 2437.0, 20.0)] += 35.0
         members[f"results_{ts}.sigmf-data"] = p.astype("<f4").tobytes()
         members[f"results_{ts}.sigmf-meta"] = json.dumps(
-            {"global": {"core:datatype": "rf32_le", "core:version": "1.0.0",
-                        **({"dataset:frequency_axis_MHz": freqs.tolist()} if include_axis else {})},
-             "captures": [{"core:sample_start": 0}], "annotations": []}).encode()
+            {
+                "global": {
+                    "core:datatype": "rf32_le",
+                    "core:version": "1.0.0",
+                    **({"dataset:frequency_axis_MHz": freqs.tolist()} if include_axis else {}),
+                },
+                "captures": [{"core:sample_start": 0}],
+                "annotations": [],
+            }
+        ).encode()
     if as_zip:
         with zipfile.ZipFile(path, "w") as z:
             for k, v in members.items():

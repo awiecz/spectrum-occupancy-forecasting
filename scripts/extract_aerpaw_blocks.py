@@ -33,8 +33,13 @@ def _shard(args):
         return i, 0.0
     t_start = time.time()
     times, centres, mean_dbm, max_dbm = block_spectrogram(SweepSource(zip_path), block_mhz, t0, t1)
-    np.savez(str(out) + ".tmp.npz", times_s=times, centres_mhz=centres, mean_dbm=mean_dbm,
-             max_dbm=max_dbm)
+    np.savez(
+        str(out) + ".tmp.npz",
+        times_s=times,
+        centres_mhz=centres,
+        mean_dbm=mean_dbm,
+        max_dbm=max_dbm,
+    )
     Path(str(out) + ".tmp.npz").replace(out)
     return i, time.time() - t_start
 
@@ -53,8 +58,11 @@ def main() -> None:
     path_site = node_from_path(a.zip_path, default="")
     node = path_site or meta_site or "aerpaw"  # the file name wins: metadata labels can be wrong
     if meta_site and path_site and meta_site != path_site:
-        print(f"WARNING: archive name says {path_site!r} but metadata dataset:site says "
-              f"{meta_site!r}; using {path_site!r}", flush=True)
+        print(
+            f"WARNING: archive name says {path_site!r} but metadata dataset:site says "
+            f"{meta_site!r}; using {path_site!r}",
+            flush=True,
+        )
     out_dir = Path(a.out_dir)
     shard_dir = out_dir / f"_shards_{node}_{a.block_mhz:g}MHz"
     shard_dir.mkdir(parents=True, exist_ok=True)
@@ -68,8 +76,11 @@ def main() -> None:
     t0 = time.time()
     with ProcessPoolExecutor(a.workers) as ex:
         for done, (i, dt) in enumerate(ex.map(_shard, jobs), 1):
-            print(f"[{done}/{len(jobs)}] shard {i} {'skipped' if dt == 0 else f'{dt:.0f}s'} "
-                  f"(elapsed {time.time() - t0:.0f}s)", flush=True)
+            print(
+                f"[{done}/{len(jobs)}] shard {i} {'skipped' if dt == 0 else f'{dt:.0f}s'} "
+                f"(elapsed {time.time() - t0:.0f}s)",
+                flush=True,
+            )
 
     parts = [np.load(shard_dir / f"shard_{i:04d}.npz") for i in range(len(jobs))]
     merged = {

@@ -281,13 +281,11 @@ def run_node(
                 for method in ("selected_history", "selected_learned", "fixed_history"):
                     frame = validation.get(method, pd.DataFrame(columns=["y", "prediction"]))
                     record["operating_thresholds"].extend(
-                        
-                            {
-                                "method": method,
-                                **operating_threshold(frame.y, frame.prediction, budget, cfg),
-                            }
-                            for budget in cfg["false_busy_budgets"]
-                        
+                        {
+                            "method": method,
+                            **operating_threshold(frame.y, frame.prediction, budget, cfg),
+                        }
+                        for budget in cfg["false_busy_budgets"]
                     )
                 if validation:
                     pd.concat(

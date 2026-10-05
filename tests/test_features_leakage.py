@@ -63,8 +63,9 @@ def test_future_observations_cannot_change_features(synth_dwells):
     X1 = build_features(d2, target)
     before = X0.index[X0["t_start_s"] <= cut]
     cols = [c for c in X0.columns if c != "site"]
-    assert np.allclose(X0.loc[before, cols].to_numpy(float), X1.loc[before, cols].to_numpy(float),
-                       equal_nan=True)
+    assert np.allclose(
+        X0.loc[before, cols].to_numpy(float), X1.loc[before, cols].to_numpy(float), equal_nan=True
+    )
 
 
 def test_hidden_observations_do_not_influence_features(synth_dwells):

@@ -1,4 +1,5 @@
 """Print the SHA-256 of a (large) file, streaming. Usage: python scripts/sha256.py FILE"""
+
 import hashlib
 import sys
 

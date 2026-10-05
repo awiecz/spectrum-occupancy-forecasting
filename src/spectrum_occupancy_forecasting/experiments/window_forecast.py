@@ -72,8 +72,17 @@ def feats(d, tg, deg, seed):
     )
 
 
-def run_fold(raw, W, x_db, eval_lo, eval_hi, robustness, channels=CHANNELS,
-             target_mhz=TARGET_MHZ, nominal_dt_s=None):
+def run_fold(
+    raw,
+    W,
+    x_db,
+    eval_lo,
+    eval_hi,
+    robustness,
+    channels=CHANNELS,
+    target_mhz=TARGET_MHZ,
+    nominal_dt_s=None,
+):
     """Fit on data before ``eval_lo - embargo``; return eval labels and per-model predictions."""
     t0 = raw["t_start_s"].min()
     emb = SPEC.max_lookback_s + W
@@ -105,13 +114,26 @@ def run_fold(raw, W, x_db, eval_lo, eval_hi, robustness, channels=CHANNELS,
     for m in models:
         m.fit(X_tr, y_tr)
     clim = float(y_tr.mean())
-    out = {"t": o_ev, "y": y_ev, "clim": clim, "n_train": len(y_tr),
-           "thresholds_dbm": thr, "preds": {"clean": {m.name: m.predict(X_ev) for m in models}}}
+    out = {
+        "t": o_ev,
+        "y": y_ev,
+        "clim": clim,
+        "n_train": len(y_tr),
+        "thresholds_dbm": thr,
+        "preds": {"clean": {m.name: m.predict(X_ev) for m in models}},
+    }
     if robustness:
-        aug = [Degradation(dropout_p=0.5), Degradation(dropout_p=0.9), Degradation(delay_s=600.0),
-               Degradation(delay_s=3600.0), Degradation(outage_len_s=3600.0, outage_frac=0.25)]
-        Xa = pd.concat([X_tr] + [feats(d, targets(fine), g, 10 + i) for i, g in enumerate(aug)],
-                       ignore_index=True)
+        aug = [
+            Degradation(dropout_p=0.5),
+            Degradation(dropout_p=0.9),
+            Degradation(delay_s=600.0),
+            Degradation(delay_s=3600.0),
+            Degradation(outage_len_s=3600.0, outage_frac=0.25),
+        ]
+        Xa = pd.concat(
+            [X_tr] + [feats(d, targets(fine), g, 10 + i) for i, g in enumerate(aug)],
+            ignore_index=True,
+        )
         ya = np.concatenate([y_tr] * (1 + len(aug)))
         aug_models = [ridge_regressor(TZ), gbt_regressor(TZ)]
         for m in aug_models:
@@ -158,9 +180,14 @@ def _aggregate(reps):
 def evaluate_folds(folds, robustness: bool, n_boot: int = 300):
     """Summarise folds into the result dict (clean metrics with CIs/events, robustness table)."""
     names = list(folds[0]["preds"]["clean"])
-    res = {"n_eval": [len(f["y"]) for f in folds], "n_train": [f["n_train"] for f in folds],
-           "fold_mean_fraction": [float(f["y"].mean()) for f in folds],
-           "fold_train_climatology": [f["clim"] for f in folds], "clean": {}, "robustness": {}}
+    res = {
+        "n_eval": [len(f["y"]) for f in folds],
+        "n_train": [f["n_train"] for f in folds],
+        "fold_mean_fraction": [float(f["y"].mean()) for f in folds],
+        "fold_train_climatology": [f["clim"] for f in folds],
+        "clean": {},
+        "robustness": {},
+    }
     t_all = np.concatenate([f["t"] for f in folds])
     rows = {}
     for n in names:
@@ -191,8 +218,9 @@ def evaluate_folds(folds, robustness: bool, n_boot: int = 300):
         for sc, runs in folds[0]["preds_seeds"].items():
             per_seed = []
             for s_idx in range(len(runs)):
-                tmp = [{**f, "preds": {**f["preds"], sc: f["preds_seeds"][sc][s_idx]}}
-                       for f in folds]
+                tmp = [
+                    {**f, "preds": {**f["preds"], sc: f["preds_seeds"][sc][s_idx]}} for f in folds
+                ]
                 per_seed.append({n: pooled(tmp, sc, n, 0.2)[0] for n in every})
             res["robustness"][sc] = {n: _aggregate([ps[n] for ps in per_seed]) for n in every}
     return res
@@ -201,34 +229,46 @@ def evaluate_folds(folds, robustness: bool, n_boot: int = 300):
 def print_report(res, W: float) -> None:
     rows = res["clean"]
     names = list(rows)
-    print(f"\n=== W={W:.0f}s | eval windows {res['n_eval']}, train {res['n_train']} | "
-          f"eval mean fraction {np.round(res['fold_mean_fraction'], 3).tolist()} vs train "
-          f"climatology {np.round(res['fold_train_climatology'], 3).tolist()}", flush=True)
-    tab = pd.DataFrame(rows).T[["rmse", "mss", "mss_vs_ref", "r2_within_fold", "bias",
-                                 "calib_slope"]]
-    tab["mss_ci95"] = [f"[{rows[k]['mss_ci95'][0]:+.2f},{rows[k]['mss_ci95'][1]:+.2f}]"
-                       for k in tab.index]
+    print(
+        f"\n=== W={W:.0f}s | eval windows {res['n_eval']}, train {res['n_train']} | "
+        f"eval mean fraction {np.round(res['fold_mean_fraction'], 3).tolist()} vs train "
+        f"climatology {np.round(res['fold_train_climatology'], 3).tolist()}",
+        flush=True,
+    )
+    tab = pd.DataFrame(rows).T[
+        ["rmse", "mss", "mss_vs_ref", "r2_within_fold", "bias", "calib_slope"]
+    ]
+    tab["mss_ci95"] = [
+        f"[{rows[k]['mss_ci95'][0]:+.2f},{rows[k]['mss_ci95'][1]:+.2f}]" for k in tab.index
+    ]
     print(tab.round(3).to_string())
     print("event false-idle / prevalence at theta (busy windows forecast below theta):")
     for n in ("recent_7200s", "decayed", "ridge", "hgb", "resid_ridge", "resid_hgb"):
         cells = "  ".join(
             f"th={th}: {rows[n]['events'][str(th)]['event_false_idle']:.2f}"
-            f"/{rows[n]['events'][str(th)]['event_prevalence']:.2f}" for th in THETAS)
+            f"/{rows[n]['events'][str(th)]['event_prevalence']:.2f}"
+            for th in THETAS
+        )
         print(f"  {n:<14}{cells}")
     print("equal-false-busy comparison at theta=0.2: AUC | false-idle at 10% / 20% false-busy")
     for n in names:
         tr_ = rows[n]["tradeoff"]["0.2"]
-        print(f"  {n:<14}auc {tr_.get('auc', float('nan')):.3f} | "
-              f"{tr_.get('false_idle_at_fb10', float('nan')):.2f} / "
-              f"{tr_.get('false_idle_at_fb20', float('nan')):.2f}")
+        print(
+            f"  {n:<14}auc {tr_.get('auc', float('nan')):.3f} | "
+            f"{tr_.get('false_idle_at_fb10', float('nan')):.2f} / "
+            f"{tr_.get('false_idle_at_fb20', float('nan')):.2f}"
+        )
     if res["robustness"]:
         every = list(next(iter(res["robustness"].values())))
-        print(f"\nrobustness (W={W:.0f}s): MSE skill vs climatology / vs {REF} (clean) -- "
-              f"mean of {N_MASK_SEEDS} random masks for dropout/outage; clean-trained except *_aug")
+        print(
+            f"\nrobustness (W={W:.0f}s): MSE skill vs climatology / vs {REF} (clean) -- "
+            f"mean of {N_MASK_SEEDS} random masks for dropout/outage; clean-trained except *_aug"
+        )
         print(f"{'scenario':<20}" + "".join(f"{n[:12]:>16}" for n in every))
         for sc, byname in res["robustness"].items():
-            cells = "".join(f"{byname[n]['mss']:>+7.2f}/{byname[n]['mss_vs_ref']:>+6.2f} "
-                            for n in every)
+            cells = "".join(
+                f"{byname[n]['mss']:>+7.2f}/{byname[n]['mss_vs_ref']:>+6.2f} " for n in every
+            )
             print(f"{sc:<20}{cells}")
 
 
@@ -262,8 +302,18 @@ def _node_windows(raw, thr, W, train_hi, channels, target_mhz):
     return feats(d, tg, Degradation(), 0), y
 
 
-def run_transfer_fold(nodes, train_nodes, target, W, x_db, eval_lo, eval_hi,
-                      channels=CHANNELS, target_mhz=TARGET_MHZ, abs_thresholds_from=None):
+def run_transfer_fold(
+    nodes,
+    train_nodes,
+    target,
+    W,
+    x_db,
+    eval_lo,
+    eval_hi,
+    channels=CHANNELS,
+    target_mhz=TARGET_MHZ,
+    abs_thresholds_from=None,
+):
     """Fit on ``train_nodes`` (all cut at ``eval_lo - embargo``), score windows of ``target``.
 
     ``nodes`` maps node name -> band table (single site each). Each node's noise floors come from
@@ -276,15 +326,24 @@ def run_transfer_fold(nodes, train_nodes, target, W, x_db, eval_lo, eval_hi,
     limit = train_hi + W
     parts = []
     for n in train_nodes:
-        parts.append(_node_windows(nodes[n], _floors(nodes[n], channels, x_db, limit), W,
-                                   train_hi, channels, target_mhz))
+        parts.append(
+            _node_windows(
+                nodes[n],
+                _floors(nodes[n], channels, x_db, limit),
+                W,
+                train_hi,
+                channels,
+                target_mhz,
+            )
+        )
     X_tr = pd.concat([x for x, _ in parts], ignore_index=True)
     y_tr = np.concatenate([y for _, y in parts])
 
     raw_t = nodes[target]
     own = _floors(raw_t, channels, x_db, limit)
-    thr_eval = _floors(nodes[abs_thresholds_from], channels, x_db, limit) if abs_thresholds_from \
-        else own
+    thr_eval = (
+        _floors(nodes[abs_thresholds_from], channels, x_db, limit) if abs_thresholds_from else own
+    )
     d = label_band_table(raw_t, thr_eval, stat="mean_dbm").reset_index(drop=True)
     ch = d[d["freq_mhz"] == target_mhz]
     dt = _median_dt(ch)
@@ -298,8 +357,14 @@ def run_transfer_fold(nodes, train_nodes, target, W, x_db, eval_lo, eval_hi,
     for m in models:
         m.fit(X_tr, y_tr)
     preds = {m.name: m.predict(X_ev) for m in models}
-    return {"t": o_ev, "y": y_ev, "clim": float(y_tr.mean()), "n_train": len(y_tr),
-            "thresholds_dbm": thr_eval, "preds": {"clean": preds}}
+    return {
+        "t": o_ev,
+        "y": y_ev,
+        "clim": float(y_tr.mean()),
+        "n_train": len(y_tr),
+        "thresholds_dbm": thr_eval,
+        "preds": {"clean": preds},
+    }
 
 
 def paired_mse_ratio(folds_a, folds_b, name, n_boot=1000, seed=0):
@@ -318,5 +383,6 @@ def paired_mse_ratio(folds_a, folds_b, name, n_boot=1000, seed=0):
     def ratio(yy, pp):
         return np.sum((pp[:, 0] - yy) ** 2) / np.sum((pp[:, 1] - yy) ** 2)
 
-    return block_bootstrap_ci(y, np.column_stack([pa, pb]), block_ids(t, 7200.0), ratio,
-                              n_boot=n_boot, seed=seed)
+    return block_bootstrap_ci(
+        y, np.column_stack([pa, pb]), block_ids(t, 7200.0), ratio, n_boot=n_boot, seed=seed
+    )

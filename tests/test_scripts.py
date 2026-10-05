@@ -19,8 +19,16 @@ from spectrum_occupancy_forecasting.data.synthetic import write_synthetic_blocks
 from spectrum_occupancy_forecasting.experiments.protocol import TestSetAlreadyUsedError
 
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
-MAIN_GUARDED = ("extract_aerpaw_blocks", "run_window_dev", "run_test_once", "run_second_node",
-                "run_transfer", "run_dev_baselines", "sanity_checks", "run_synthetic_demo")
+MAIN_GUARDED = (
+    "extract_aerpaw_blocks",
+    "run_window_dev",
+    "run_test_once",
+    "run_second_node",
+    "run_transfer",
+    "run_dev_baselines",
+    "sanity_checks",
+    "run_synthetic_demo",
+)
 
 
 @pytest.fixture(scope="module")
@@ -46,8 +54,9 @@ def test_every_script_with_a_main_imports(monkeypatch):
 
 
 def test_extract_script_on_a_synthetic_archive(tmp_path, monkeypatch):
-    z = write_synthetic_sweeps(tmp_path / "ResultsSYNFeb2022_SigMF.zip", n_sweeps=40,
-                               as_zip=True, n_bins=4000)
+    z = write_synthetic_sweeps(
+        tmp_path / "ResultsSYNFeb2022_SigMF.zip", n_sweeps=40, as_zip=True, n_bins=4000
+    )
     mod = load(monkeypatch, "extract_aerpaw_blocks")
     run(monkeypatch, mod, z, "--out-dir", tmp_path / "out", "--workers", 2, "--shard-sweeps", 15)
     out = np.load(tmp_path / "out" / "aerpaw_SYN_blocks5MHz.npz")
@@ -65,8 +74,19 @@ def test_window_dev_script_and_figures(blocks, tmp_path, monkeypatch, capsys):
     assert all(np.isfinite(v["rmse"]) for v in res["clean"].values())
     assert not res["robustness"]  # robustness grid was switched off
 
-    monkeypatch.setattr(sys, "argv", ["make_figures.py", str(blocks), str(res_path), "--out",
-                                      str(tmp_path / "fig"), "--region", "dev"])
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "make_figures.py",
+            str(blocks),
+            str(res_path),
+            "--out",
+            str(tmp_path / "fig"),
+            "--region",
+            "dev",
+        ],
+    )
     runpy.run_path(str(SCRIPTS / "make_figures.py"), run_name="__main__")
     assert (tmp_path / "fig" / "fig1_characterisation.png").exists()
     assert (tmp_path / "fig" / "fig2_method_comparison.png").exists()

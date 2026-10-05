@@ -22,8 +22,12 @@ from spectrum_occupancy_forecasting.experiments.protocol import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-FROZEN_FILES = [ROOT / "src", ROOT / "scripts" / "run_second_node.py",
-                ROOT / "configs" / "frozen_experiment.yaml", ROOT / "docs" / "technical" / "lw1_protocol.md"]
+FROZEN_FILES = [
+    ROOT / "src",
+    ROOT / "scripts" / "run_second_node.py",
+    ROOT / "configs" / "frozen_experiment.yaml",
+    ROOT / "docs" / "technical" / "lw1_protocol.md",
+]
 X_DB = 3.0
 WINDOWS = (300.0, 900.0, 3600.0)
 PRIMARY_W = 900.0
@@ -48,8 +52,11 @@ def main():
     ap.add_argument("npz")
     ap.add_argument("--out", default=None)
     ap.add_argument("--lock", default=None)
-    ap.add_argument("--acknowledge-rerun", action="store_true",
-                    help="burns the confirmation run: counted in the lock, must be disclosed")
+    ap.add_argument(
+        "--acknowledge-rerun",
+        action="store_true",
+        help="burns the confirmation run: counted in the lock, must be disclosed",
+    )
     a = ap.parse_args()
 
     site = Path(a.npz).stem.split("_")[1]
@@ -64,14 +71,26 @@ def main():
     span_d = (t_last - t0) / wf.DAY
     target, table = select_channel(raw, t0, t_last)
     best = table[target]["prevalence_x3db"]
-    print(f"main session {span_d:.2f} d; channel selection (first 60 %): "
-          + ", ".join(f"{c:g}: prev {v['prevalence_x3db']:.3f}" for c, v in table.items())
-          + f" -> target {target:g}", flush=True)
-    results = {"site": site, "fingerprint": fp, "x_db": X_DB, "span_days": span_d,
-               "channel_selection": {str(k): v for k, v in table.items()},
-               "target_mhz": target, "degenerate": best < MIN_PREVALENCE, "windows": {}}
+    print(
+        f"main session {span_d:.2f} d; channel selection (first 60 %): "
+        + ", ".join(f"{c:g}: prev {v['prevalence_x3db']:.3f}" for c, v in table.items())
+        + f" -> target {target:g}",
+        flush=True,
+    )
+    results = {
+        "site": site,
+        "fingerprint": fp,
+        "x_db": X_DB,
+        "span_days": span_d,
+        "channel_selection": {str(k): v for k, v in table.items()},
+        "target_mhz": target,
+        "degenerate": best < MIN_PREVALENCE,
+        "windows": {},
+    }
     if best < MIN_PREVALENCE:
-        print(f"target degenerate (best prevalence {best:.3f} < {MIN_PREVALENCE}): descriptive only")
+        print(
+            f"target degenerate (best prevalence {best:.3f} < {MIN_PREVALENCE}): descriptive only"
+        )
     else:
         starts = [t0 + k * wf.DAY for k in range(2, int(span_d) + 1)]
         folds_def = []
@@ -82,8 +101,9 @@ def main():
         results["folds_days"] = [[(lo - t0) / wf.DAY, (hi - t0) / wf.DAY] for lo, hi in folds_def]
         for W in WINDOWS:
             rob = W == PRIMARY_W
-            folds = [wf.run_fold(raw, W, X_DB, lo, hi, rob, wf.CHANNELS, target)
-                     for lo, hi in folds_def]
+            folds = [
+                wf.run_fold(raw, W, X_DB, lo, hi, rob, wf.CHANNELS, target) for lo, hi in folds_def
+            ]
             res = wf.evaluate_folds(folds, rob, n_boot=N_BOOT)
             wf.print_report(res, W)
             results["windows"][f"{W:.0f}s"] = res

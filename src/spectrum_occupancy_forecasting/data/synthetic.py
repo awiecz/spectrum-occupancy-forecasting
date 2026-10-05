@@ -58,8 +58,9 @@ def generate(cfg: SynthConfig | None = None, site: str = "synth"):
     n_f = len(cfg.freqs_mhz)
 
     outages = [(s, s + cfg.outage_s) for s in rng.uniform(0, span - cfg.outage_s, cfg.n_outages)]
-    regimes = {f: _regime_intervals(rng, span, cfg.busy_mean_s, cfg.idle_mean_s)
-               for f in cfg.freqs_mhz}
+    regimes = {
+        f: _regime_intervals(rng, span, cfg.busy_mean_s, cfg.idle_mean_s) for f in cfg.freqs_mhz
+    }
 
     rows = []
     t_sweep = 0.0
@@ -126,6 +127,11 @@ def write_synthetic_blocks(path, n_days: float = 5.6, dt_s: float = 30.0, seed: 
         band = np.abs(centres - ch) <= 10.0
         mean[np.ix_(busy, band)] += 6.0
     mx = mean + 5.0 + rng.normal(0.0, 0.3, size=mean.shape)
-    np.savez(path, times_s=t, centres_mhz=centres, mean_dbm=mean.astype(np.float32),
-             max_dbm=mx.astype(np.float32))
+    np.savez(
+        path,
+        times_s=t,
+        centres_mhz=centres,
+        mean_dbm=mean.astype(np.float32),
+        max_dbm=mx.astype(np.float32),
+    )
     return path

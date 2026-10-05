@@ -44,12 +44,23 @@ def main():
     t0, t_last = raw["t_start_s"].min(), raw["t_start_s"].max()
     region_end = development_region_end(t0, t_last)  # test region lies beyond this time
     raw = raw[raw["t_start_s"] <= region_end].reset_index(drop=True)  # test data never loaded
-    folds_def = [(t0 + 2 * DAY, t0 + 3 * DAY), (t0 + 3 * DAY, t0 + 4 * DAY),
-                 (t0 + 4 * DAY, region_end)]
-    print(f"development region ends {(region_end - t0) / DAY:.2f} d after start; "
-          f"test region ({(t_last - region_end) / DAY:.2f} d) removed before any computation")
-    results = {"x_db": a.x_db, "channels": list(CHANNELS), "thetas": THETAS, "reference": REF,
-               "folds": [[lo - t0, hi - t0] for lo, hi in folds_def], "windows": {}}
+    folds_def = [
+        (t0 + 2 * DAY, t0 + 3 * DAY),
+        (t0 + 3 * DAY, t0 + 4 * DAY),
+        (t0 + 4 * DAY, region_end),
+    ]
+    print(
+        f"development region ends {(region_end - t0) / DAY:.2f} d after start; "
+        f"test region ({(t_last - region_end) / DAY:.2f} d) removed before any computation"
+    )
+    results = {
+        "x_db": a.x_db,
+        "channels": list(CHANNELS),
+        "thetas": THETAS,
+        "reference": REF,
+        "folds": [[lo - t0, hi - t0] for lo, hi in folds_def],
+        "windows": {},
+    }
     for W in a.windows:
         rob = W == a.robust_window
         folds = [run_fold(raw, W, a.x_db, lo, hi, rob) for lo, hi in folds_def]

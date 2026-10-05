@@ -121,9 +121,19 @@ def scoring_grid(node, later=False):
 
 def run(nodes, cfg, out, synthetic):
     from spectrum_occupancy_forecasting.experiments.replay_workflow import run as workflow
-    workflow(nodes, cfg, out, synthetic, selection_fn=select, replay_fn=replay,
-             strategies=STRATEGIES, candidate_factory=candidates, report_fn=regenerate,
-             scoring_grid=scoring_grid)
+
+    workflow(
+        nodes,
+        cfg,
+        out,
+        synthetic,
+        selection_fn=select,
+        replay_fn=replay,
+        strategies=STRATEGIES,
+        candidate_factory=candidates,
+        report_fn=regenerate,
+        scoring_grid=scoring_grid,
+    )
 
 
 def main():

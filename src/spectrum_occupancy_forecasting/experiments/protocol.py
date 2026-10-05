@@ -36,8 +36,10 @@ def fingerprint(paths: Iterable[str | Path], *, root: str | Path | None = None) 
     files = sorted({f.resolve() for f in files})
     if not files:
         raise ValueError("fingerprint requires at least one file")
-    base = Path(root).resolve() if root is not None else Path(
-        os.path.commonpath([str(f.parent) for f in files])
+    base = (
+        Path(root).resolve()
+        if root is not None
+        else Path(os.path.commonpath([str(f.parent) for f in files]))
     )
     named = sorted((f.relative_to(base).as_posix(), f) for f in files)
     h = hashlib.sha256()
@@ -61,8 +63,10 @@ def _git(cwd, *args: str) -> str:
 def git_state(cwd: str | Path = ".") -> dict:
     """Current commit and whether the working tree has uncommitted changes (None if no git)."""
     try:
-        return {"commit": _git(cwd, "rev-parse", "HEAD"),
-                "dirty": bool(_git(cwd, "status", "--porcelain"))}
+        return {
+            "commit": _git(cwd, "rev-parse", "HEAD"),
+            "dirty": bool(_git(cwd, "status", "--porcelain")),
+        }
     except (OSError, subprocess.CalledProcessError):
         return {"commit": None, "dirty": None}
 

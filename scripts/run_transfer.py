@@ -27,8 +27,12 @@ from spectrum_occupancy_forecasting.experiments.protocol import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-FROZEN_FILES = [ROOT / "src", ROOT / "scripts" / "run_transfer.py",
-                ROOT / "configs" / "frozen_experiment.yaml", ROOT / "docs" / "technical" / "transfer_protocol.md"]
+FROZEN_FILES = [
+    ROOT / "src",
+    ROOT / "scripts" / "run_transfer.py",
+    ROOT / "configs" / "frozen_experiment.yaml",
+    ROOT / "docs" / "technical" / "transfer_protocol.md",
+]
 X_DB = 3.0
 WINDOWS = (300.0, 900.0, 3600.0)
 PRIMARY_W = 900.0
@@ -52,42 +56,71 @@ def lw1_folds(t0, t_last):
 
 
 def cc1_dev_folds(t0, region_end):
-    return [(t0 + 2 * wf.DAY, t0 + 3 * wf.DAY), (t0 + 3 * wf.DAY, t0 + 4 * wf.DAY),
-            (t0 + 4 * wf.DAY, region_end)]
+    return [
+        (t0 + 2 * wf.DAY, t0 + 3 * wf.DAY),
+        (t0 + 3 * wf.DAY, t0 + 4 * wf.DAY),
+        (t0 + 4 * wf.DAY, region_end),
+    ]
 
 
 def run_direction(nodes, source, target, folds_def, name):
-    arms_def = {"in_node": ([target], None), "transfer": ([source], None),
-                "joint": ([source, target], None), "transfer_abs": ([source], source)}
+    arms_def = {
+        "in_node": ([target], None),
+        "transfer": ([source], None),
+        "joint": ([source, target], None),
+        "transfer_abs": ([source], source),
+    }
     out = {"source": source, "target": target, "folds_days": None, "windows": {}}
     for W in WINDOWS:
         folds = {}
         for arm, (train_nodes, abs_from) in arms_def.items():
-            folds[arm] = [wf.run_transfer_fold(nodes, train_nodes, target, W, X_DB, lo, hi,
-                                               wf.CHANNELS, wf.TARGET_MHZ, abs_from)
-                          for lo, hi in folds_def]
-        res = {"n_eval": [len(f["y"]) for f in folds["in_node"]],
-               "n_train": {a: [f["n_train"] for f in fl] for a, fl in folds.items()},
-               "arms": {a: wf.evaluate_folds(fl, False, n_boot=N_BOOT_ARM)
-                        for a, fl in folds.items()},
-               "ratios": {}}
+            folds[arm] = [
+                wf.run_transfer_fold(
+                    nodes,
+                    train_nodes,
+                    target,
+                    W,
+                    X_DB,
+                    lo,
+                    hi,
+                    wf.CHANNELS,
+                    wf.TARGET_MHZ,
+                    abs_from,
+                )
+                for lo, hi in folds_def
+            ]
+        res = {
+            "n_eval": [len(f["y"]) for f in folds["in_node"]],
+            "n_train": {a: [f["n_train"] for f in fl] for a, fl in folds.items()},
+            "arms": {a: wf.evaluate_folds(fl, False, n_boot=N_BOOT_ARM) for a, fl in folds.items()},
+            "ratios": {},
+        }
         names = list(folds["in_node"][0]["preds"]["clean"])
         for arm in ("transfer", "joint"):  # identical windows/labels as in-node, so paired
             res["ratios"][arm] = {
                 m: list(wf.paired_mse_ratio(folds[arm], folds["in_node"], m, n_boot=N_BOOT_RATIO))
-                for m in names}
+                for m in names
+            }
         out["windows"][f"{W:.0f}s"] = res
-        print(f"\n=== {name}: {source} -> {target}   W={W:.0f}s  windows {res['n_eval']}  "
-              f"train windows {res['n_train']['in_node']} (in-node) {res['n_train']['transfer']} "
-              "(transfer)", flush=True)
-        print(f"{'model':<14}{'RMSE in-node':>13}{'transfer':>10}{'joint':>8}{'abs-thr':>9}"
-              f"   {'penalty transfer [95% CI]':<28}{'penalty joint':>14}")
+        print(
+            f"\n=== {name}: {source} -> {target}   W={W:.0f}s  windows {res['n_eval']}  "
+            f"train windows {res['n_train']['in_node']} (in-node) {res['n_train']['transfer']} "
+            "(transfer)",
+            flush=True,
+        )
+        print(
+            f"{'model':<14}{'RMSE in-node':>13}{'transfer':>10}{'joint':>8}{'abs-thr':>9}"
+            f"   {'penalty transfer [95% CI]':<28}{'penalty joint':>14}"
+        )
         for m in names:
             r = {a: res["arms"][a]["clean"][m]["rmse"] for a in res["arms"]}
             pt, pj = res["ratios"]["transfer"][m], res["ratios"]["joint"][m]
-            print(f"{m:<14}{r['in_node']:>13.4f}{r['transfer']:>10.4f}{r['joint']:>8.4f}"
-                  f"{r['transfer_abs']:>9.4f}   {pt[0]:>6.2f} [{pt[1]:.2f}, {pt[2]:.2f}]"
-                  f"{'':<8}{pj[0]:>6.2f}", flush=True)
+            print(
+                f"{m:<14}{r['in_node']:>13.4f}{r['transfer']:>10.4f}{r['joint']:>8.4f}"
+                f"{r['transfer_abs']:>9.4f}   {pt[0]:>6.2f} [{pt[1]:.2f}, {pt[2]:.2f}]"
+                f"{'':<8}{pj[0]:>6.2f}",
+                flush=True,
+            )
     return out
 
 
@@ -116,10 +149,20 @@ def score_hypotheses(d1):
     t2 = tr["ridge"] >= 1.10 and tr["hgb"] >= 1.10
     t3 = tr["resid_ridge"] < tr["ridge"] and tr["resid_hgb"] < tr["hgb"]
     t4 = all(jt[m] >= 0.95 for m in LEARNED)
-    out = {"T1": bool(t1), "T2": bool(t2), "T3": bool(t3), "T4": bool(t4),
-           "transfer_penalty": tr, "joint_penalty": jt}
-    print("\nRegistered hypotheses (W=900, CC1 -> LW1): "
-          + ", ".join(f"{k} {'SUPPORTED' if out[k] else 'REJECTED'}" for k in ("T1", "T2", "T3", "T4")))
+    out = {
+        "T1": bool(t1),
+        "T2": bool(t2),
+        "T3": bool(t3),
+        "T4": bool(t4),
+        "transfer_penalty": tr,
+        "joint_penalty": jt,
+    }
+    print(
+        "\nRegistered hypotheses (W=900, CC1 -> LW1): "
+        + ", ".join(
+            f"{k} {'SUPPORTED' if out[k] else 'REJECTED'}" for k in ("T1", "T2", "T3", "T4")
+        )
+    )
     print("  history transfer penalties:", {m: round(tr[m], 3) for m in HISTORIES})
     print("  learned transfer penalties:", {m: round(tr[m], 3) for m in LEARNED})
     print("  learned joint penalties:   ", {m: round(jt[m], 3) for m in LEARNED})
@@ -133,8 +176,11 @@ def main():
     ap.add_argument("--rehearsal", default=None, help="use this table as both nodes")
     ap.add_argument("--out", default=str(ROOT / "results" / "transfer_results.json"))
     ap.add_argument("--lock", default=str(ROOT / "results" / "TRANSFER_RUN_LOCK.json"))
-    ap.add_argument("--acknowledge-rerun", action="store_true",
-                    help="burns the run: counted in the lock, must be disclosed")
+    ap.add_argument(
+        "--acknowledge-rerun",
+        action="store_true",
+        help="burns the run: counted in the lock, must be disclosed",
+    )
     a = ap.parse_args()
     if not a.rehearsal and not (a.cc1_npz and a.lw1_npz):
         ap.error("give both npz files (or --rehearsal NPZ)")
@@ -154,24 +200,33 @@ def main():
     # (rehearsal data is already truncated to the development region, so use its own end)
     region_end = tlc if a.rehearsal else development_region_end(t0c, tlc)
     cc1 = cc1[cc1["t_start_s"] <= region_end].reset_index(drop=True)  # test rows removed here
-    print(f"CC1 test region removed (after {(region_end - t0c) / wf.DAY:.2f} d); "
-          f"LW1 session {(lw1['t_start_s'].max() - lw1['t_start_s'].min()) / wf.DAY:.2f} d",
-          flush=True)
+    print(
+        f"CC1 test region removed (after {(region_end - t0c) / wf.DAY:.2f} d); "
+        f"LW1 session {(lw1['t_start_s'].max() - lw1['t_start_s'].min()) / wf.DAY:.2f} d",
+        flush=True,
+    )
     nodes = {"CC1": cc1, "LW1": lw1}
     t0l, tll = float(lw1["t_start_s"].min()), float(lw1["t_start_s"].max())
 
     results = {"fingerprint": fp, "x_db": X_DB, "rehearsal": bool(a.rehearsal), "directions": {}}
     d1 = run_direction(nodes, "CC1", "LW1", lw1_folds(t0l, tll), "primary")
-    d1["folds_days"] = [[(lo - t0l) / wf.DAY, (hi - t0l) / wf.DAY] for lo, hi in lw1_folds(t0l, tll)]
+    d1["folds_days"] = [
+        [(lo - t0l) / wf.DAY, (hi - t0l) / wf.DAY] for lo, hi in lw1_folds(t0l, tll)
+    ]
     d2 = run_direction(nodes, "LW1", "CC1", cc1_dev_folds(t0c, region_end), "exploratory")
-    d2["folds_days"] = [[(lo - t0c) / wf.DAY, (hi - t0c) / wf.DAY]
-                        for lo, hi in cc1_dev_folds(t0c, region_end)]
+    d2["folds_days"] = [
+        [(lo - t0c) / wf.DAY, (hi - t0c) / wf.DAY] for lo, hi in cc1_dev_folds(t0c, region_end)
+    ]
     results["directions"] = {"CC1_to_LW1": d1, "LW1_to_CC1": d2}
 
     if not a.rehearsal:
         results["consistency"] = {
-            "LW1_in_node_vs_stored": check_in_node(d1, ROOT / "results" / "node_LW1_window_forecast.json", "LW1"),
-            "CC1_dev_in_node_vs_stored": check_in_node(d2, ROOT / "results" / "dev_window_forecast.json", "CC1 dev"),
+            "LW1_in_node_vs_stored": check_in_node(
+                d1, ROOT / "results" / "node_LW1_window_forecast.json", "LW1"
+            ),
+            "CC1_dev_in_node_vs_stored": check_in_node(
+                d2, ROOT / "results" / "dev_window_forecast.json", "CC1 dev"
+            ),
         }
         results["hypotheses"] = score_hypotheses(d1)
     else:  # rehearsal sanity: identical source/target data must transfer exactly

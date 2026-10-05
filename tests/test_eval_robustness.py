@@ -107,8 +107,10 @@ def test_outages_are_contiguous_in_time(synth_dwells):
 
 def test_degradation_never_modifies_targets(synth_dwells):
     before = synth_dwells.copy(deep=True)
-    visibility_mask(synth_dwells["t_start_s"], Degradation(dropout_p=0.9, outage_len_s=60,
-                                                           outage_frac=0.5, delay_s=60))
+    visibility_mask(
+        synth_dwells["t_start_s"],
+        Degradation(dropout_p=0.9, outage_len_s=60, outage_frac=0.5, delay_s=60),
+    )
     pd.testing.assert_frame_equal(before, synth_dwells)
 
 

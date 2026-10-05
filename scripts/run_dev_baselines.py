@@ -84,8 +84,11 @@ def main():
     tr, dv, te = chronological_split(tgt_t, embargo_s=emb)
     assert_no_leakage(tgt_t, tr, dv, te, emb)
     t_train_end = tgt_t[tr].max()
-    print(f"sweeps {len(tgt_t)}  train {len(tr)}  dev {len(dv)}  test {len(te)} (held out)  "
-          f"embargo {emb:.0f}s", flush=True)
+    print(
+        f"sweeps {len(tgt_t)}  train {len(tr)}  dev {len(dv)}  test {len(te)} (held out)  "
+        f"embargo {emb:.0f}s",
+        flush=True,
+    )
 
     results = {
         "target_mhz": a.target,
@@ -108,19 +111,37 @@ def main():
         assert np.allclose(X["t_start_s"].to_numpy(), tgt_t)
         rate = float(y[tr].mean())
         thr_txt = ", ".join(f"{k:g}: {v:.1f}" for k, v in thr.items())
-        print(f"\n=== X=+{x_db:g} dB  thresholds {{{thr_txt}}}  "
-              f"prevalence train {rate:.3f} dev {y[dv].mean():.3f}", flush=True)
+        print(
+            f"\n=== X=+{x_db:g} dB  thresholds {{{thr_txt}}}  "
+            f"prevalence train {rate:.3f} dev {y[dv].mean():.3f}",
+            flush=True,
+        )
         models = make_models()
         for m in models:
             m.fit(X.iloc[tr], y[tr])
         rows = {}
         for m in models:
             rows[m.name] = score(y[dv], m.predict_proba(X.iloc[dv]), rate)
-        tab = pd.DataFrame(rows).T[["brier", "bss", "auc", "balanced_accuracy", "recall",
-                                     "false_idle_rate", "false_busy_rate", "ece"]]
+        tab = pd.DataFrame(rows).T[
+            [
+                "brier",
+                "bss",
+                "auc",
+                "balanced_accuracy",
+                "recall",
+                "false_idle_rate",
+                "false_busy_rate",
+                "ece",
+            ]
+        ]
         print(tab.round(3).to_string(), flush=True)
-        sc = {"threshold_dbm": thr, "prevalence_train": rate, "prevalence_dev": float(y[dv].mean()),
-              "dev_metrics": rows, "robustness_dev": {}}
+        sc = {
+            "threshold_dbm": thr,
+            "prevalence_train": rate,
+            "prevalence_dev": float(y[dv].mean()),
+            "dev_metrics": rows,
+            "robustness_dev": {},
+        }
 
         if x_db == a.x_db[0]:  # robustness preview (clean-trained models, degraded inputs)
             t0 = time.time()
@@ -137,15 +158,19 @@ def main():
                 Xd = build_features(d, is_t, vis, delay_s=deg.delay_s, spec=spec)
                 Xd = Xd.iloc[order]
                 sc["robustness_dev"][name] = {
-                    m.name: score(y[dv], m.predict_proba(Xd.iloc[dv]), rate) for m in models}
-            print(f"\nrobustness preview (dev, clean-trained; BSS / false-idle) "
-                  f"[{time.time() - t0:.0f}s]")
+                    m.name: score(y[dv], m.predict_proba(Xd.iloc[dv]), rate) for m in models
+                }
+            print(
+                f"\nrobustness preview (dev, clean-trained; BSS / false-idle) "
+                f"[{time.time() - t0:.0f}s]"
+            )
             hdr = f"{'scenario':<22}" + "".join(f"{m.name[:14]:>16}" for m in models)
             print(hdr)
             for name in scen:
                 cells = "".join(
                     f"{sc['robustness_dev'][name][m.name]['bss']:>+8.3f}/{sc['robustness_dev'][name][m.name]['false_idle_rate']:<6.2f}"
-                    for m in models)
+                    for m in models
+                )
                 print(f"{name:<22}{cells}")
         results["scenarios"][f"x_{x_db:g}db"] = sc
 

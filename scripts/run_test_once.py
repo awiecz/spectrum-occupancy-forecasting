@@ -26,8 +26,12 @@ from spectrum_occupancy_forecasting.experiments.protocol import (
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "configs" / "frozen_experiment.yaml"
-FROZEN_FILES = [ROOT / "src", ROOT / "scripts" / "run_test_once.py", CONFIG,
-                ROOT / "docs" / "technical" / "test_protocol.md"]
+FROZEN_FILES = [
+    ROOT / "src",
+    ROOT / "scripts" / "run_test_once.py",
+    CONFIG,
+    ROOT / "docs" / "technical" / "test_protocol.md",
+]
 X_DB = 3.0
 WINDOWS = (300.0, 900.0, 3600.0)
 PRIMARY_W = 900.0
@@ -58,8 +62,11 @@ def main():
     ap.add_argument("npz")
     ap.add_argument("--out", default="results/test_window_forecast.json")
     ap.add_argument("--lock", default="results/TEST_RUN_LOCK.json")
-    ap.add_argument("--acknowledge-rerun", action="store_true",
-                    help="burns the test set: counted in the lock, must be disclosed")
+    ap.add_argument(
+        "--acknowledge-rerun",
+        action="store_true",
+        help="burns the test set: counted in the lock, must be disclosed",
+    )
     a = ap.parse_args()
 
     cfg = yaml.safe_load(CONFIG.read_text())
@@ -71,13 +78,22 @@ def main():
     raw = band_table_from_blocks(a.npz, wf.CHANNELS, bw_mhz=20.0, session=cfg["dataset"]["session"])
     t0, t_last = raw["t_start_s"].min(), raw["t_start_s"].max()
     test_start = development_region_end(t0, t_last)
-    print(f"test region: {(test_start - t0) / wf.DAY:.2f} d -> {(t_last - t0) / wf.DAY:.2f} d "
-          f"after session start", flush=True)
+    print(
+        f"test region: {(test_start - t0) / wf.DAY:.2f} d -> {(t_last - t0) / wf.DAY:.2f} d "
+        f"after session start",
+        flush=True,
+    )
 
-    results = {"fingerprint": fp, "x_db": X_DB, "channels": list(wf.CHANNELS),
-               "thetas": wf.THETAS, "reference": wf.REF,
-               "test_start_s_after_session_start": test_start - t0,
-               "test_end_s_after_session_start": t_last - t0, "windows": {}}
+    results = {
+        "fingerprint": fp,
+        "x_db": X_DB,
+        "channels": list(wf.CHANNELS),
+        "thetas": wf.THETAS,
+        "reference": wf.REF,
+        "test_start_s_after_session_start": test_start - t0,
+        "test_end_s_after_session_start": t_last - t0,
+        "windows": {},
+    }
     for W in WINDOWS:
         rob = W == PRIMARY_W
         folds = [wf.run_fold(raw, W, X_DB, test_start, t_last, rob)]
