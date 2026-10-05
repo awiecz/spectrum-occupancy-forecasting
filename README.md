@@ -1,63 +1,83 @@
 # Spectrum Occupancy Forecasting
 
-**Predicting how busy a radio channel will be from recent measurements.**
+**Explore radio measurements, understand their patterns, and test how well recent activity predicts the future.**
 
 [![Tests](https://github.com/awiecz/spectrum-occupancy-forecasting/actions/workflows/ci.yml/badge.svg)](https://github.com/awiecz/spectrum-occupancy-forecasting/actions/workflows/ci.yml)
 
-How useful are recent radio measurements when we need to predict future activity—and when
-those measurements are missing or out of date? This project compares simple recent averages
-with trained forecasting models on public measurements of a 2.4 GHz channel.
+## The question
 
-The main task predicts the busy share of a **15-minute period starting 15 minutes ahead**.
-A forecast made at 12:00 therefore concerns 12:15–12:30. A busy share of 30% means that about
-30% of the measurements in that period exceed the activity threshold.
+How useful are recent radio measurements for predicting future activity—and what happens when
+those measurements are missing or out of date? This completed exploratory investigation
+combines data-quality checks, visual analysis and comparisons of simple averages with trained models.
 
-## What we found
+The main forecast predicts the busy fraction of a **15-minute period starting 15 minutes ahead**.
+A forecast made at noon therefore concerns **12:15–12:30**.
 
-- **Recent averages are strong predictors.** Trained models did not establish a reliable advantage over simple history-based forecasts.
-- **Old measurements become less useful.** For one short-memory forecast, predictive skill roughly halved when its newest observation was 45–80 minutes old.
-- **The definition of “busy” matters.** Small changes in the detection threshold can substantially change activity labels.
+## What was measured?
 
-A learned mix of recent histories reduced squared prediction error by **1.35% at the urban
-site and 6.80% at the rural site**, compared with history selected using earlier validation.
-However, a fixed two-hour average still had lower error at both sites in that comparison.
-The learned method missed our requirement of at least 5% improvement on each site.
+Public [AERPAW recordings](https://doi.org/10.5061/dryad.hmgqnk9zn) contain repeated sweeps:
+snapshots of received radio power across frequencies. We analyze a band centered at
+2437 MHz, associated with Wi-Fi channel 6, at an **urban site (CC1)** and a **rural site (LW1)**.
+Their first continuous recordings cover seven and 4.75 days in February 2022.
+
+```mermaid
+flowchart LR
+    A[Received power snapshot] --> B[Above calibrated threshold?]
+    B --> C[Share of busy snapshots in 15 minutes]
+    C --> D[Use earlier history to predict a future window]
+```
+
+A 30% busy fraction means 30% of sampled measurements exceeded the threshold.
+It does **not** directly measure decoded traffic, transmitter duty cycle or channel capacity.
+The first day establishes each site's threshold; later measurements use that fixed definition.
+
+## What does the data show?
+
+- **Activity persists, with occasional larger changes.** Nearby periods often resemble each other, making recent history useful.
+- **The analyzed sessions have good coverage.** All complete 15-minute windows pass the observation-count filter; incomplete final windows are excluded.
+- **The definition of busy matters.** At the rural site, changing the threshold from +2 to +4 dB reduces detected activity from 30.15% to 0.70% of later snapshots.
+
+![Activity through time at both sites](results/data_study/activity_patterns.png)
+
+*Received-power labels vary over time. Shading marks calibration; blank heatmap cells indicate
+incomplete evidence. These few days do not establish a stable daily cycle.*
+
+The [data study](docs/data_study.md) explains the measurements, recording gaps, labeling,
+patterns and sensitivity through six figure groups and reproducible statistics.
+
+## What did forecasting establish?
+
+**Simple history is a strong baseline.** Trained models did not establish a reliable advantage.
+Missing and delayed inputs reduce useful evidence; these disruptions are simulated.
+
+A learned mixture reduced mean squared error by **1.35% urban and 6.80% rural** against
+history selected using earlier validation. A fixed two-hour average still had lower error
+at both sites on that comparison's same windows. The mixture missed the declared 5%-per-site
+advancement requirement. These are relative error reductions, not percentage-point changes in activity.
 
 ![Observed future activity and forecasts at both sites](docs/assets/forecast_example.png)
 
-*Each forecast predicts a 15-minute future period. Curves use saved evaluation predictions;
-the learned method was chosen during exploratory development.*
+*Saved evaluation predictions for future 15-minute windows. The learned method was chosen during
+exploratory development; the comparison does not demonstrate superiority on unseen recordings.*
 
-## Data and limits
+The short recordings were repeatedly inspected. Conclusions concern these data and this channel;
+an unused third site remains reserved for separate future confirmation.
 
-We use public [AERPAW measurements](https://doi.org/10.5061/dryad.hmgqnk9zn) from February 2022:
-about **seven days at an urban site and five days at a rural site**. The channel is centered
-at 2437 MHz (Wi-Fi channel 6). Activity is inferred from received power; transmissions are
-not decoded. Missing and delayed measurements are simulated.
+## Explore or reproduce
 
-The recordings are short and were reused during development. Results are exploratory and
-do not establish performance at new sites or times. An unused third-site recording remains
-reserved for future evaluation and has not been inspected.
+- **[Explore the data](docs/data_study.md):** measurements, visualizations and observations.
+- **[Understand the forecasts](docs/results.md):** comparisons and evidence limits.
+- **[Run the analysis](docs/reproduction.md):** setup and reproducible commands.
 
-## Explore the project
-
-- [Results overview](docs/results.md): findings and what they mean.
-- [Three-page research note](docs/research_note/research_note.pdf): a short research summary.
-- [Reproduction guide](docs/reproduction.md): setup and commands.
-- [Technical reference](docs/technical/index.md): methods, detailed evidence and protocols.
-
-## Try it without downloading data
-
-With [uv](https://docs.astral.sh/uv/getting-started/installation/) and Python 3.11 or 3.12:
+Try the data-study workflow without downloading recordings:
 
 ```bash
 uv sync --locked
-uv run python scripts/run_synthetic_demo.py
+uv run python scripts/study_data.py --mode synthetic-rehearsal --out-dir reproductions/data_demo
 ```
 
-Example results and figures appear in `reproductions/synthetic_demo/`. The demo uses generated
-data; its scores are not research findings. Full reproduction requires about 32 GB of recording
-downloads. See the reproduction guide for details and test commands.
+This uses generated data, visibly labeled synthetic. Real-data reproduction needs roughly
+32 GB of recordings; reading the saved study needs no downloads. Researchers can consult the
+[technical reference](docs/technical/index.md) and [three-page note](docs/research_note/research_note.pdf).
 
-Code: [MIT](LICENSE). Data: CC0, with [source attribution](DATA_ATTRIBUTION.md).
-Citation: [CITATION.cff](CITATION.cff).
+Code: [MIT](LICENSE). Data: CC0 with [attribution](DATA_ATTRIBUTION.md). [Citation](CITATION.cff).

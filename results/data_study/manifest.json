@@ -1,0 +1,213 @@
+{
+  "mode": "exploratory",
+  "synthetic": false,
+  "status": "completed",
+  "created_utc": "2026-10-05T12:37:10.996656+00:00",
+  "configuration": {
+    "version": 2,
+    "target_mhz": 2437.0,
+    "channels_mhz": [
+      2412.0,
+      2437.0,
+      2462.0
+    ],
+    "timezone": "America/New_York",
+    "window_s": 900,
+    "primary_lead_s": 900,
+    "leads_s": [
+      0,
+      900,
+      1800,
+      3600,
+      7200
+    ],
+    "offsets_db": [
+      2,
+      3,
+      4,
+      6
+    ],
+    "primary_offset_db": 3,
+    "calibration_s": 86400,
+    "first_eval_s": 172800,
+    "fold_s": 86400,
+    "minimum_partial_fold_s": 43200,
+    "minimum_coverage": 0.8,
+    "training_stride_s": 180,
+    "validation_block_s": 21600,
+    "validation_blocks": 2,
+    "history_windows_s": [
+      300,
+      900,
+      1800,
+      7200
+    ],
+    "decay_taus_s": [
+      300,
+      900,
+      1800,
+      7200
+    ],
+    "decay_support_taus": 5,
+    "feature_tau_s": 900,
+    "ablations": [
+      "history",
+      "history_power",
+      "history_age",
+      "history_calendar",
+      "history_cross",
+      "full"
+    ],
+    "ridge_alphas": [
+      1,
+      10,
+      100,
+      1000
+    ],
+    "boosting_depths": [
+      2,
+      3
+    ],
+    "boosting_leaf_sizes": [
+      20,
+      40
+    ],
+    "boosting_iterations": 150,
+    "boosting_learning_rate": 0.05,
+    "residual_boosting_iterations": 100,
+    "residual_boosting_learning_rate": 0.03,
+    "mask_seeds": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "augmentation_seeds": [
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "model_seed": 0,
+    "bootstrap_seed": 0,
+    "bootstrap_resamples": 2000,
+    "bootstrap_blocks_s": [
+      7200,
+      14400,
+      28800,
+      43200
+    ],
+    "main_bootstrap_block_s": 28800,
+    "minimum_interval_blocks": 4,
+    "weak_evidence_blocks": 10,
+    "event_cutoff": 0.2,
+    "false_busy_budgets": [
+      0.1,
+      0.2
+    ],
+    "minimum_validation_events": 10,
+    "minimum_validation_nonevents": 20,
+    "dropout_probabilities": [
+      0.5,
+      0.9,
+      0.99
+    ],
+    "outage_lengths_s": [
+      900,
+      3600
+    ],
+    "outage_fraction": 0.25,
+    "delays_s": [
+      60,
+      600,
+      1800,
+      3600,
+      7200
+    ]
+  },
+  "config_sha256": "d93dfc83f1cf165bdce66eed87dd24590ea5623202c32ec2c213bfc8dbb27483",
+  "git": {
+    "commit": "6cbf21e0e37b67f779b59de4c7cfffa183ba72d2",
+    "dirty": true
+  },
+  "source_sha256": {
+    "scripts/study_data.py": "f06497b31df789cec31fa5882e59dabedc6b89c571600fd4ad8fbad490452c5b",
+    "src/spectrum_occupancy_forecasting/__init__.py": "1415cc4fb14df88bbefa7d0643395a6e6a353c12b70b3754a39b59a40c40e349",
+    "src/spectrum_occupancy_forecasting/data/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/spectrum_occupancy_forecasting/data/aerpaw.py": "0dfa1d9e7ae047f4608d99b71e43a502e25651233f151ac9ee3687f0e7e1ac05",
+    "src/spectrum_occupancy_forecasting/data/schema.py": "cd102a50ec0acd7d72a7d20299cccae23d509a82cd531946c2403fe0eed67c23",
+    "src/spectrum_occupancy_forecasting/data/synthetic.py": "05984a1fbec5da065cde1f007da51580453dd37e52123127529cd0a4d7a3bd3f",
+    "src/spectrum_occupancy_forecasting/evaluation/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/spectrum_occupancy_forecasting/evaluation/bootstrap.py": "36c6175791aebb70cc9adaf6a8af097484c3906ed2c593fd50975d303bd9577b",
+    "src/spectrum_occupancy_forecasting/evaluation/data_study.py": "f7a2a3df7dcb952caf470695601adc868c7b27fc6bc68fbe38615c46ef17326e",
+    "src/spectrum_occupancy_forecasting/evaluation/diagnostics.py": "49a44d7d63556339f2ac7aec207c108ebafd51d3b5b20996790b46eb874cd91e",
+    "src/spectrum_occupancy_forecasting/evaluation/metrics.py": "70d7fd4187648103edbcd622c3f38942ba00bf92b52d29913b18cbd0836bd165",
+    "src/spectrum_occupancy_forecasting/evaluation/splits.py": "fc2204abaf2481080d746a00787fa01753aac1b095ee46c9484d4020d0f05451",
+    "src/spectrum_occupancy_forecasting/experiments/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/spectrum_occupancy_forecasting/experiments/followup.py": "35fb0e50c54cdab1d272548002a3089cdbaa9bf31f2d446dd8fbee5a4282aa1b",
+    "src/spectrum_occupancy_forecasting/experiments/followup_data.py": "0294c5b036fd8cc779ee7943fdbab76928cc32860879a5fc928212fc28cc5b5c",
+    "src/spectrum_occupancy_forecasting/experiments/followup_gate.py": "1a2fe1407948b84939e522d8647d8476a0a22a9fd7ed5126cfbe03d1904c3211",
+    "src/spectrum_occupancy_forecasting/experiments/followup_models.py": "276352b71f53acff93e1185d6eb6147067f0541aac723887254e08e621c808cd",
+    "src/spectrum_occupancy_forecasting/experiments/followup_reporting.py": "7fefde329efaa2e86c50ce6e107844d411203c97f7b94d293c9715002cd9b4cc",
+    "src/spectrum_occupancy_forecasting/experiments/history_mixture.py": "1bed83a6a3ef373c4edeceb216a8af45c624e1288e4ab7300e56688b09fe8b61",
+    "src/spectrum_occupancy_forecasting/experiments/mixture_reporting.py": "7dd84fbe4e895faa3460270fad96d7f0db2c5d9bba52f3976a7529083deff779",
+    "src/spectrum_occupancy_forecasting/experiments/mixture_support.py": "ede96cb3971ee0ddbf93d7ac93c1c89ef97601cb0a9276269144f4665fd767db",
+    "src/spectrum_occupancy_forecasting/experiments/protocol.py": "3fa4d5b109f2f487c8c12ead5c3178e9cea47c7caa2ee8f6702e0edea2bcc4a1",
+    "src/spectrum_occupancy_forecasting/experiments/window_forecast.py": "341914ef8ebe46df81dd2d66508aad10cf3bf20db9fc8e57e0e6f19c5932fb72",
+    "src/spectrum_occupancy_forecasting/features/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/spectrum_occupancy_forecasting/features/age_aware.py": "94bcd626a918444dab57da0a64c87dbd8e3571fa526bb1a1ed4fad6715166d53",
+    "src/spectrum_occupancy_forecasting/features/windows.py": "915039fd6cb64e47f3bd7ba52927dd793f6305ad38c7b8062808742f2c608bdf",
+    "src/spectrum_occupancy_forecasting/models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/spectrum_occupancy_forecasting/models/baselines.py": "18e2be5bc441e6f9eaeefd526a8086d06b295e7980836db34cd20f3fdcb7e503",
+    "src/spectrum_occupancy_forecasting/models/regressors.py": "e1f1520d1362c61de90d18f4beaaf0707b9b1a5df2f3fcb967ae7fde853ff21c",
+    "src/spectrum_occupancy_forecasting/occupancy/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/spectrum_occupancy_forecasting/occupancy/detect.py": "87a366cbcfaffe45e15b4f5e840633f9a51edeefe7f9feb5f3029862e36090cb",
+    "src/spectrum_occupancy_forecasting/occupancy/power.py": "0a14c047fe741ebab373228b9e4cdd961d7769d674bc9b4b809b18a9579a7112",
+    "src/spectrum_occupancy_forecasting/robustness/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/spectrum_occupancy_forecasting/robustness/degrade.py": "9ce27b789130e4f20cd0d9035a9263ed896b561f64c1c421e7c37ebb0e8f321a",
+    "src/spectrum_occupancy_forecasting/viz/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/spectrum_occupancy_forecasting/viz/figures.py": "a0d4c82794ac26518a4f2ed3c0fdfa633af31fb020894b65a9b76a48e4056277",
+    "src/spectrum_occupancy_forecasting/viz/followup_figures.py": "406000fe9c193ecc0ab2677c467a0ca35959e1240f1a6ebb94b842207d8f7fdf"
+  },
+  "inputs": {
+    "CC1": {
+      "name": "aerpaw_CC1_blocks5MHz.npz",
+      "sha256": "176d02097633a4c6c0917bef1a7578de26c5cb79ceac6f6826451730fc04d08b"
+    },
+    "LW1": {
+      "name": "aerpaw_LW1_blocks5MHz.npz",
+      "sha256": "b6f7f788c6a87da13f6b98ac113358b7b77d00c4552119f06f59c4d425d9fef3"
+    }
+  },
+  "seeds": {},
+  "analysis": "All-session inventory; session 0 analysis; nonoverlapping 15-minute windows",
+  "artifact_sha256": {
+    "activity_patterns.png": "276ecd1ad300d688741895383cfa0f480cdc1bc98c247727b48786f395630ffe",
+    "CC1_autocorrelation.csv": "182c425903199ec2317b6d72c4dcc4bed8caa0de16eb1393502f2e31c355af48",
+    "CC1_changes.csv": "1acdd7c805112c80f6694eb470fc540ee38d5153040046b06a0bcf94f394a10d",
+    "CC1_daily.csv": "d671d8dc2f8b8bbf9d466e232e74c30d2b4a4e8381bb7b2490fd8d69e3009c84",
+    "CC1_example.csv": "04a3195fdcaa29d0fb4b76ec721d7389fa76761016da5df70da84366e54e5071",
+    "CC1_power_histogram.csv": "a9aaa230b23165c1b8f523d253226343c344cc90192c7b4df42be118d0cc5c49",
+    "CC1_sensitivity.csv": "8885532fe1fe85d8e74eae61cfdc369fa81edce6c633446094463531ed6f5891",
+    "CC1_sessions.csv": "2529ccbd2b3f67e01b4ae17479750ca6f1f81346c6d934d0ffb3eb6fdc477343",
+    "CC1_spectrum.csv": "4fc6c5d10d0775445b2b2bd78763ac00bf2c8f7580f65bc167f593ed09500d47",
+    "CC1_windows.csv": "ac98a3fdcca1f4416af46f1ffe3d083896d19091a056ce941f6700766c9c1884",
+    "label_sensitivity.png": "f81157f61c802dd18908a5b9e9f3d1a3c91bd3e1da0966dc181781e24f46ab84",
+    "LW1_autocorrelation.csv": "7bf5c1a58ebd5cf4ff4f90f2fa42d855b0402eac4242285174b30436ab6e4498",
+    "LW1_changes.csv": "b51cb057193b55abfe2311d48b3428666ceec06cf8a22c213f0c7f8ff3a5dee1",
+    "LW1_daily.csv": "7963a697457a6d0175cb0219f62cff9888a02a9059dbb51f5389d58153530844",
+    "LW1_example.csv": "a6b79d01cb96eead253dc568a8d37acf2842baf49644c27be7c2a99780bd5f9b",
+    "LW1_power_histogram.csv": "3a0408b3df9af7ecb5f5c41361bd7ccfea998199fc7f6d3de046ffea1b5d99c4",
+    "LW1_sensitivity.csv": "6a26dd2c12051de6d4e2cabdba8bde56d0b0a75d05e2069fc75ebe1b4df5c410",
+    "LW1_sessions.csv": "d7e469b4b2db0bc6559d2c374e9b314582e0ab5dd04597c7bc4065ae461034f9",
+    "LW1_spectrum.csv": "03ab2552636fe1b68f3bafd58144d74ba5e139de56cec27c372a67a63853a5c5",
+    "LW1_windows.csv": "6ad3b4f81f207765a2529c07681fefa91d62b17e43b02a4815d2371580d2e53d",
+    "measurement_to_label.png": "f49cd8a0b4444f7e712195245ad12d1986f1df33ee4b26eace912ad3e2c933de",
+    "persistence_changes.png": "ac550217073b398e537495095c9f532a264032da749a45cf4fb5d226bb9e28df",
+    "recording_quality.png": "2c87030f30c538aaf55dc2ef7464427e175b31be5461807af69e6d96dcd87ddb",
+    "spectrum_context.png": "52f3d73913ae6edf0ce3292d808a2be53b91d1199e212d3d274eb8de8d2b96a5",
+    "summary.json": "25cedaf2d072d19cfc0145120f1fa0577ee75ec1ade00b7f420abe9c827aadc1"
+  }
+}

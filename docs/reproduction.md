@@ -22,11 +22,38 @@ $env:UV_PROJECT_ENVIRONMENT = Join-Path $env:TEMP "spectrum-occupancy-env"
 uv sync --locked
 ```
 
-## Reproduce the measured-data experiments
+## Before using real data
 
 This requires the CC1 and LW1 archives: approximately **32 GB of downloads**, plus processed
 files and working space. Recordings are excluded from Git. To understand the findings without
 downloading data, use the saved outputs linked from the [results overview](results.md).
+
+## Reproduce the data study
+
+The [illustrated data study](data_study.md) can be read entirely from its saved figures and
+tables, with no installation or recording download. To rehearse the analysis on generated data:
+
+```bash
+uv run python scripts/study_data.py --mode synthetic-rehearsal --out-dir reproductions/data_demo
+```
+
+For real-data reproduction, use the existing CC1/LW1 processed block files described below:
+
+```bash
+uv run python scripts/study_data.py --mode exploratory --out-dir reproductions/data_study_new
+```
+
+Optional `--cc1`, `--lw1` and `--config` arguments override input locations and the shared
+`configs/followup_v2.yaml` specification. Inputs must retain their CC1/LW1 block-file names.
+The study audits all sessions and analyzes session 0, using first-day calibration and complete,
+non-overlapping 15-minute windows. Output directories must be new; CC2 inputs are rejected.
+This script fits no forecasting models and never modifies recordings.
+
+Each output includes six PNG figure groups, CSV source tables, `summary.json` and a provenance
+manifest with input/configuration/source hashes and completion status. Figures use only those
+saved tables. Outputs are limited to 10 MiB; synthetic fixtures are removed after analysis.
+
+## Reproduce the forecasting experiments
 
 Follow [download, checksum and extraction instructions](technical/reproduction.md#1-download-and-verify)
 to produce `data/processed/aerpaw_CC1_blocks5MHz.npz` and

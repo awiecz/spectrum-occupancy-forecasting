@@ -2,6 +2,9 @@
 
 **Recent activity predicts future activity, but the tested learned models do not establish a reliable advantage over simple averages.**
 
+Start with the [data study](data_study.md) to see what was measured, how activity labels are
+constructed and why history can be informative.
+
 ## What is being predicted?
 
 The main task predicts the fraction of measurements classified as busy in a 15-minute period

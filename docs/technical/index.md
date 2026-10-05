@@ -1,6 +1,7 @@
 # Technical reference
 
-Start with the [results overview](../results.md) or [reproduction guide](../reproduction.md).
+Start with the [data study](../data_study.md), [results overview](../results.md) or
+[reproduction guide](../reproduction.md).
 These documents support one project; they record distinct analyses rather than competing
 versions of the repository.
 
@@ -8,6 +9,7 @@ versions of the repository.
 
 | Analysis | Detailed results | Saved evidence |
 |---|---|---|
+| First-day-calibrated descriptive data study | [Illustrated study](../data_study.md) | [Source tables, summary and figures](../../results/data_study/) |
 | Chronological model selection, leads and sensitivity | [Study results](followup_v2_results.md) | [Predictions, selections and figures](../../results/followup_v2/exploratory/) |
 | History mixture and adaptive development | [Development results](forecast_development.md) | [Mixture outputs and experiment ledger](../../results/followup_v2/history_mixture/) |
 | Original urban-site development | [Development](dev_results.md) | [Original outputs](../../results/) |

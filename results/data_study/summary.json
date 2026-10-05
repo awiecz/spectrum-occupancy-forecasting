@@ -1,0 +1,116 @@
+[
+  {
+    "node": "CC1",
+    "total_sweeps": 32529,
+    "sessions": 2,
+    "elapsed_days": 16.298078703703705,
+    "analyzed_session": 0,
+    "analyzed_sweeps": 32018,
+    "analyzed_days": 6.999884259259259,
+    "noise_floor_dbm": -133.07854909706685,
+    "threshold_dbm": -130.07854909706685,
+    "nominal_interval_s": 19.0,
+    "calibration_end_s": 1644429034.0,
+    "complete_windows": 671,
+    "eligible_windows": 671,
+    "excluded_low_coverage": 0,
+    "excluded_partial_tail": 1,
+    "partial_tail_s": 890.0,
+    "periods": {
+      "calibration": {
+        "sweeps": 4524,
+        "busy_prevalence": 0.21927497789566755
+      },
+      "post_calibration": {
+        "sweeps": 27494,
+        "busy_prevalence": 0.16945515385174947
+      }
+    },
+    "autocorrelation": [
+      {
+        "lag_minutes": 15,
+        "pairs": 574,
+        "status": "available",
+        "correlation": 0.7460906271695698
+      },
+      {
+        "lag_minutes": 30,
+        "pairs": 573,
+        "status": "available",
+        "correlation": 0.6912302944435432
+      },
+      {
+        "lag_minutes": 60,
+        "pairs": 571,
+        "status": "available",
+        "correlation": 0.6748003378507779
+      },
+      {
+        "lag_minutes": 120,
+        "pairs": 567,
+        "status": "available",
+        "correlation": 0.5379822461885037
+      }
+    ],
+    "adjacent_pairs": 574,
+    "absolute_change_p90": 0.14893617021276595,
+    "synthetic": false
+  },
+  {
+    "node": "LW1",
+    "total_sweeps": 21617,
+    "sessions": 3,
+    "elapsed_days": 13.906226851851851,
+    "analyzed_session": 0,
+    "analyzed_sweeps": 13620,
+    "analyzed_days": 4.748344907407407,
+    "noise_floor_dbm": -134.13608968670113,
+    "threshold_dbm": -131.13608968670113,
+    "nominal_interval_s": 30.0,
+    "calibration_end_s": 1644429476.0,
+    "complete_windows": 455,
+    "eligible_windows": 455,
+    "excluded_low_coverage": 0,
+    "excluded_partial_tail": 1,
+    "partial_tail_s": 757.0,
+    "periods": {
+      "calibration": {
+        "sweeps": 2869,
+        "busy_prevalence": 0.14290693621470896
+      },
+      "post_calibration": {
+        "sweeps": 10751,
+        "busy_prevalence": 0.07766719374941866
+      }
+    },
+    "autocorrelation": [
+      {
+        "lag_minutes": 15,
+        "pairs": 358,
+        "status": "available",
+        "correlation": 0.5748290967666458
+      },
+      {
+        "lag_minutes": 30,
+        "pairs": 357,
+        "status": "available",
+        "correlation": 0.5420227819154496
+      },
+      {
+        "lag_minutes": 60,
+        "pairs": 355,
+        "status": "available",
+        "correlation": 0.3710149654881126
+      },
+      {
+        "lag_minutes": 120,
+        "pairs": 351,
+        "status": "available",
+        "correlation": 0.19370811666166618
+      }
+    ],
+    "adjacent_pairs": 358,
+    "absolute_change_p90": 0.13333333333333333,
+    "synthetic": false
+  }
+]
