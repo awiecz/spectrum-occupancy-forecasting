@@ -1,0 +1,25 @@
+study: adaptive-learning
+base_config: followup_v2.yaml
+initialization_s: 86400
+replay_stride_s: 900
+validation_hours: 12
+selection_embargo_s: 36000
+validation_margin: 0.02
+bias_half_lives_h: [0.5, 2, 6, 12]
+aggregation_half_lives_h: [2, 6, 12, 24]
+aggregation_rates: [0.5, 2, 8]
+ridge_half_lives_h: [2, 6, 12, 24]
+ridge_penalties: [1, 10, 100, 1000]
+feature_sets: [history, history_fine]
+correction_strengths: [0.25, 0.5, 1]
+correction_cap: 0.1
+maximum_observation_age_s: 900
+minimum_predictor_coverage: 0.5
+feedback_coverage: 0.8
+feedback_window_s: 7200
+minimum_feedback_windows: 4
+maximum_feedback_age_s: 3600
+minimum_clean_skill: 0.05
+maximum_degraded_ratio: 1.1
+minimum_positive_fold_fraction: 0.5
+ridge_jitter: 1.0e-8

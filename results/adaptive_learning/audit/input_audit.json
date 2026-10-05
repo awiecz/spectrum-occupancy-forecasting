@@ -1,0 +1,26 @@
+{
+  "CC1_first": {
+    "sweeps": 32018,
+    "start": 1644342634.0,
+    "end": 1644947424.0,
+    "floor_dbm": -133.07854909706685,
+    "interval_s": 19.0,
+    "cache_manifest_hash": "5a7ac2a04d7625bcf22cce0eec3f00f3b1c063cb30d0e38f70f59ef311df23e6"
+  },
+  "LW1_first": {
+    "sweeps": 13620,
+    "start": 1644343076.0,
+    "end": 1644753333.0,
+    "floor_dbm": -134.13608968670113,
+    "interval_s": 30.0,
+    "cache_manifest_hash": "e172ab5fcc6734db59c3932b70944b74b0ee3c859f327db516fc04743e20fd17"
+  },
+  "LW1_later": {
+    "sweeps": 7996,
+    "start": 1645383873.0,
+    "end": 1645544574.0,
+    "floor_dbm": -128.8875905545111,
+    "interval_s": 20.0,
+    "cache_manifest_hash": "6d19585c64c535461e619173a8bc1ea161c7fbcf1bfb70b6b05f44b06d8f7215"
+  }
+}

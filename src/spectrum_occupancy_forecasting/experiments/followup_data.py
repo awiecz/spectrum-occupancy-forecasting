@@ -118,12 +118,14 @@ class NodeData:
         keep = np.isfinite(y)
         return np.asarray(origins)[keep], y[keep], count[keep]
 
-    def features(self, origins, deg=None, seed=0):
+    def features(self, origins, deg=None, seed=0, *, calibration_clean=False):
         deg = deg or Degradation()
-        key = (deg, seed)
+        key = (deg, seed, True) if calibration_clean else (deg, seed)
         if key not in self._features:
             cfg = self.cfg
             vis = sweep_visibility_mask(self.d["t_start_s"], deg, seed)
+            if calibration_clean:
+                vis |= self.d["t_start_s"].to_numpy() + 0.001 <= self.t0 + 86400
             tg = pd.DataFrame(
                 {"site": self.node, "freq_mhz": cfg["target_mhz"], "t_start_s": self.grid}
             )

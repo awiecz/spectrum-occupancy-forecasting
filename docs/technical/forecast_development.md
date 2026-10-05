@@ -1,9 +1,10 @@
 # Exploratory forecast development
 
 This page records the earlier adaptive searches. The later declared
-[shared-training/fine-input study](../shared_learning.md) also failed to advance and completed
+[shared-training/fine-input study, summarized with adaptive development](../adaptive_learning.md) also failed to advance and completed
 an unfavorable reserved later-LW1 assessment. Its evidence is kept separately; the historical
-mixture outputs and decisions below are unchanged.
+mixture outputs and decisions below are unchanged. Later LW1 is now explicitly reused as
+development in the feedback-driven study; it is no longer reserved evidence.
 
 **No method met the declared advancement rule.** The expanding history mixture is the best balanced challenger found during adaptive development on reused CC1/LW1 recordings. Its clean MSE reductions against independently selected history are **1.349% on CC1 and 6.804% on LW1**. These observations are not an independent superiority test. The canonical v2 confirmation design is retained; CC2 remains uninspected and confirmation pending.
 

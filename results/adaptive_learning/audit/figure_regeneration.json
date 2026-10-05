@@ -1,0 +1,9 @@
+{
+  "regenerated_utc": "2026-10-05T17:35:19.231362+00:00",
+  "source_hash": "f87bae1b5c22881b9c034d8f132e80e06b430cca68e1ac79374d6fa511644c15",
+  "prediction_sha256": "ad2b53762b80857f4d2c0a02c35d7b881059cbf4cbf13b9dd4326a5d95b833c5",
+  "summary_sha256": "8b9de11b2ed46a85c7b90929233f435475a9c5a65af9093136ca885fda82e16f",
+  "uncertainty_sha256": "1bc57ae7fa3a4b6abba3637e417dae1c6e9e1de5fb7e63592260940e66baab05",
+  "numerical_results_changed": false,
+  "changes": "larger fonts, vertical panels, shortened scenario labels and consistent interval colors"
+}

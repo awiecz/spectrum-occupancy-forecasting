@@ -1,0 +1,1350 @@
+{
+  "study": "adaptive-learning",
+  "mode": "report",
+  "started": "2026-10-05T17:17:45.797870+00:00",
+  "status": "completed",
+  "source_hash": "d1d00763d3d87ef94ca5f6149293e20394e5a61b6b053586382735806eaec9c8",
+  "config_hash": "ff96eb040bddfba474a52bf3443b49c12141189f553fc92e1fd0cdba4cd42897",
+  "portable_config_hash": "9b873fcf71f5636a35a6d749a480465c645ddf379f5f76178ab11147bba85b55",
+  "runtime": {
+    "python": "3.12.10",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "pyarrow": "25.0.1"
+  },
+  "git": {
+    "commit": "f11e47a803261a480d438d161a5ec78607a947f8",
+    "dirty": true
+  },
+  "candidates": [
+    {
+      "family": "history",
+      "half_life": 0,
+      "strength": 0,
+      "penalty": 0,
+      "rate": 0,
+      "features": "history",
+      "id": "history_0_0_0_history_0"
+    },
+    {
+      "family": "bias",
+      "half_life": 0.5,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 0,
+      "features": "history",
+      "id": "bias_0.5_0_0_history_0.25"
+    },
+    {
+      "family": "bias",
+      "half_life": 0.5,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 0,
+      "features": "history",
+      "id": "bias_0.5_0_0_history_0.5"
+    },
+    {
+      "family": "bias",
+      "half_life": 0.5,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 0,
+      "features": "history",
+      "id": "bias_0.5_0_0_history_1"
+    },
+    {
+      "family": "bias",
+      "half_life": 2,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 0,
+      "features": "history",
+      "id": "bias_2_0_0_history_0.25"
+    },
+    {
+      "family": "bias",
+      "half_life": 2,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 0,
+      "features": "history",
+      "id": "bias_2_0_0_history_0.5"
+    },
+    {
+      "family": "bias",
+      "half_life": 2,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 0,
+      "features": "history",
+      "id": "bias_2_0_0_history_1"
+    },
+    {
+      "family": "bias",
+      "half_life": 6,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 0,
+      "features": "history",
+      "id": "bias_6_0_0_history_0.25"
+    },
+    {
+      "family": "bias",
+      "half_life": 6,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 0,
+      "features": "history",
+      "id": "bias_6_0_0_history_0.5"
+    },
+    {
+      "family": "bias",
+      "half_life": 6,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 0,
+      "features": "history",
+      "id": "bias_6_0_0_history_1"
+    },
+    {
+      "family": "bias",
+      "half_life": 12,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 0,
+      "features": "history",
+      "id": "bias_12_0_0_history_0.25"
+    },
+    {
+      "family": "bias",
+      "half_life": 12,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 0,
+      "features": "history",
+      "id": "bias_12_0_0_history_0.5"
+    },
+    {
+      "family": "bias",
+      "half_life": 12,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 0,
+      "features": "history",
+      "id": "bias_12_0_0_history_1"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 2,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 0.5,
+      "features": "history",
+      "id": "aggregation_2_0_0.5_history_0.25"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 2,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 0.5,
+      "features": "history",
+      "id": "aggregation_2_0_0.5_history_0.5"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 2,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 0.5,
+      "features": "history",
+      "id": "aggregation_2_0_0.5_history_1"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 2,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 2,
+      "features": "history",
+      "id": "aggregation_2_0_2_history_0.25"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 2,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 2,
+      "features": "history",
+      "id": "aggregation_2_0_2_history_0.5"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 2,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 2,
+      "features": "history",
+      "id": "aggregation_2_0_2_history_1"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 2,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 8,
+      "features": "history",
+      "id": "aggregation_2_0_8_history_0.25"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 2,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 8,
+      "features": "history",
+      "id": "aggregation_2_0_8_history_0.5"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 2,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 8,
+      "features": "history",
+      "id": "aggregation_2_0_8_history_1"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 6,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 0.5,
+      "features": "history",
+      "id": "aggregation_6_0_0.5_history_0.25"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 6,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 0.5,
+      "features": "history",
+      "id": "aggregation_6_0_0.5_history_0.5"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 6,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 0.5,
+      "features": "history",
+      "id": "aggregation_6_0_0.5_history_1"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 6,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 2,
+      "features": "history",
+      "id": "aggregation_6_0_2_history_0.25"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 6,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 2,
+      "features": "history",
+      "id": "aggregation_6_0_2_history_0.5"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 6,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 2,
+      "features": "history",
+      "id": "aggregation_6_0_2_history_1"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 6,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 8,
+      "features": "history",
+      "id": "aggregation_6_0_8_history_0.25"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 6,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 8,
+      "features": "history",
+      "id": "aggregation_6_0_8_history_0.5"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 6,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 8,
+      "features": "history",
+      "id": "aggregation_6_0_8_history_1"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 12,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 0.5,
+      "features": "history",
+      "id": "aggregation_12_0_0.5_history_0.25"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 12,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 0.5,
+      "features": "history",
+      "id": "aggregation_12_0_0.5_history_0.5"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 12,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 0.5,
+      "features": "history",
+      "id": "aggregation_12_0_0.5_history_1"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 12,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 2,
+      "features": "history",
+      "id": "aggregation_12_0_2_history_0.25"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 12,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 2,
+      "features": "history",
+      "id": "aggregation_12_0_2_history_0.5"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 12,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 2,
+      "features": "history",
+      "id": "aggregation_12_0_2_history_1"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 12,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 8,
+      "features": "history",
+      "id": "aggregation_12_0_8_history_0.25"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 12,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 8,
+      "features": "history",
+      "id": "aggregation_12_0_8_history_0.5"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 12,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 8,
+      "features": "history",
+      "id": "aggregation_12_0_8_history_1"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 24,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 0.5,
+      "features": "history",
+      "id": "aggregation_24_0_0.5_history_0.25"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 24,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 0.5,
+      "features": "history",
+      "id": "aggregation_24_0_0.5_history_0.5"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 24,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 0.5,
+      "features": "history",
+      "id": "aggregation_24_0_0.5_history_1"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 24,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 2,
+      "features": "history",
+      "id": "aggregation_24_0_2_history_0.25"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 24,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 2,
+      "features": "history",
+      "id": "aggregation_24_0_2_history_0.5"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 24,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 2,
+      "features": "history",
+      "id": "aggregation_24_0_2_history_1"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 24,
+      "strength": 0.25,
+      "penalty": 0,
+      "rate": 8,
+      "features": "history",
+      "id": "aggregation_24_0_8_history_0.25"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 24,
+      "strength": 0.5,
+      "penalty": 0,
+      "rate": 8,
+      "features": "history",
+      "id": "aggregation_24_0_8_history_0.5"
+    },
+    {
+      "family": "aggregation",
+      "half_life": 24,
+      "strength": 1,
+      "penalty": 0,
+      "rate": 8,
+      "features": "history",
+      "id": "aggregation_24_0_8_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.25,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_2_1_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.5,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_2_1_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 1,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_2_1_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.25,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_2_1_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.5,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_2_1_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 1,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_2_1_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.25,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_2_10_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.5,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_2_10_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 1,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_2_10_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.25,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_2_10_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.5,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_2_10_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 1,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_2_10_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.25,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_2_100_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.5,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_2_100_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 1,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_2_100_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.25,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_2_100_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.5,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_2_100_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 1,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_2_100_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.25,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_2_1000_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.5,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_2_1000_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 1,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_2_1000_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.25,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_2_1000_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 0.5,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_2_1000_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 2,
+      "strength": 1,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_2_1000_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.25,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_6_1_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.5,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_6_1_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 1,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_6_1_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.25,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_6_1_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.5,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_6_1_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 1,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_6_1_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.25,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_6_10_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.5,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_6_10_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 1,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_6_10_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.25,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_6_10_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.5,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_6_10_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 1,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_6_10_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.25,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_6_100_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.5,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_6_100_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 1,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_6_100_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.25,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_6_100_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.5,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_6_100_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 1,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_6_100_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.25,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_6_1000_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.5,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_6_1000_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 1,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_6_1000_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.25,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_6_1000_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 0.5,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_6_1000_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 6,
+      "strength": 1,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_6_1000_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.25,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_12_1_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.5,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_12_1_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 1,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_12_1_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.25,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_12_1_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.5,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_12_1_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 1,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_12_1_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.25,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_12_10_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.5,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_12_10_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 1,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_12_10_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.25,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_12_10_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.5,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_12_10_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 1,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_12_10_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.25,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_12_100_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.5,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_12_100_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 1,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_12_100_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.25,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_12_100_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.5,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_12_100_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 1,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_12_100_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.25,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_12_1000_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.5,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_12_1000_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 1,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_12_1000_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.25,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_12_1000_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 0.5,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_12_1000_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 12,
+      "strength": 1,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_12_1000_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.25,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_24_1_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.5,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_24_1_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 1,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_24_1_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.25,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_24_1_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.5,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_24_1_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 1,
+      "penalty": 1,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_24_1_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.25,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_24_10_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.5,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_24_10_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 1,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_24_10_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.25,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_24_10_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.5,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_24_10_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 1,
+      "penalty": 10,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_24_10_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.25,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_24_100_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.5,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_24_100_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 1,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_24_100_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.25,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_24_100_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.5,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_24_100_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 1,
+      "penalty": 100,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_24_100_0_history_fine_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.25,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_24_1000_0_history_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.5,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_24_1000_0_history_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 1,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history",
+      "id": "ridge_24_1000_0_history_1"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.25,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_24_1000_0_history_fine_0.25"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 0.5,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_24_1000_0_history_fine_0.5"
+    },
+    {
+      "family": "ridge",
+      "half_life": 24,
+      "strength": 1,
+      "penalty": 1000,
+      "rate": 0,
+      "features": "history_fine",
+      "id": "ridge_24_1000_0_history_fine_1"
+    }
+  ],
+  "CC2_accessed": false,
+  "all_recordings_are_development": true,
+  "original_manifest_hash": "d865a58108a9af7827e24f3f99d15ec34b86765c5109f0fd5994e0e0c00d6a0d",
+  "finished": "2026-10-05T17:19:31.884816+00:00",
+  "artifacts": {
+    "advancement.json": "cbe9d7decd7077c35a0db68f12cc663a6ff5cb30de65a1d8a3bf46f5f3059bde",
+    "block_sensitivity.png": "17239bc5a0e94b0ec96f1a02cc3fab7e7f6a39a75d4b77962be7d672e134a601",
+    "clean_skill.png": "2ff05f34ffac48e142d7841c77da3956872c96034d38a817fe727d2b10c53ce4",
+    "configuration.json": "3577f27e9428376943d64de95c26491aebbdecd37bc454c5ff45f8b789ebb0bc",
+    "daily.csv": "ae68efb24186ba5df96828e1afe83f32cec8c4c19bb1f409e731b66664541e06",
+    "dependence.csv": "cf96970966e8ffa63f6609f087668c8d1610ce15133f6e2f894ce928758181da",
+    "event_thresholds.json": "f66a1d89605c83f3f960241f9d1d88a9ba6403e769f08f081abe9c745e1bd121",
+    "feedback_summary.csv": "3689bb5eafcdfc3505b479a3a3dbb53ea9537e3b1edd5b48e285628b375920c6",
+    "forecasts.png": "9dc872bd0fdfaabad015fcc9b9ac004751eef12410af23d3f1d72fb3a057df24",
+    "period_summary.csv": "2bf8e5864eb1841d178a7f7956c68afa9986fcdfaddfafd30bbe7e1ac688fbf8",
+    "prediction_audit.json": "ff7fc13208a9b0bf6d489211a74f394a2b5ab69bc056e92eb837e7eac5e2ca51",
+    "robustness.png": "f203d47a51d070924c74f656dff399beba33b47f61c21f2a7ba346cf394c8e13",
+    "source_snapshot.zip": "71ab6435174af991a3ebe444f9ee19054c574df56f35e156f6a805cfb728d8d8",
+    "summary.csv": "8b9de11b2ed46a85c7b90929233f435475a9c5a65af9093136ca885fda82e16f",
+    "summary.json": "514c288f7078604cf6a83019d885e2f3466646e49d31687b2a4bb0ab7668f2a6",
+    "uncertainty.csv": "1bc57ae7fa3a4b6abba3637e417dae1c6e9e1de5fb7e63592260940e66baab05"
+  }
+}

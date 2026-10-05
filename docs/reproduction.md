@@ -80,13 +80,41 @@ For a download-free check of either pipeline, replace `--mode exploratory` with
 Commands for original window-width and transfer experiments are in the
 [original-study reference](technical/reproduction.md#3-run-independent-reproductions).
 
-## Shared training and fine inputs
+## Adaptive local learning
 
-The [illustrated study](shared_learning.md#reproduce-and-inspect) documents the eight-profile
-experiment, compact raw-archive extraction, download-free rehearsal and prediction-only
-report regeneration. No additional downloads are needed if the original archives are present.
-Its reserved later-LW1 assessment has already run once; the lock prevents another assessment.
-Reproduction of the inspected first sessions remains exploratory. CC2 is still untouched.
+The [adaptive study](adaptive_learning.md) uses the three already-inspected recordings.
+Completed feedback updates local model states; conservative earlier validation selects their
+settings. Later LW1 is now development data. CC2 remains untouched.
+
+```bash
+uv run python scripts/run_adaptive_learning.py --mode synthetic-rehearsal --out-dir reproductions/adaptive_demo
+uv run python scripts/run_adaptive_learning.py --mode report --predictions-dir results/adaptive_learning/run --out-dir reproductions/adaptive_report
+```
+
+Both commands require fresh output directories. The rehearsal downloads nothing and visibly
+labels generated outputs. Report mode reads saved predictions and validation records without
+refitting models. Its metrics, bootstrap intervals and advancement decision reproduce the study.
+
+For existing checksum-verified fine-spectrum caches:
+
+```bash
+uv run python scripts/run_adaptive_learning.py --mode audit --out-dir reproductions/adaptive_audit
+uv run python scripts/run_adaptive_learning.py --mode exploratory --cache reproductions/shared_learning_cache --out-dir reproductions/adaptive_new
+```
+
+The local historical audit also needs the verified `reproductions/adaptive_archive_initial`
+archive produced during cleanup. The cache must contain `CC1_session0_development`,
+`LW1_session0_development` and the previously
+inspected `LW1_session2_assessment`, with completed manifests and valid shard checksums. This
+runner never opens raw archives, downloads data or accesses CC2. A fresh clone can run the
+synthetic and report workflows immediately; raw-to-cache provenance is retained in the original
+shared-learning manifests and Git commit `f11e47a`. Archived standalone experiments are no longer
+supported entry points. The local cleanup archive contains their exact implementations and outputs.
+
+The original adaptive run manifest and fitting-source snapshot remain unchanged. A separately
+recorded report regeneration improved figure readability and interval-line colors; all numerical
+tables and advancement decisions agree. Use `results/adaptive_learning/publication_audit.json`
+for the current published-file checksums and `audit/report_manifest.json` for reporting provenance.
 
 ## Check the code
 

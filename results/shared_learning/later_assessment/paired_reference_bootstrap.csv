@@ -1,9 +1,0 @@
-node,scenario,reference,block_s,n_blocks,weak_evidence,status,mss_lo,mss_hi,difference_lo,difference_hi
-LW1,clean,fixed_history,7200,11,False,estimated,-2.831366947308277,-1.0225753098939327,0.0063356269255789004,0.009373947583930484
-LW1,clean,fixed_history,14400,6,True,weak_evidence,-2.6603791366821103,-1.0871015406265383,0.0064617961641429645,0.009297665785913909
-LW1,clean,fixed_history,28800,3,True,insufficient_blocks,,,,
-LW1,clean,fixed_history,43200,2,True,insufficient_blocks,,,,
-LW1,clean,selected_history,7200,11,False,estimated,-2.831366947308277,-1.0225753098939327,0.0063356269255789004,0.009373947583930484
-LW1,clean,selected_history,14400,6,True,weak_evidence,-2.6603791366821103,-1.0871015406265383,0.0064617961641429645,0.009297665785913909
-LW1,clean,selected_history,28800,3,True,insufficient_blocks,,,,
-LW1,clean,selected_history,43200,2,True,insufficient_blocks,,,,

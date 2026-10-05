@@ -12,7 +12,7 @@ versions of the repository.
 | First-day-calibrated descriptive data study | [Illustrated study](../data_study.md) | [Source tables, summary and figures](../../results/data_study/) |
 | Chronological model selection, leads and sensitivity | [Study results](followup_v2_results.md) | [Predictions, selections and figures](../../results/followup_v2/exploratory/) |
 | History mixture and adaptive development | [Development results](forecast_development.md) | [Mixture outputs and experiment ledger](../../results/followup_v2/history_mixture/) |
-| Finer inputs, shared training and reserved later session | [Illustrated results](../shared_learning.md) | [Predictions, selections and audit](../../results/shared_learning/) |
+| Local adaptation and prior transfer outcome | [Illustrated results](../adaptive_learning.md) | [Predictions, selections and audit](../../results/adaptive_learning/) |
 | Original urban-site development | [Development](dev_results.md) | [Original outputs](../../results/) |
 | Original urban-site test | [Test results](test_results.md) | [Protocol](test_protocol.md) |
 | Original rural-site evaluation | [Rural-site results](lw1_results.md) | [Protocol](lw1_protocol.md) |

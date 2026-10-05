@@ -29,5 +29,5 @@ docs/research_note/*.fdb_latexmk
 # V2 incremental checkpoints; final predictions are auditable public study products.
 /results/followup_v2/**/_parts/
 !/results/followup_v2/**/*.parquet
-!/results/shared_learning/**/*.parquet
+!/results/adaptive_learning/**/*.parquet
 /results/followup_v2/**/aerpaw_SYN_blocks5MHz.npz

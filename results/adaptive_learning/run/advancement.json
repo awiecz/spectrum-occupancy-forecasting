@@ -1,0 +1,667 @@
+{
+  "status": "not_qualified",
+  "flagship": "history",
+  "all_results_exploratory": true,
+  "strategies": [
+    {
+      "strategy": "aggregation",
+      "recordings": [
+        {
+          "recording": "CC1_first",
+          "clean_skill_fixed": 0.0,
+          "clean_skill_selected": 0.06419798313349201,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 5,
+          "fold_pass": false,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 1.0566118460086882,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.0252708625968503,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.0,
+              "selected": 0.9450141571910999
+            },
+            "delay_60s": {
+              "fixed": 1.0,
+              "selected": 0.9369948612309771
+            },
+            "delay_7200s": {
+              "fixed": 1.0357163626837396,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 1.0599984167474912,
+              "selected": 1.0000000000000002
+            },
+            "dropout_0.9": {
+              "fixed": 1.039227042749254,
+              "selected": 1.0000000000000002
+            },
+            "dropout_0.99": {
+              "fixed": 0.7495714620257038,
+              "selected": 1.0000000000000002
+            },
+            "outage_3600s": {
+              "fixed": 1.0155395816564894,
+              "selected": 0.9631985207025536
+            },
+            "outage_900s": {
+              "fixed": 1.027249530542967,
+              "selected": 0.9614776973189697
+            }
+          },
+          "robustness_pass": true
+        },
+        {
+          "recording": "LW1_first",
+          "clean_skill_fixed": 0.003025653628526026,
+          "clean_skill_selected": -0.18386039492709116,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.3333333333333333,
+          "fold_count": 3,
+          "fold_pass": false,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 0.9594191243513405,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.1241967452284414,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 0.9907358204491862,
+              "selected": 1.1390613360407416
+            },
+            "delay_60s": {
+              "fixed": 0.9988665122270147,
+              "selected": 1.1745219455437663
+            },
+            "delay_7200s": {
+              "fixed": 1.2468307043604516,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 0.8549213847487246,
+              "selected": 0.9999999999999999
+            },
+            "dropout_0.9": {
+              "fixed": 0.9398968629536315,
+              "selected": 1.0
+            },
+            "dropout_0.99": {
+              "fixed": 0.3976687642629809,
+              "selected": 1.0
+            },
+            "outage_3600s": {
+              "fixed": 0.9547533848274403,
+              "selected": 1.1243574036351507
+            },
+            "outage_900s": {
+              "fixed": 0.9774085628726479,
+              "selected": 1.128754454079721
+            }
+          },
+          "robustness_pass": false
+        },
+        {
+          "recording": "LW1_later",
+          "clean_skill_fixed": 0.0,
+          "clean_skill_selected": 0.018221078807192703,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 1,
+          "fold_pass": true,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 1.046619275854737,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.0496926621477427,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.0,
+              "selected": 0.9948667928150012
+            },
+            "delay_60s": {
+              "fixed": 1.0,
+              "selected": 0.9784434414757391
+            },
+            "delay_7200s": {
+              "fixed": 0.9228911702209288,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 0.9718579211868158,
+              "selected": 0.9884646628728545
+            },
+            "dropout_0.9": {
+              "fixed": 0.6759033914218721,
+              "selected": 0.9990116903178066
+            },
+            "dropout_0.99": {
+              "fixed": 0.18327787670026607,
+              "selected": 0.9994797388135953
+            },
+            "outage_3600s": {
+              "fixed": 0.9589972183899449,
+              "selected": 1.0016694573559095
+            },
+            "outage_900s": {
+              "fixed": 0.9888558662339566,
+              "selected": 0.9888884030060541
+            }
+          },
+          "robustness_pass": true
+        }
+      ],
+      "qualifies": false,
+      "failures_recorded": 0,
+      "minimum_clean_skill": -0.18386039492709116,
+      "mean_clean_skill": -0.06128679830903039
+    },
+    {
+      "strategy": "bias",
+      "recordings": [
+        {
+          "recording": "CC1_first",
+          "clean_skill_fixed": -0.00298545456771504,
+          "clean_skill_selected": 0.06140418872776099,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 5,
+          "fold_pass": false,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 1.0566118460086882,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.0252708625968503,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.003756390781598,
+              "selected": 0.9485639996596523
+            },
+            "delay_60s": {
+              "fixed": 1.0033181104451412,
+              "selected": 0.9401039136670712
+            },
+            "delay_7200s": {
+              "fixed": 1.0357163626837396,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 1.0599984167474912,
+              "selected": 1.0000000000000002
+            },
+            "dropout_0.9": {
+              "fixed": 1.039227042749254,
+              "selected": 1.0000000000000002
+            },
+            "dropout_0.99": {
+              "fixed": 0.7495714620257038,
+              "selected": 1.0000000000000002
+            },
+            "outage_3600s": {
+              "fixed": 1.0174748766110486,
+              "selected": 0.9650340702675585
+            },
+            "outage_900s": {
+              "fixed": 1.0300942404889193,
+              "selected": 0.9641402686680448
+            }
+          },
+          "robustness_pass": true
+        },
+        {
+          "recording": "LW1_first",
+          "clean_skill_fixed": 0.0,
+          "clean_skill_selected": -0.1874532170619998,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 3,
+          "fold_pass": false,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 0.9594191243513405,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.1241967452284414,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.0,
+              "selected": 1.1497124788768682
+            },
+            "delay_60s": {
+              "fixed": 1.0,
+              "selected": 1.1758547625399118
+            },
+            "delay_7200s": {
+              "fixed": 1.2468307043604516,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 0.8549213847487246,
+              "selected": 0.9999999999999999
+            },
+            "dropout_0.9": {
+              "fixed": 0.9398968629536315,
+              "selected": 1.0
+            },
+            "dropout_0.99": {
+              "fixed": 0.3976687642629809,
+              "selected": 1.0
+            },
+            "outage_3600s": {
+              "fixed": 0.9572571460133206,
+              "selected": 1.1273059372261447
+            },
+            "outage_900s": {
+              "fixed": 0.9802281072717175,
+              "selected": 1.1320105881262366
+            }
+          },
+          "robustness_pass": false
+        },
+        {
+          "recording": "LW1_later",
+          "clean_skill_fixed": 0.0,
+          "clean_skill_selected": 0.018221078807192703,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 1,
+          "fold_pass": true,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 1.046619275854737,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.0496926621477427,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.0,
+              "selected": 0.9948667928150012
+            },
+            "delay_60s": {
+              "fixed": 1.0,
+              "selected": 0.9784434414757391
+            },
+            "delay_7200s": {
+              "fixed": 0.9228911702209288,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 0.9718579211868158,
+              "selected": 0.9884646628728545
+            },
+            "dropout_0.9": {
+              "fixed": 0.6759033914218721,
+              "selected": 0.9990116903178066
+            },
+            "dropout_0.99": {
+              "fixed": 0.18327787670026607,
+              "selected": 0.9994797388135953
+            },
+            "outage_3600s": {
+              "fixed": 0.9589972183899449,
+              "selected": 1.0016694573559095
+            },
+            "outage_900s": {
+              "fixed": 0.9888558662339566,
+              "selected": 0.9888884030060541
+            }
+          },
+          "robustness_pass": true
+        }
+      ],
+      "qualifies": false,
+      "failures_recorded": 0,
+      "minimum_clean_skill": -0.1874532170619998,
+      "mean_clean_skill": -0.06347955720990495
+    },
+    {
+      "strategy": "ridge_fine",
+      "recordings": [
+        {
+          "recording": "CC1_first",
+          "clean_skill_fixed": -0.008285458276412694,
+          "clean_skill_selected": 0.0564444345677616,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 5,
+          "fold_pass": false,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 1.0566118460086882,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.0252708625968503,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 0.9913663977487076,
+              "selected": 0.9368552808360717
+            },
+            "delay_60s": {
+              "fixed": 0.9985867377547547,
+              "selected": 0.9356706417696105
+            },
+            "delay_7200s": {
+              "fixed": 1.0357163626837396,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 1.0599984167474912,
+              "selected": 1.0000000000000002
+            },
+            "dropout_0.9": {
+              "fixed": 1.039227042749254,
+              "selected": 1.0000000000000002
+            },
+            "dropout_0.99": {
+              "fixed": 0.7495714620257038,
+              "selected": 1.0000000000000002
+            },
+            "outage_3600s": {
+              "fixed": 1.0165264526205329,
+              "selected": 0.9641345281904554
+            },
+            "outage_900s": {
+              "fixed": 1.0332945235479105,
+              "selected": 0.9671356468063064
+            }
+          },
+          "robustness_pass": true
+        },
+        {
+          "recording": "LW1_first",
+          "clean_skill_fixed": -0.02142919756139694,
+          "clean_skill_selected": -0.2128993866453377,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.3333333333333333,
+          "fold_count": 3,
+          "fold_pass": false,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 0.9594191243513405,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.1241967452284414,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 0.9979422136265219,
+              "selected": 1.1473466162044177
+            },
+            "delay_60s": {
+              "fixed": 1.0149725799108154,
+              "selected": 1.1934603419355536
+            },
+            "delay_7200s": {
+              "fixed": 1.2468307043604516,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 0.8549213847487246,
+              "selected": 0.9999999999999999
+            },
+            "dropout_0.9": {
+              "fixed": 0.9398968629536315,
+              "selected": 1.0
+            },
+            "dropout_0.99": {
+              "fixed": 0.3976687642629809,
+              "selected": 1.0
+            },
+            "outage_3600s": {
+              "fixed": 0.9754496628037115,
+              "selected": 1.1487302037111802
+            },
+            "outage_900s": {
+              "fixed": 0.9980651264771282,
+              "selected": 1.1526095634579434
+            }
+          },
+          "robustness_pass": false
+        },
+        {
+          "recording": "LW1_later",
+          "clean_skill_fixed": -0.10358541728961868,
+          "clean_skill_selected": -0.08347690043071587,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 1,
+          "fold_pass": true,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 1.046619275854737,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.0496926621477427,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.0908290016274866,
+              "selected": 1.0852295503587275
+            },
+            "delay_60s": {
+              "fixed": 1.1354547867365083,
+              "selected": 1.1109782891745705
+            },
+            "delay_7200s": {
+              "fixed": 0.9228911702209288,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 1.0171164864008728,
+              "selected": 1.034496589383049
+            },
+            "dropout_0.9": {
+              "fixed": 0.6757881537514362,
+              "selected": 0.9988413645265892
+            },
+            "dropout_0.99": {
+              "fixed": 0.18326143507134485,
+              "selected": 0.9993900767372133
+            },
+            "outage_3600s": {
+              "fixed": 1.0449861980817245,
+              "selected": 1.0914846653406216
+            },
+            "outage_900s": {
+              "fixed": 1.1006477141450441,
+              "selected": 1.1006839292549075
+            }
+          },
+          "robustness_pass": false
+        }
+      ],
+      "qualifies": false,
+      "failures_recorded": 0,
+      "minimum_clean_skill": -0.2128993866453377,
+      "mean_clean_skill": -0.10825675407045636
+    },
+    {
+      "strategy": "ridge_history",
+      "recordings": [
+        {
+          "recording": "CC1_first",
+          "clean_skill_fixed": -0.009577743078194922,
+          "clean_skill_selected": 0.05523511184388796,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 5,
+          "fold_pass": false,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 1.0566118460086882,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.0252708625968503,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.015003954587838,
+              "selected": 0.9591931066904592
+            },
+            "delay_60s": {
+              "fixed": 1.0085113075618097,
+              "selected": 0.9449699126787491
+            },
+            "delay_7200s": {
+              "fixed": 1.0357163626837396,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 1.0599984167474912,
+              "selected": 1.0000000000000002
+            },
+            "dropout_0.9": {
+              "fixed": 1.039227042749254,
+              "selected": 1.0000000000000002
+            },
+            "dropout_0.99": {
+              "fixed": 0.7495714620257038,
+              "selected": 1.0000000000000002
+            },
+            "outage_3600s": {
+              "fixed": 1.0202189888685458,
+              "selected": 0.9676367505715123
+            },
+            "outage_900s": {
+              "fixed": 1.0374366549826124,
+              "selected": 0.9710125694773973
+            }
+          },
+          "robustness_pass": true
+        },
+        {
+          "recording": "LW1_first",
+          "clean_skill_fixed": -0.023001132466071716,
+          "clean_skill_selected": -0.2147659858049058,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 3,
+          "fold_pass": false,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 0.9594191243513405,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.1241967452284414,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.013193064383646,
+              "selected": 1.164880709633372
+            },
+            "delay_60s": {
+              "fixed": 1.0171125899092677,
+              "selected": 1.1959766828841167
+            },
+            "delay_7200s": {
+              "fixed": 1.2468307043604516,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 0.8549213847487246,
+              "selected": 0.9999999999999999
+            },
+            "dropout_0.9": {
+              "fixed": 0.9398968629536315,
+              "selected": 1.0
+            },
+            "dropout_0.99": {
+              "fixed": 0.3976687642629809,
+              "selected": 1.0
+            },
+            "outage_3600s": {
+              "fixed": 0.9692043841703382,
+              "selected": 1.141375503135317
+            },
+            "outage_900s": {
+              "fixed": 1.0049565880497557,
+              "selected": 1.160568126786221
+            }
+          },
+          "robustness_pass": false
+        },
+        {
+          "recording": "LW1_later",
+          "clean_skill_fixed": 0.0,
+          "clean_skill_selected": 0.018221078807192703,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 1,
+          "fold_pass": true,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 1.046619275854737,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.0496926621477427,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.0,
+              "selected": 0.9948667928150012
+            },
+            "delay_60s": {
+              "fixed": 1.0,
+              "selected": 0.9784434414757391
+            },
+            "delay_7200s": {
+              "fixed": 0.9228911702209288,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 0.9718579211868158,
+              "selected": 0.9884646628728545
+            },
+            "dropout_0.9": {
+              "fixed": 0.6759033914218721,
+              "selected": 0.9990116903178066
+            },
+            "dropout_0.99": {
+              "fixed": 0.18327787670026607,
+              "selected": 0.9994797388135953
+            },
+            "outage_3600s": {
+              "fixed": 0.9589972183899449,
+              "selected": 1.0016694573559095
+            },
+            "outage_900s": {
+              "fixed": 0.9888558662339566,
+              "selected": 0.9888884030060541
+            }
+          },
+          "robustness_pass": true
+        }
+      ],
+      "qualifies": false,
+      "failures_recorded": 0,
+      "minimum_clean_skill": -0.2147659858049058,
+      "mean_clean_skill": -0.07478124296103357
+    }
+  ]
+}

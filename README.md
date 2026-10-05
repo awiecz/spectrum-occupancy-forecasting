@@ -50,9 +50,10 @@ patterns and sensitivity through six figure groups and reproducible statistics.
 **Simple history is a strong baseline.** Trained models did not establish a reliable advantage.
 Missing and delayed inputs reduce useful evidence; these disruptions are simulated.
 
-A further [study of finer inputs and shared training](docs/shared_learning.md) also failed to
-beat history reliably. Its frozen later-session rural assessment showed substantial underprediction,
-reinforcing the limits of transferring a learned correction between short recordings.
+A [study of local adaptation](docs/adaptive_learning.md) tests whether completed measurements
+can improve later forecasts. It tested 145 settings for correcting bias, combining history
+forecasts and learning from history and power. None achieved robust 5% gains over both history references on all three
+inspected recordings. **History remains the recommended method.**
 
 A learned mixture reduced mean squared error by **1.35% urban and 6.80% rural** against
 history selected using earlier validation. A fixed two-hour average still had lower error
@@ -64,7 +65,7 @@ advancement requirement. These are relative error reductions, not percentage-poi
 *Saved evaluation predictions for future 15-minute windows. The learned method was chosen during
 exploratory development; the comparison does not demonstrate superiority on unseen recordings.*
 
-The short recordings were repeatedly inspected. Conclusions concern these data and this channel;
+The short recordings, including a later rural session, were repeatedly inspected. Conclusions concern these data and this channel;
 an unused third site remains reserved for separate future confirmation.
 
 ## Explore or reproduce
