@@ -61,6 +61,14 @@ It preserves the historical protocols, locks and results. The [CC2 protocol](doc
 is prepared privately; confirmation remains blocked until the frozen package has an independently
 verified timestamp. CC2 has not been inspected. See [v2 commands and archive gating](docs/followup_v2_reproduction.md).
 
+The [exploratory development report](docs/forecast_development.md) consolidates the subsequent
+search and unsuccessful outcomes. The best balanced history mixture reduces clean MSE by
+1.35% on CC1 and 6.80% on LW1 against selected history on common eligible folds, and passes
+the declared degradation checks. It misses the 5%-on-each-node advancement rule. Its choice
+is retrospective, and the short, reused recordings do not establish learned superiority.
+[Reviewed mixture outputs and the experiment ledger](results/followup_v2/history_mixture/)
+retain all three declared training regimes. CC2 confirmation remains pending.
+
 ## Historical experimental design
 
 Each AERPAW sweep supplies a band-mean power snapshot (averaged in linear power). A sweep is labeled

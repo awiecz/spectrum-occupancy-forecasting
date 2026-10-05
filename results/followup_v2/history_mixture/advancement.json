@@ -1,0 +1,975 @@
+{
+  "interpretation": "exploratory reuse; not an independent superiority test",
+  "advances": false,
+  "chosen_strategy": null,
+  "strategies": [
+    {
+      "strategy_id": "36h_mixture_expanding",
+      "validation_hours": 36,
+      "training_regime": "mixture_expanding",
+      "qualifies": false,
+      "criteria": [
+        {
+          "node": "CC1",
+          "criterion": "common_eligible_folds",
+          "value": 4,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "failed_common_folds",
+          "value": [],
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "identical_common_origins",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "clean_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "clean_skill",
+          "value": 0.013491492793652471,
+          "passed": false
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.5_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.5_mse_ratio",
+          "value": 0.9947909508672711,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.9_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.9_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.99_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.99_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "outage_900s_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "outage_900s_mse_ratio",
+          "value": 0.9901437795273494,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "outage_3600s_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "outage_3600s_mse_ratio",
+          "value": 0.9926476882353874,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_60s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_60s_mse_ratio",
+          "value": 0.9873421675475803,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_600s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_600s_mse_ratio",
+          "value": 0.9884552464177966,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_1800s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_1800s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_3600s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_3600s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_7200s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_7200s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "positive_fold_fraction",
+          "value": 0.75,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "common_eligible_folds",
+          "value": 2,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "failed_common_folds",
+          "value": [],
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "identical_common_origins",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "clean_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "clean_skill",
+          "value": 0.06803548670865034,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.5_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.5_mse_ratio",
+          "value": 0.9588451639743749,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.9_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.9_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.99_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.99_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "outage_900s_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "outage_900s_mse_ratio",
+          "value": 0.9409934717472939,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "outage_3600s_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "outage_3600s_mse_ratio",
+          "value": 0.9435180479369248,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_60s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_60s_mse_ratio",
+          "value": 0.9471436386843485,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_600s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_600s_mse_ratio",
+          "value": 0.9301983897531821,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_1800s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_1800s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_3600s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_3600s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_7200s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_7200s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "positive_fold_fraction",
+          "value": 1.0,
+          "passed": true
+        }
+      ],
+      "minimum_node_clean_skill": 0.013491492793652471,
+      "mean_node_clean_skill": 0.040763489751151405
+    },
+    {
+      "strategy_id": "36h_mixture_6h",
+      "validation_hours": 36,
+      "training_regime": "mixture_6h",
+      "qualifies": false,
+      "criteria": [
+        {
+          "node": "CC1",
+          "criterion": "common_eligible_folds",
+          "value": 4,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "failed_common_folds",
+          "value": [],
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "identical_common_origins",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "clean_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "clean_skill",
+          "value": 0.003756738902766732,
+          "passed": false
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.5_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.5_mse_ratio",
+          "value": 0.9989791451972939,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.9_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.9_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.99_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.99_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "outage_900s_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "outage_900s_mse_ratio",
+          "value": 0.9981905136743638,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "outage_3600s_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "outage_3600s_mse_ratio",
+          "value": 0.9984928081270811,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_60s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_60s_mse_ratio",
+          "value": 0.996126011048965,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_600s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_600s_mse_ratio",
+          "value": 0.9958809113612251,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_1800s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_1800s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_3600s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_3600s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_7200s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_7200s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "positive_fold_fraction",
+          "value": 0.25,
+          "passed": false
+        },
+        {
+          "node": "LW1",
+          "criterion": "common_eligible_folds",
+          "value": 2,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "failed_common_folds",
+          "value": [],
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "identical_common_origins",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "clean_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "clean_skill",
+          "value": 0.065785276866839,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.5_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.5_mse_ratio",
+          "value": 0.9649990790074747,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.9_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.9_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.99_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.99_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "outage_900s_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "outage_900s_mse_ratio",
+          "value": 0.9451317883862158,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "outage_3600s_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "outage_3600s_mse_ratio",
+          "value": 0.9469034947602535,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_60s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_60s_mse_ratio",
+          "value": 0.9479314853615387,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_600s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_600s_mse_ratio",
+          "value": 0.9316595099647368,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_1800s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_1800s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_3600s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_3600s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_7200s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_7200s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "positive_fold_fraction",
+          "value": 1.0,
+          "passed": true
+        }
+      ],
+      "minimum_node_clean_skill": 0.003756738902766732,
+      "mean_node_clean_skill": 0.03477100788480286
+    },
+    {
+      "strategy_id": "36h_mixture_24h",
+      "validation_hours": 36,
+      "training_regime": "mixture_24h",
+      "qualifies": false,
+      "criteria": [
+        {
+          "node": "CC1",
+          "criterion": "common_eligible_folds",
+          "value": 4,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "failed_common_folds",
+          "value": [],
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "identical_common_origins",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "clean_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "clean_skill",
+          "value": 0.013099937577921383,
+          "passed": false
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.5_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.5_mse_ratio",
+          "value": 0.9951268918070598,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.9_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.9_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.99_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "dropout_0.99_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "outage_900s_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "outage_900s_mse_ratio",
+          "value": 0.9916147952332638,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "outage_3600s_paired_complete",
+          "value": 1755,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "outage_3600s_mse_ratio",
+          "value": 0.9940341922583431,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_60s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_60s_mse_ratio",
+          "value": 0.9876713496935982,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_600s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_600s_mse_ratio",
+          "value": 0.9890291939576401,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_1800s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_1800s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_3600s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_3600s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_7200s_paired_complete",
+          "value": 351,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "delay_7200s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "CC1",
+          "criterion": "positive_fold_fraction",
+          "value": 0.75,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "common_eligible_folds",
+          "value": 2,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "failed_common_folds",
+          "value": [],
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "identical_common_origins",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "clean_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "clean_skill",
+          "value": 0.06529225238824876,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.5_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.5_mse_ratio",
+          "value": 0.9622267150447499,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.9_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.9_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.99_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "dropout_0.99_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "outage_900s_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "outage_900s_mse_ratio",
+          "value": 0.9439699570044937,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "outage_3600s_paired_complete",
+          "value": 755,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "outage_3600s_mse_ratio",
+          "value": 0.9457264398426392,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_60s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_60s_mse_ratio",
+          "value": 0.9488095269732186,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_600s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_600s_mse_ratio",
+          "value": 0.9319693970782892,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_1800s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_1800s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_3600s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_3600s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_7200s_paired_complete",
+          "value": 151,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "delay_7200s_mse_ratio",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "node": "LW1",
+          "criterion": "positive_fold_fraction",
+          "value": 1.0,
+          "passed": true
+        }
+      ],
+      "minimum_node_clean_skill": 0.013099937577921383,
+      "mean_node_clean_skill": 0.03919609498308507
+    }
+  ],
+  "secondary_status": "not_run_no_strategy_qualified",
+  "confirmation_design": "retain_canonical_v2"
+}

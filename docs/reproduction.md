@@ -1,5 +1,7 @@
 # Reproducing the study
 
+For canonical v2 and the retained mixture, use the [follow-up reproduction guide](followup_v2_reproduction.md).
+
 Run commands from the repository root. Use `uv sync --locked` first; CI tests Python 3.11 and 3.12.
 A download-free workflow demonstration is available with `uv run python scripts/run_synthetic_demo.py`.
 Synthetic outputs are labeled and cannot be used as evidence for the real-data study.

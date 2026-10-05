@@ -1,0 +1,108 @@
+version: 2
+target_mhz: 2437.0
+channels_mhz:
+- 2412.0
+- 2437.0
+- 2462.0
+timezone: America/New_York
+window_s: 900
+primary_lead_s: 900
+leads_s:
+- 0
+- 900
+- 1800
+- 3600
+- 7200
+offsets_db:
+- 2
+- 3
+- 4
+- 6
+primary_offset_db: 3
+calibration_s: 86400
+first_eval_s: 172800
+fold_s: 86400
+minimum_partial_fold_s: 43200
+minimum_coverage: 0.8
+training_stride_s: 180
+validation_block_s: 21600
+validation_blocks: 2
+history_windows_s:
+- 300
+- 900
+- 1800
+- 7200
+decay_taus_s:
+- 300
+- 900
+- 1800
+- 7200
+decay_support_taus: 5
+feature_tau_s: 900
+mask_seeds:
+- 1
+- 2
+- 3
+- 4
+- 5
+augmentation_seeds:
+- 10
+- 11
+- 12
+- 13
+- 14
+bootstrap_seed: 0
+bootstrap_resamples: 2000
+bootstrap_blocks_s:
+- 7200
+- 14400
+- 28800
+- 43200
+main_bootstrap_block_s: 28800
+minimum_interval_blocks: 4
+weak_evidence_blocks: 10
+event_cutoff: 0.2
+false_busy_budgets:
+- 0.1
+- 0.2
+minimum_validation_events: 10
+minimum_validation_nonevents: 20
+dropout_probabilities:
+- 0.5
+- 0.9
+- 0.99
+outage_lengths_s:
+- 900
+- 3600
+outage_fraction: 0.25
+delays_s:
+- 60
+- 600
+- 1800
+- 3600
+- 7200
+study: history-mixture
+validation_hours:
+- 36
+training_regimes:
+- mixture_expanding
+- mixture_6h
+- mixture_24h
+correction_strengths:
+- 0.25
+- 0.5
+- 1.0
+correction_cap: 0.1
+maximum_correction_age_s: 900
+minimum_predictor_coverage: 0.5
+advancement_minimum_skill: 0.05
+advancement_minimum_folds: 2
+advancement_positive_fold_fraction: 0.5
+advancement_maximum_degraded_mse_ratio: 1.1
+reference_results: results/followup_v2/exploratory
+confirmation_strategy: null
+mixture_penalties:
+- 0
+- 0.001
+- 0.01
+- 0.1

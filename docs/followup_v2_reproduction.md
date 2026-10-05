@@ -25,6 +25,34 @@ Synthetic rehearsal runs the primary task and input degradations; synthetic scor
 research evidence. Report mode verifies saved input checksums and regenerates tables/figures
 without RF access or refitting, recording the report-builder fingerprint in the manifest.
 
+## Retained history mixture
+
+`configs/history_mixture.yaml` preserves the declared three-regime experiment. All real-data
+results remain exploratory reuse. The [development report](forecast_development.md) explains
+retrospective selection, failed advancement and the complete experiment ledger.
+
+```powershell
+uv run python scripts/run_history_mixture.py --mode synthetic-rehearsal --out reproductions/mixture_rehearsal_new
+uv run python scripts/run_history_mixture.py --mode exploratory --out reproductions/mixture_new
+uv run python scripts/run_history_mixture.py --mode report --out reproductions/mixture_new
+```
+
+The input overrides are the same `--cc1-npz` and `--lw1-npz` arguments. The optional
+`--study history-mixture` must agree with the configuration; no other study or confirmation
+mode is accepted. Outputs must be fresh and live under `reproductions/` inside this checkout.
+The reviewed result set is `results/followup_v2/history_mixture/`; avoid rebuilding it in place.
+To regenerate its reports without fitting, first make a fresh local copy:
+
+```powershell
+if (Test-Path -LiteralPath reproductions/mixture_report_new) { throw "Choose a new output directory" }
+Copy-Item -LiteralPath results/followup_v2/history_mixture -Destination reproductions/mixture_report_new -Recurse
+uv run python scripts/run_history_mixture.py --mode report --out reproductions/mixture_report_new
+```
+
+Report mode preserves fitting provenance and appends report-builder provenance to the local
+copy. The original predictions and selections stay unchanged. The public ledger identifies
+archived methods; the cleaned runner reproduces only the retained mixture experiment.
+
 ## Saved artifacts
 
 | File | Purpose |
@@ -44,7 +72,10 @@ selection diagnostics, not independent generalization estimates.
 
 ## Freeze and gate CC2
 
-After reviewing exploratory results, create a local private package:
+Confirmation remains pending; this finishing pass does not create or upload a package.
+Source consolidation changes the current fingerprint, so earlier local packages no longer
+match this checkout. If confirmation is resumed later, create and independently archive a
+**fresh** package before any CC2 access:
 
 ```powershell
 uv run python scripts/freeze_followup.py --out reproductions/followup_v2_freeze.zip

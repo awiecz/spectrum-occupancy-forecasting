@@ -63,8 +63,8 @@ def artifact_hashes(out):
         for p in out.rglob("*")
         if p.is_file()
         and "_parts" not in p.parts
-        and p.name != "manifest.json"
-        and p.suffix != ".npz"
+        and (p.name != "manifest.json")
+        and (p.suffix != ".npz")
     }
 
 
@@ -114,7 +114,7 @@ def legacy_lw1_sensitivity(path, stored, out):
     from spectrum_occupancy_forecasting.experiments import window_forecast as wf
 
     raw = band_table_from_blocks(path, wf.CHANNELS, session=0)
-    t0, last = raw["t_start_s"].min(), raw["t_start_s"].max()
+    t0, last = (raw["t_start_s"].min(), raw["t_start_s"].max())
     definitions = [(t0 + k * wf.DAY, min(t0 + (k + 1) * wf.DAY, last)) for k in (2, 3, 4)]
     evaluated = [
         wf.run_fold(raw, 900.0, 3.0, lo, hi, False)
@@ -122,7 +122,7 @@ def legacy_lw1_sensitivity(path, stored, out):
         if hi - lo >= 0.5 * wf.DAY
     ]
     reference = json.loads(Path(stored).read_text())["windows"]["900s"]["clean"]
-    rows, worst = [], 0.0
+    rows, worst = ([], 0.0)
     for name in evaluated[0]["preds"]["clean"]:
         yy = np.concatenate([f["y"] for f in evaluated])
         pp = np.concatenate([f["preds"]["clean"][name] for f in evaluated])
@@ -148,7 +148,7 @@ def legacy_lw1_sensitivity(path, stored, out):
                     "interpretation": "retrospective legacy sensitivity; not fresh confirmation",
                 }
             )
-    if worst > 1e-6:
+    if worst > 1e-06:
         raise ValueError(f"legacy LW1 pooled results differ from stored metrics: {worst}")
     pd.DataFrame(rows).to_csv(out / "legacy_lw1_overlap.csv", index=False)
     return {"max_pooled_rmse_difference": worst, "status": "matched_historical_metrics"}
@@ -162,6 +162,7 @@ def main():
         default="exploratory",
     )
     ap.add_argument("--config", type=Path, default=ROOT / "configs/followup_v2.yaml")
+    ap.add_argument("--study", choices=["followup-v2"], default="followup-v2")
     ap.add_argument("--out", type=Path)
     ap.add_argument(
         "--cc1-npz", type=Path, default=ROOT / "data/processed/aerpaw_CC1_blocks5MHz.npz"
@@ -177,6 +178,8 @@ def main():
     ap.add_argument("--verify-gate-only", action="store_true")
     a = ap.parse_args()
     cfg = load_config(a.config)
+    if cfg.get("study", "followup-v2") != a.study:
+        ap.error("--study must match the configuration's study; routing is frozen")
     gate = None
     if a.mode == "confirmation" or a.verify_gate_only:
         if not a.archive_url:
@@ -195,6 +198,9 @@ def main():
     if a.mode == "report":
         if a.out is None:
             ap.error("report mode requires --out pointing to an existing v2 run")
+        saved_study = load_config(a.out / "config.yaml").get("study", "followup-v2")
+        if saved_study != a.study:
+            ap.error("--study must match the saved report configuration")
         with threadpool_limits(limits=1):
             rebuild(a.out.resolve())
         manifest_path = a.out.resolve() / "manifest.json"
@@ -222,10 +228,11 @@ def main():
         ap.error("CC2 is accepted only in gated confirmation mode")
     name = f"{a.mode}_{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}"
     out = (a.out or ROOT / "results/followup_v2" / name).resolve()
-    # Do not allow an output path to overwrite or mingle with historical study artifacts.
-    if out.is_relative_to(ROOT) and not (
-        out.is_relative_to(ROOT / "results/followup_v2")
-        or out.is_relative_to(ROOT / "reproductions")
+    if out.is_relative_to(ROOT) and (
+        not (
+            out.is_relative_to(ROOT / "results/followup_v2")
+            or out.is_relative_to(ROOT / "reproductions")
+        )
     ):
         ap.error("inside this repository, outputs must be in results/followup_v2 or reproductions")
     out.mkdir(parents=True, exist_ok=False)
@@ -256,6 +263,7 @@ def main():
     )
     manifest = {
         "version": 2,
+        "study": a.study,
         "mode": a.mode,
         "status": "started",
         "started": timestamp(),
@@ -274,9 +282,7 @@ def main():
     try:
         if a.mode == "confirmation":
             manifest["raw_archive_verification"] = verify_raw_archive(
-                a.cc2_raw_archive,
-                a.cc2_expected_sha256,
-                a.cc2_checksum_source,
+                a.cc2_raw_archive, a.cc2_expected_sha256, a.cc2_checksum_source
             )
             write_json(out / "manifest.json", manifest)
             if not manifest["raw_archive_verification"]["verified"]:
@@ -289,11 +295,14 @@ def main():
                     raise ValueError(f"input filename must identify the expected {node} node")
                 manifest["inputs"][node] = {"file": path.name, "sha256": sha256_file(path)}
                 raw = band_table_from_blocks(path, cfg["channels_mhz"], site=node, session=0)
-                result = run_node(
+                runner = run_node
+                extra = {}
+                result = runner(
                     raw,
                     cfg,
                     out / "_parts",
                     task_names=["primary"] if a.mode == "synthetic-rehearsal" else None,
+                    **extra,
                 )
                 manifest["node_results"][node] = node_manifest(result)
                 records.extend(result["folds"])
@@ -304,9 +313,8 @@ def main():
             if not forecasts:
                 manifest["status"] = "no_eligible_evaluation_targets"
             else:
-                pd.concat([pd.read_parquet(p) for p in forecasts], ignore_index=True).to_parquet(
-                    out / "predictions.parquet", index=False
-                )
+                predictions = pd.concat([pd.read_parquet(p) for p in forecasts], ignore_index=True)
+                predictions.to_parquet(out / "predictions.parquet", index=False)
                 pd.concat([pd.read_parquet(p) for p in validations], ignore_index=True).to_parquet(
                     out / "validation_predictions.parquet", index=False
                 )

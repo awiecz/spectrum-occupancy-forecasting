@@ -9,6 +9,8 @@ exploratory findings and validation record.
 - [Results](followup_v2_results.md): lead times, fair model selection, label/feature sensitivity,
   degraded evidence and uncertainty.
 - [Reproduction](followup_v2_reproduction.md): commands, artifacts and archival gate.
+- [Forecast development](forecast_development.md): the reviewed history mixture, compact experiment
+  ledger, unsuccessful outcomes and limits of the adaptive exploratory search.
 - [CC2 protocol](followup_v2_protocol.md): prepared privately; confirmation awaits independent timestamping.
 - [Saved outputs](../results/followup_v2/exploratory/): one canonical result set, including predictions,
   selections, provenance, summary tables and figures.
@@ -45,5 +47,6 @@ V2 uses earlier validation thresholds and a separate independent-archive require
 
 `src/` contains the library; `scripts/` provides experiment and plotting commands; `configs/`
 contains the original and follow-up specifications; `tests/` uses synthetic data. `results/`
-contains the original study and one v2 result set. Raw recordings and local reproductions
+contains the original study, the canonical v2 reference and one reviewed history-mixture result set.
+Raw recordings and local reproductions
 are ignored by Git. New experiments cannot overwrite existing run directories.

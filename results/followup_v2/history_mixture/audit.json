@@ -1,0 +1,20 @@
+{
+  "tests": "157 passed; final full suite",
+  "lint": "passed",
+  "prediction_rows": 315270,
+  "validation_rows": 41472,
+  "fold_records": 24,
+  "recomputed_metric_groups": 330,
+  "advancement_reproduced": true,
+  "same_history_across_designs": true,
+  "fallback_exact": true,
+  "bounds_passed": true,
+  "prior_artifacts_unchanged": {
+    "results/followup_v2/exploratory": 34,
+    "results/followup_v2/challenger": 24
+  },
+  "CC2_accessed": false,
+  "figures_visually_reviewed": true,
+  "original_tracked_results_unchanged": true,
+  "cross_study_histories_identical": true
+}

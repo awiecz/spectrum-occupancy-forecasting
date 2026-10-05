@@ -132,15 +132,10 @@ delayed evidence and contiguous outages (mean of 5 masks, bars = SD).}
 
 \section*{6\quad Open questions}
 \begin{enumerate}
-\item \textbf{Occupancy semantics.} Is a noise-floor-relative detection threshold the right definition, or should
-occupancy be defined against calibrated, regulatory-style thresholds? A 1~dB floor difference reshapes the busy
-label, so cross-site comparability needs calibrated data.
-\item \textbf{Forecast interface.} Should a downstream controller consume a busy-fraction forecast with
-uncertainty, or the raw age-aware evidence (value, age, availability mask) so that staleness stays explicit?
-\item \textbf{Non-stationarity.} Since the best memory length is unstable, would adaptive or change-point methods,
-or uncertainty-aware abstention under distribution shift, do better?
-\item \textbf{Native sparsity and multiple sites.} Do datasets with natively irregular or budget-limited sampling
-and several co-located sensors show the same evidence-ageing behaviour as the simulated gaps used here?
+\item \textbf{Occupancy semantics.} How would calibrated detection thresholds change labels and cross-site comparability?
+\item \textbf{Forecast interface.} Should controllers consume forecasts with uncertainty, or explicitly age-aware observations?
+\item \textbf{Non-stationarity.} Can adaptive memory, change-point methods or abstention handle shifting activity?
+\item \textbf{Native sparsity and multiple sites.} Do irregular real sampling and additional sites reproduce these findings?
 \end{enumerate}
 
 \textbf{V2 exploratory follow-up.} A separate study predicts 15-min fractions starting 15~min ahead,
@@ -151,7 +146,14 @@ is insufficient in seven of eight folds; the one calibrated strategy misses all 
 windows. Lead, label, feature and degradation analyses are in \texttt{docs/followup\_v2\_results.md}.
 CC2 remains uninspected, pending independent timestamping of its frozen protocol.
 
+\textbf{Exploratory method development.} Subsequent adaptive reuse tested bounded corrections and
+history mixtures. The best balanced expanding mixture lowers MSE by 1.35\,\% / 6.80\,\% against
+selected history on common eligible CC1/LW1 folds and passes the declared degradation checks.
+It misses the 5\,\%-on-each-node advancement rule; its retrospective selection and short reused
+recordings do not establish learned superiority. All three mixture regimes and a ledger of
+unsuccessful experiments are reported in \texttt{docs/forecast\_development.md}.
+
 \textbf{Reproducibility.} Commands: \texttt{docs/reproduction.md} and
-\texttt{docs/followup\_v2\_reproduction.md}. Original protocols, locks and numerical results are
-preserved; they do not independently establish registration chronology. Data are not redistributed.
+\texttt{docs/followup\_v2\_reproduction.md}. Historical protocols and results are preserved;
+their dates are not independently registered. Raw data are not redistributed.
 \end{document}

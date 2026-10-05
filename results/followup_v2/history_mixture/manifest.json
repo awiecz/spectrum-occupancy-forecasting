@@ -1,0 +1,1155 @@
+{
+  "study": "history-mixture",
+  "mode": "exploratory",
+  "status": "completed",
+  "started": "2026-10-04T22:58:34.524093+00:00",
+  "git": {
+    "commit": "8e24f4d088977c61aeca91add7e2cf970b38be9a",
+    "dirty": true
+  },
+  "source_fingerprint": "320ab0297b48aca8dc8d879ddbba97e8e6f15b5612fa02c48b02ce66c9295f24",
+  "config_sha256": "e157d52bbd9078e407673660f0f475b61baa78b944aa4c01956c35791f63ecf0",
+  "inputs": {
+    "CC1": {
+      "file": "aerpaw_CC1_blocks5MHz.npz",
+      "sha256": "176d02097633a4c6c0917bef1a7578de26c5cb79ceac6f6826451730fc04d08b"
+    },
+    "LW1": {
+      "file": "aerpaw_LW1_blocks5MHz.npz",
+      "sha256": "b6f7f788c6a87da13f6b98ac113358b7b77d00c4552119f06f59c4d425d9fef3"
+    }
+  },
+  "node_results": {
+    "CC1_mixture_expanding": {
+      "calibrations": [
+        {
+          "node": "CC1",
+          "offset_db": 3,
+          "noise_floors_dbm": {
+            "2412.0": -133.10095551339901,
+            "2437.0": -133.07854909706685,
+            "2462.0": -132.75985181635602
+          },
+          "nominal_interval_s": 19.0,
+          "calibration_end_s": 1644429034.0
+        }
+      ],
+      "folds": [
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 0,
+          "strategy_id": "36h_mixture_expanding",
+          "validation_hours": 36,
+          "training_regime": "mixture_expanding",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "insufficient_earlier_data",
+          "common_fold": false,
+          "evaluation_start_s": 1644515434.0,
+          "evaluation_end_s": 1644601834.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": null,
+            "training_prior": 0.21877949864770702,
+            "half_life_s": null,
+            "optimization": null
+          }
+        },
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 1,
+          "strategy_id": "36h_mixture_expanding",
+          "validation_hours": 36,
+          "training_regime": "mixture_expanding",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644601834.0,
+          "evaluation_end_s": 1644688234.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": null,
+            "training_prior": 0.21663882440790425,
+            "half_life_s": null,
+            "optimization": null
+          }
+        },
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 2,
+          "strategy_id": "36h_mixture_expanding",
+          "validation_hours": 36,
+          "training_regime": "mixture_expanding",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644688234.0,
+          "evaluation_end_s": 1644774634.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              5.773538642026091e-20,
+              4.914162554144628e-19,
+              0.0,
+              0.13649183268159265,
+              0.0,
+              0.0,
+              0.6803698594909876,
+              0.18313830782741986
+            ],
+            "training_prior": 0.20520794642347057,
+            "half_life_s": null,
+            "optimization": {
+              "objective": 0.012622177308802999,
+              "iterations": 12
+            }
+          }
+        },
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 3,
+          "strategy_id": "36h_mixture_expanding",
+          "validation_hours": 36,
+          "training_regime": "mixture_expanding",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644774634.0,
+          "evaluation_end_s": 1644861034.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              5.2830629567620396e-18,
+              0.0,
+              1.1669611373424744e-17,
+              0.15784283880822483,
+              0.0,
+              5.0104658393670595e-17,
+              0.6475272887257544,
+              0.19462987246602081
+            ],
+            "training_prior": 0.18079546361344512,
+            "half_life_s": null,
+            "optimization": {
+              "objective": 0.010588616201796405,
+              "iterations": 43
+            }
+          }
+        },
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 4,
+          "strategy_id": "36h_mixture_expanding",
+          "validation_hours": 36,
+          "training_regime": "mixture_expanding",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644861034.0,
+          "evaluation_end_s": 1644947424.0,
+          "status": "completed",
+          "n_evaluation": 87,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              0.003997751165265645,
+              0.002577476303335493,
+              0.0021745846884117714,
+              2.6828193883289337e-19,
+              0.003251963071942084,
+              0.001623462325332181,
+              0.0,
+              0.9863747624457129
+            ],
+            "training_prior": 0.16303969740199006,
+            "half_life_s": null,
+            "optimization": {
+              "objective": 0.009977506798932457,
+              "iterations": 5
+            }
+          }
+        }
+      ],
+      "status": "completed"
+    },
+    "CC1_mixture_6h": {
+      "calibrations": [
+        {
+          "node": "CC1",
+          "offset_db": 3,
+          "noise_floors_dbm": {
+            "2412.0": -133.10095551339901,
+            "2437.0": -133.07854909706685,
+            "2462.0": -132.75985181635602
+          },
+          "nominal_interval_s": 19.0,
+          "calibration_end_s": 1644429034.0
+        }
+      ],
+      "folds": [
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 0,
+          "strategy_id": "36h_mixture_6h",
+          "validation_hours": 36,
+          "training_regime": "mixture_6h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "insufficient_earlier_data",
+          "common_fold": false,
+          "evaluation_start_s": 1644515434.0,
+          "evaluation_end_s": 1644601834.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": null,
+            "training_prior": 0.21877949864770702,
+            "half_life_s": 21600,
+            "optimization": null
+          }
+        },
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 1,
+          "strategy_id": "36h_mixture_6h",
+          "validation_hours": 36,
+          "training_regime": "mixture_6h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644601834.0,
+          "evaluation_end_s": 1644688234.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": null,
+            "training_prior": 0.21663882440790425,
+            "half_life_s": 21600,
+            "optimization": null
+          }
+        },
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 2,
+          "strategy_id": "36h_mixture_6h",
+          "validation_hours": 36,
+          "training_regime": "mixture_6h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644688234.0,
+          "evaluation_end_s": 1644774634.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": null,
+            "training_prior": 0.20520794642347057,
+            "half_life_s": 21600,
+            "optimization": null
+          }
+        },
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 3,
+          "strategy_id": "36h_mixture_6h",
+          "validation_hours": 36,
+          "training_regime": "mixture_6h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644774634.0,
+          "evaluation_end_s": 1644861034.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              4.628666624089991e-19,
+              0.06916101462201785,
+              4.2846793204204025e-18,
+              0.5782260725372929,
+              0.0,
+              1.1316224584487983e-18,
+              0.2663561990756218,
+              0.08625671376506751
+            ],
+            "training_prior": 0.18079546361344512,
+            "half_life_s": 21600,
+            "optimization": {
+              "objective": 0.0031448227782458096,
+              "iterations": 57
+            }
+          }
+        },
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 4,
+          "strategy_id": "36h_mixture_6h",
+          "validation_hours": 36,
+          "training_regime": "mixture_6h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644861034.0,
+          "evaluation_end_s": 1644947424.0,
+          "status": "completed",
+          "n_evaluation": 87,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "training_prior": 0.16303969740199006,
+            "half_life_s": 21600,
+            "optimization": {
+              "objective": 0.0022905158896554738,
+              "iterations": 1
+            }
+          }
+        }
+      ],
+      "status": "completed"
+    },
+    "CC1_mixture_24h": {
+      "calibrations": [
+        {
+          "node": "CC1",
+          "offset_db": 3,
+          "noise_floors_dbm": {
+            "2412.0": -133.10095551339901,
+            "2437.0": -133.07854909706685,
+            "2462.0": -132.75985181635602
+          },
+          "nominal_interval_s": 19.0,
+          "calibration_end_s": 1644429034.0
+        }
+      ],
+      "folds": [
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 0,
+          "strategy_id": "36h_mixture_24h",
+          "validation_hours": 36,
+          "training_regime": "mixture_24h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "insufficient_earlier_data",
+          "common_fold": false,
+          "evaluation_start_s": 1644515434.0,
+          "evaluation_end_s": 1644601834.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": null,
+            "training_prior": 0.21877949864770702,
+            "half_life_s": 86400,
+            "optimization": null
+          }
+        },
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 1,
+          "strategy_id": "36h_mixture_24h",
+          "validation_hours": 36,
+          "training_regime": "mixture_24h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644601834.0,
+          "evaluation_end_s": 1644688234.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": null,
+            "training_prior": 0.21663882440790425,
+            "half_life_s": 86400,
+            "optimization": null
+          }
+        },
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 2,
+          "strategy_id": "36h_mixture_24h",
+          "validation_hours": 36,
+          "training_regime": "mixture_24h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644688234.0,
+          "evaluation_end_s": 1644774634.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              0.0,
+              1.245339574637032e-19,
+              0.0,
+              0.0686592796403751,
+              0.0,
+              8.712071081563061e-21,
+              0.8899826579378961,
+              0.041358062421728785
+            ],
+            "training_prior": 0.20520794642347057,
+            "half_life_s": 86400,
+            "optimization": {
+              "objective": 0.008236315678191665,
+              "iterations": 11
+            }
+          }
+        },
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 3,
+          "strategy_id": "36h_mixture_24h",
+          "validation_hours": 36,
+          "training_regime": "mixture_24h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644774634.0,
+          "evaluation_end_s": 1644861034.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              0.0,
+              8.446980760137933e-19,
+              3.9154140790200477e-17,
+              0.35540835391415004,
+              2.1445318150967484e-17,
+              0.0,
+              0.583910312379913,
+              0.0606813337059369
+            ],
+            "training_prior": 0.18079546361344512,
+            "half_life_s": 86400,
+            "optimization": {
+              "objective": 0.005623633809829828,
+              "iterations": 54
+            }
+          }
+        },
+        {
+          "node": "CC1",
+          "task": "primary",
+          "fold": 4,
+          "strategy_id": "36h_mixture_24h",
+          "validation_hours": 36,
+          "training_regime": "mixture_24h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644861034.0,
+          "evaluation_end_s": 1644947424.0,
+          "status": "completed",
+          "n_evaluation": 87,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              0.007258375096411012,
+              0.007520299172638007,
+              0.004938419212414735,
+              0.0,
+              0.00993197269402182,
+              0.0052011147137593725,
+              0.0,
+              0.965149819110755
+            ],
+            "training_prior": 0.16303969740199006,
+            "half_life_s": 86400,
+            "optimization": {
+              "objective": 0.004239304318101435,
+              "iterations": 13
+            }
+          }
+        }
+      ],
+      "status": "completed"
+    },
+    "LW1_mixture_expanding": {
+      "calibrations": [
+        {
+          "node": "LW1",
+          "offset_db": 3,
+          "noise_floors_dbm": {
+            "2412.0": -134.27859225633577,
+            "2437.0": -134.13608968670113,
+            "2462.0": -134.31955056975022
+          },
+          "nominal_interval_s": 30.0,
+          "calibration_end_s": 1644429476.0
+        }
+      ],
+      "folds": [
+        {
+          "node": "LW1",
+          "task": "primary",
+          "fold": 0,
+          "strategy_id": "36h_mixture_expanding",
+          "validation_hours": 36,
+          "training_regime": "mixture_expanding",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "insufficient_earlier_data",
+          "common_fold": false,
+          "evaluation_start_s": 1644515876.0,
+          "evaluation_end_s": 1644602276.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": null,
+            "training_prior": 0.11570166980424568,
+            "half_life_s": null,
+            "optimization": null
+          }
+        },
+        {
+          "node": "LW1",
+          "task": "primary",
+          "fold": 1,
+          "strategy_id": "36h_mixture_expanding",
+          "validation_hours": 36,
+          "training_regime": "mixture_expanding",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644602276.0,
+          "evaluation_end_s": 1644688676.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              0.0,
+              0.15794553246889254,
+              0.07076310778310761,
+              0.0,
+              0.10549726647693805,
+              0.02966362431409435,
+              8.453536399561757e-19,
+              0.6361304689569675
+            ],
+            "training_prior": 0.11931706770497773,
+            "half_life_s": null,
+            "optimization": {
+              "objective": 0.008863797445986896,
+              "iterations": 32
+            }
+          }
+        },
+        {
+          "node": "LW1",
+          "task": "primary",
+          "fold": 2,
+          "strategy_id": "36h_mixture_expanding",
+          "validation_hours": 36,
+          "training_regime": "mixture_expanding",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644688676.0,
+          "evaluation_end_s": 1644753333.0,
+          "status": "completed",
+          "n_evaluation": 63,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              0.0,
+              0.0,
+              1.4423281451134947e-19,
+              0.0,
+              2.4248863639284834e-19,
+              0.7469987162758822,
+              2.2893610923677953e-19,
+              0.25300128372411773
+            ],
+            "training_prior": 0.10526545610888302,
+            "half_life_s": null,
+            "optimization": {
+              "objective": 0.007507986768403691,
+              "iterations": 12
+            }
+          }
+        }
+      ],
+      "status": "completed"
+    },
+    "LW1_mixture_6h": {
+      "calibrations": [
+        {
+          "node": "LW1",
+          "offset_db": 3,
+          "noise_floors_dbm": {
+            "2412.0": -134.27859225633577,
+            "2437.0": -134.13608968670113,
+            "2462.0": -134.31955056975022
+          },
+          "nominal_interval_s": 30.0,
+          "calibration_end_s": 1644429476.0
+        }
+      ],
+      "folds": [
+        {
+          "node": "LW1",
+          "task": "primary",
+          "fold": 0,
+          "strategy_id": "36h_mixture_6h",
+          "validation_hours": 36,
+          "training_regime": "mixture_6h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "insufficient_earlier_data",
+          "common_fold": false,
+          "evaluation_start_s": 1644515876.0,
+          "evaluation_end_s": 1644602276.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": null,
+            "training_prior": 0.11570166980424568,
+            "half_life_s": 21600,
+            "optimization": null
+          }
+        },
+        {
+          "node": "LW1",
+          "task": "primary",
+          "fold": 1,
+          "strategy_id": "36h_mixture_6h",
+          "validation_hours": 36,
+          "training_regime": "mixture_6h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644602276.0,
+          "evaluation_end_s": 1644688676.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              1.6103400082641569e-18,
+              0.19855888401022043,
+              0.07231593890779298,
+              0.0,
+              0.09881138216502684,
+              0.00043324725925842164,
+              0.0,
+              0.6298805476577013
+            ],
+            "training_prior": 0.11931706770497773,
+            "half_life_s": 21600,
+            "optimization": {
+              "objective": 0.01084767028366147,
+              "iterations": 24
+            }
+          }
+        },
+        {
+          "node": "LW1",
+          "task": "primary",
+          "fold": 2,
+          "strategy_id": "36h_mixture_6h",
+          "validation_hours": 36,
+          "training_regime": "mixture_6h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644688676.0,
+          "evaluation_end_s": 1644753333.0,
+          "status": "completed",
+          "n_evaluation": 63,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              1.620312909530883e-19,
+              0.0,
+              0.0,
+              0.06702831931337468,
+              0.0,
+              0.7923878633862449,
+              0.0,
+              0.14058381730038044
+            ],
+            "training_prior": 0.10526545610888302,
+            "half_life_s": 21600,
+            "optimization": {
+              "objective": 0.0030413970644288823,
+              "iterations": 11
+            }
+          }
+        }
+      ],
+      "status": "completed"
+    },
+    "LW1_mixture_24h": {
+      "calibrations": [
+        {
+          "node": "LW1",
+          "offset_db": 3,
+          "noise_floors_dbm": {
+            "2412.0": -134.27859225633577,
+            "2437.0": -134.13608968670113,
+            "2462.0": -134.31955056975022
+          },
+          "nominal_interval_s": 30.0,
+          "calibration_end_s": 1644429476.0
+        }
+      ],
+      "folds": [
+        {
+          "node": "LW1",
+          "task": "primary",
+          "fold": 0,
+          "strategy_id": "36h_mixture_24h",
+          "validation_hours": 36,
+          "training_regime": "mixture_24h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "insufficient_earlier_data",
+          "common_fold": false,
+          "evaluation_start_s": 1644515876.0,
+          "evaluation_end_s": 1644602276.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": null,
+            "training_prior": 0.11570166980424568,
+            "half_life_s": 86400,
+            "optimization": null
+          }
+        },
+        {
+          "node": "LW1",
+          "task": "primary",
+          "fold": 1,
+          "strategy_id": "36h_mixture_24h",
+          "validation_hours": 36,
+          "training_regime": "mixture_24h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644602276.0,
+          "evaluation_end_s": 1644688676.0,
+          "status": "completed",
+          "n_evaluation": 88,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              3.798470778313835e-18,
+              0.18206231402078296,
+              0.08273567407504487,
+              4.003980301361587e-20,
+              0.10514910420431255,
+              0.0024757430884633554,
+              0.0,
+              0.6275771646113962
+            ],
+            "training_prior": 0.11931706770497773,
+            "half_life_s": 86400,
+            "optimization": {
+              "objective": 0.00975772318195886,
+              "iterations": 29
+            }
+          }
+        },
+        {
+          "node": "LW1",
+          "task": "primary",
+          "fold": 2,
+          "strategy_id": "36h_mixture_24h",
+          "validation_hours": 36,
+          "training_regime": "mixture_24h",
+          "variant": "full",
+          "lead_s": 900,
+          "offset_db": 3,
+          "selection_status": "selected",
+          "common_fold": true,
+          "evaluation_start_s": 1644688676.0,
+          "evaluation_end_s": 1644753333.0,
+          "status": "completed",
+          "n_evaluation": 63,
+          "target_degenerate": false,
+          "model_state": {
+            "history_order": [
+              "recent_300s",
+              "recent_900s",
+              "recent_1800s",
+              "recent_7200s",
+              "decay_300s",
+              "decay_900s",
+              "decay_1800s",
+              "decay_7200s"
+            ],
+            "weights": [
+              5.3139473842495416e-20,
+              1.7003002056358887e-19,
+              8.532955141550446e-19,
+              4.681327497639993e-18,
+              0.0,
+              0.7688522120177159,
+              0.0,
+              0.2311477879822841
+            ],
+            "training_prior": 0.10526545610888302,
+            "half_life_s": 86400,
+            "optimization": {
+              "objective": 0.006336703855413226,
+              "iterations": 12
+            }
+          }
+        }
+      ],
+      "status": "completed"
+    }
+  },
+  "interpretation": "exploratory development on reused recordings; CC2 untouched",
+  "reference_predictions_sha256": "7c8eb8f609744cd23c7997cd352b82270e60038f9adfef03693eb9cad4d000b4",
+  "report_rebuilds": [
+    {
+      "at": "2026-10-04T23:00:54.729110+00:00",
+      "source_fingerprint": "320ab0297b48aca8dc8d879ddbba97e8e6f15b5612fa02c48b02ce66c9295f24",
+      "git": {
+        "commit": "8e24f4d088977c61aeca91add7e2cf970b38be9a",
+        "dirty": true
+      }
+    }
+  ],
+  "artifact_hashes": {
+    "advancement.json": "8df0cbab943e819b638297e56602d0e97b478b16c5aa8d73fbcfb8c3e10797df",
+    "advancement_criteria.csv": "d2cc0cfe0708e0da2d745a852574f60a8325af91903166af85cf70140ab120cd",
+    "audit.json": "df7954a9460b8ffa4ac3f43e3b748bbeabc4a0f86fe7edc73c92b88dc721796d",
+    "bootstrap.csv": "1f51e246153b47811c2f7d5989466b203c0cfe16c9b2a6855a5f7f9eabc4448d",
+    "candidate_scores.csv": "de4c991889af55fc91333754648cafc2610d498c7fac0ec035fe9744412a67e4",
+    "common_bootstrap.csv": "7417bcdc21a3721be36ae6f77362f9c2d243b80e77ce96ae30e15cdbe4b9bcc3",
+    "common_daily.csv": "135e716a248e4e0454165eb4ab6bc0f3ddf4011ede94b376e358d9ff44f98424",
+    "common_summary.csv": "707959b80acf9701c81355411fe3515d8a5423ae9aa3a693626e34d2937b6201",
+    "config.yaml": "e157d52bbd9078e407673660f0f475b61baa78b944aa4c01956c35791f63ecf0",
+    "daily.csv": "a09f78793d6a36c4532afaf3f202140ed18803700aa7f8114409c8c852c844a3",
+    "dependence.csv": "2d4d177728b9b57599e9b7ee87283d738dea4a6f42f80376b9c1ff35fe776d0c",
+    "events.csv": "e07a24e0a0d0a671903e6aaa9817c4f21a41f433d644a8ad81ec96629bdd4537",
+    "fallbacks.csv": "39afdabcd95b8d57ec9bf78869fca940066cec49963a309713fad0c474434146",
+    "operating_thresholds.csv": "f145e50e4279a5163e74b8273b46f7b722a21b760d22926aad20187fa389461f",
+    "oracle.csv": "6338a7ca4356f159d57ec0b138159971c57582b51b7886b3bec6934813e9904f",
+    "predictions.parquet": "84e40862471587fa45e0f323ce32909c1fa9c8ae797c6a975e94cb4e355873c9",
+    "selections.json": "b9ebbfe4d58650f0259c408d78f37c034ee1cac6cf0b95de66d25dc3ed1c8d0f",
+    "summary.csv": "26bd82a760ff50d1e29e9991e5c795e74229a39b005c59c437d06eadc03faaf7",
+    "summary.json": "67c44c09daff5eb5c24b12032082b2182d98511a342ff40d87e5f75398bfb571",
+    "validation_predictions.parquet": "99512cb36de72b20272f110cfdfd89f0c3bccfb3f1baf77a7a7038fa8793585c",
+    "figures/bootstrap_sensitivity.png": "90e7c240aca206bce95e5ec15809131a91b8eb5dc15727c0f873311a86afe3ad",
+    "figures/clean_skill.png": "3058309f197bd345419a27f14333d5f45647c24a0ade12faf6b1e0c2dde59ce9",
+    "figures/degradation.png": "3db050a7582e60a750c0dffb4b8040354ae6be2c8468c4d84177f6ff22aa5bd3",
+    "figures/predictions.png": "333443f0a0379d8453b4de72b372ae7f7a8873e6b89f720f11be75fb3a90f74e"
+  },
+  "completed": "2026-10-04T23:00:55.107149+00:00"
+}

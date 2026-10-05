@@ -1,0 +1,77 @@
+{
+  "reviewed_at_utc": "2026-10-05T11:52:21.082745+00:00",
+  "interpretation": "Portfolio consolidation audit; no new measured-data model fits. Original fitting fingerprints and forecasts preserved.",
+  "retained_tests_passed": 141,
+  "lint": "passed",
+  "synthetic_equivalence": "Exact chronological selections, candidate validation predictions, forecasts, fallbacks and fitted weights for all three regimes",
+  "synthetic_workflows": {
+    "canonical_v2": "completed",
+    "history_mixture": "completed",
+    "download_free_demo": "completed"
+  },
+  "recomputed_tables": {
+    "canonical": {
+      "prediction_rows": 275268,
+      "verified_tables": [
+        "summary",
+        "daily",
+        "bootstrap",
+        "dependence",
+        "events",
+        "operating_thresholds",
+        "oracle"
+      ],
+      "advancement_identical": false
+    },
+    "mixture": {
+      "prediction_rows": 315270,
+      "verified_tables": [
+        "summary",
+        "daily",
+        "bootstrap",
+        "dependence",
+        "events",
+        "operating_thresholds",
+        "oracle",
+        "common_summary",
+        "common_daily",
+        "common_bootstrap"
+      ],
+      "advancement_identical": true
+    }
+  },
+  "report_cli": "Saved inputs unchanged; original fit fingerprint retained; rebuild provenance appended only to local verification copy; tables and decisions matched",
+  "protected_artifacts": 60,
+  "historical_and_canonical_hashes": "unchanged",
+  "historical_and_CC2_protocols": "unchanged",
+  "figures_reviewed": [
+    "clean_skill.png",
+    "degradation.png",
+    "bootstrap_sensitivity.png",
+    "predictions.png"
+  ],
+  "research_note": {
+    "pages": 3,
+    "visual_review": "passed",
+    "built_in_compiler": "unavailable: platform standard-directory error",
+    "existing_local_compiler": "MiKTeX pdflatex, success with installer disabled",
+    "pdf_sha256": "160a6010eebc59eb4b555c72f2c63db3fffff03460355a85d8cb1147f5e5c3f7"
+  },
+  "experiment_ledger_sha256": "8e63933d404c4ffcda1463cfd96b558f6880e7b890adca49afdc266032e087c2",
+  "local_archive_directory": "reproductions/portfolio_cleanup_20261005",
+  "verified_archives": {
+    "development_archive.zip": {
+      "bytes": 6757359,
+      "sha256": "8b64b7df3ea2eb59e03d1e4aafa7acd30cd362b0f0225e06a46f1930836b8be6"
+    },
+    "development_outputs.zip": {
+      "bytes": 34064278,
+      "sha256": "6b7ea6026f60a911ee88b75fc7bf05bcaf0fd8a5e6cc67a4df4fedf6655962c8"
+    }
+  },
+  "relative_document_links": "passed",
+  "credential_pattern_scan": "no matches",
+  "CC2_accessed": false,
+  "new_freeze_package_created": false,
+  "commits_created": false
+}
