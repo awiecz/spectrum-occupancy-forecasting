@@ -1,0 +1,66 @@
+version: 1
+study: sparse-regime
+base_config: followup_v2.yaml
+# The learned grid is the frozen v2 grid. The loader refuses to run if any value differs.
+expected_grid:
+  history_windows_s: [300, 900, 1800, 7200]
+  decay_taus_s: [300, 900, 1800, 7200]
+  decay_support_taus: 5
+  ridge_alphas: [1, 10, 100, 1000]
+  boosting_depths: [2, 3]
+  boosting_leaf_sizes: [20, 40]
+  boosting_iterations: 150
+  boosting_learning_rate: 0.05
+  residual_boosting_iterations: 100
+  residual_boosting_learning_rate: 0.03
+  model_seed: 0
+  training_stride_s: 180
+  validation_block_s: 21600
+  validation_blocks: 2
+  window_s: 900
+  calibration_s: 86400
+  first_eval_s: 172800
+  fold_s: 86400
+  minimum_partial_fold_s: 43200
+  minimum_coverage: 0.8
+nodes: [CC1, LW1]
+primary_scenario: dropout_0.99
+scenarios:
+  clean: {}
+  dropout_0.5: {dropout_p: 0.5}
+  dropout_0.9: {dropout_p: 0.9}
+  dropout_0.99: {dropout_p: 0.99}
+  outage_3600s: {outage_len_s: 3600, outage_frac: 0.25}
+  delay_3600s: {delay_s: 3600}
+  delay_7200s: {delay_s: 7200}
+primary_variant: full
+# Mask seeds for the three roles never overlap each other or the exploratory seeds 1-5.
+train_seeds: [101, 102, 103]
+validation_seeds: [201, 202, 203]
+score_seeds: [21, 22, 23, 24, 25]
+quantiles: [0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95]
+interval_scenarios: [clean, dropout_0.99]
+interval_alpha: 0.2
+comparator_for_decision: hstar
+lw1_overlap_fold: 0
+bootstrap:
+  block_windows: 32
+  later_block_windows: 16
+  resamples: 2000
+  seed: 0
+  minimum_blocks: 4
+  weak_evidence_blocks: 10
+  sensitivity_blocks_s: [14400, 28800, 43200]
+decision:
+  alpha: 0.05
+  min_delta: 0.20
+  step: 0.05
+  demote_above: 0.50
+  trim_fraction: 0.10
+  best_block_share_max: 0.50
+  secondary_point_fraction: 0.50
+power:
+  predictions: results/followup_v2/exploratory/predictions.parquet
+  noise_source: results/multiband/dependence_summary.json
+  rule_version: amended-1
+stopping_rule: stop-after-declared-grid

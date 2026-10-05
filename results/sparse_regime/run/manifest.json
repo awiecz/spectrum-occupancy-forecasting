@@ -1,0 +1,106 @@
+{
+  "study": "sparse-regime",
+  "mode": "exploratory",
+  "status": "completed",
+  "started": "2026-10-05T23:29:49.293887+00:00",
+  "git": {
+    "commit": "1550cc7ef01913917e62e621f6c9698d9910ae7d",
+    "dirty": true
+  },
+  "source_fingerprint": "623c844d6ea60f33e17bca14c6d3053138099214ebf9211fac176a408bfc7265",
+  "config_sha256": "a1b4e7cdebdf92781271782fe40bc273a268c45270e576e98599076c659a8dac",
+  "protocol_sha256": "518e6563b0b844a39bbd2e348eaa85fd83d1fea079e78302ec85c944ce5aaf4c",
+  "delta": 0.2,
+  "CC2_accessed": false,
+  "inputs": {
+    "CC1": {
+      "file": "aerpaw_CC1_blocks5MHz.npz",
+      "sha256": "176d02097633a4c6c0917bef1a7578de26c5cb79ceac6f6826451730fc04d08b"
+    },
+    "LW1": {
+      "file": "aerpaw_LW1_blocks5MHz.npz",
+      "sha256": "b6f7f788c6a87da13f6b98ac113358b7b77d00c4552119f06f59c4d425d9fef3"
+    }
+  },
+  "attempt": "3c6046f80d284c50866b7893bd99f531",
+  "calibration": {
+    "CC1": {
+      "noise_floors_dbm": {
+        "2412.0": -133.10095551339901,
+        "2437.0": -133.07854909706685,
+        "2462.0": -132.75985181635602
+      },
+      "nominal_interval_s": 19.0
+    },
+    "LW1": {
+      "noise_floors_dbm": {
+        "2412.0": -134.27859225633577,
+        "2437.0": -134.13608968670113,
+        "2462.0": -134.31955056975022
+      },
+      "nominal_interval_s": 30.0
+    }
+  },
+  "outcome": {
+    "label": "honest_negative",
+    "delta": 0.2,
+    "tests": {
+      "cc1_lower_bound_at_least_delta": false,
+      "lw1_later_lower_bound_at_least_delta": false,
+      "lw1_all_folds_same_sign_and_half_delta": true,
+      "absolute_error_gain_positive_both": false,
+      "best_block_share_within_limit_both": false
+    },
+    "cc1": {
+      "gain": 0.13345806625053472,
+      "lower95": -0.3348108427805522,
+      "n_blocks": 13.71875
+    },
+    "lw1_later": {
+      "gain": -0.016390132577420828,
+      "lower95": -0.4196177406671357,
+      "n_blocks": 4.71875
+    },
+    "lw1_all": {
+      "gain": 0.21834911846743985,
+      "lower95": -0.04814140315416082
+    }
+  },
+  "artifact_hashes": {
+    "config.yaml": "a1b4e7cdebdf92781271782fe40bc273a268c45270e576e98599076c659a8dac",
+    "gains.csv": "9168f3061d4ab34dcd4bf1e6032f08bddf0425ba8c3e7b4e3bc197b3396d9ad5",
+    "intervals.parquet": "4aa5693c86aeb42d02b9f1715c9580adf4ec14ac0caf704f991c769cd869d7fa",
+    "intervals_summary.csv": "d29b2d7c545a23632410dfd6ea80c1d6182432ca43585be58cb6c1d1a2e6a3c0",
+    "method_losses.csv": "74276c5d722af207a2db66cdfef803a320e36659187f5ec59932b6ea3be17d20",
+    "predictions.parquet": "57877c57d39e2c7c54bf85955dcbc74cd20721c192fa172e6d424243df7f4872",
+    "robustness.csv": "48c589b1a5f833c4850cf880c55ea6f0c00d25c34334204f546e6a31ad9317a9",
+    "selections.json": "c76d0efa4a692737c0df1c9eef0fa7aa7a0ede701288a86a8a2dc0fa92cdd393",
+    "summary.json": "7513021cbcf17d62e2a6442b31b9cc1606ebabf48eaeb096f45ee8cfbf63c00f"
+  },
+  "report_rebuilds": [
+    {
+      "at": "2026-10-05T23:35:46.644540+00:00",
+      "git": {
+        "commit": "1550cc7ef01913917e62e621f6c9698d9910ae7d",
+        "dirty": true
+      },
+      "source_fingerprint": "e0ac8582e9c6e16576ec49da5b469ede391875168829d2cde4ee85b4ec6c1f14"
+    },
+    {
+      "at": "2026-10-05T23:36:11.477843+00:00",
+      "git": {
+        "commit": "1550cc7ef01913917e62e621f6c9698d9910ae7d",
+        "dirty": true
+      },
+      "source_fingerprint": "bc48f718659c8315a0b380ec8ec24ceea61b5f5bbc1a71205c97e478cddd596e"
+    },
+    {
+      "at": "2026-10-05T23:36:40.402155+00:00",
+      "git": {
+        "commit": "1550cc7ef01913917e62e621f6c9698d9910ae7d",
+        "dirty": true
+      },
+      "source_fingerprint": "491d1acf5742f7ad5a52cc4a516c39046cd5a15969727be80ef272d3a686c72a"
+    }
+  ]
+}

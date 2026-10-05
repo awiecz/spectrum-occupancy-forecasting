@@ -1,0 +1,85 @@
+{
+  "primary_scenario": "dropout_0.99",
+  "original_rule": {
+    "proxy": "noise of the six unmatched exploratory learned families",
+    "cells": [
+      {
+        "node": "CC1",
+        "region": "all_folds",
+        "primary": true,
+        "mde_typical": 1.088445655116047,
+        "delta": 1.1,
+        "demoted": true
+      },
+      {
+        "node": "LW1",
+        "region": "all_folds",
+        "primary": false,
+        "mde_typical": 0.7629591795344504,
+        "delta": 0.8,
+        "demoted": true
+      },
+      {
+        "node": "LW1",
+        "region": "later_folds",
+        "primary": true,
+        "mde_typical": 0.8178078433262185,
+        "delta": 0.8500000000000001,
+        "demoted": true
+      }
+    ],
+    "abort_study": true
+  },
+  "amended_rule": {
+    "proxy": "baseline relative noise x clean-input candidate-to-baseline noise ratio",
+    "noise_ratios": {
+      "CC1": {
+        "optimistic": 0.28563800959071256,
+        "typical": 0.6830595437259366,
+        "aggressive": 2.2221956748384795
+      },
+      "LW1": {
+        "optimistic": 0.11199465781470735,
+        "typical": 0.2710082806570893,
+        "aggressive": 1.299643603179706
+      }
+    },
+    "cells": [
+      {
+        "node": "CC1",
+        "region": "all_folds",
+        "primary": true,
+        "mde_typical": 0.13496075447649472,
+        "delta": 0.2,
+        "demoted": false
+      },
+      {
+        "node": "LW1",
+        "region": "all_folds",
+        "primary": false,
+        "mde_typical": 0.13425356143795122,
+        "delta": 0.2,
+        "demoted": false
+      },
+      {
+        "node": "LW1",
+        "region": "later_folds",
+        "primary": true,
+        "mde_typical": 0.12728309570482468,
+        "delta": 0.2,
+        "demoted": false
+      }
+    ],
+    "abort_study": false
+  },
+  "rule": "delta = max(0.20, typical MDE rounded up to the next 0.05); cells with typical MDE above 0.50 are descriptive; if every primary cell is descriptive the study runs as exploratory only",
+  "learned_families": [
+    "ridge",
+    "hgb",
+    "resid_ridge",
+    "resid_hgb",
+    "ridge_aug",
+    "hgb_aug"
+  ],
+  "note": "Computed from already-inspected exploratory predictions; no model was fitted."
+}

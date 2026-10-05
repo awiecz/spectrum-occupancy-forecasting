@@ -1,0 +1,15 @@
+{
+  "predictions": "results\\followup_v2\\exploratory\\predictions.parquet",
+  "scenarios": [
+    "clean",
+    "dropout_0.5",
+    "dropout_0.9",
+    "dropout_0.99",
+    "outage_3600s",
+    "delay_3600s",
+    "delay_7200s"
+  ],
+  "replicates": 2000,
+  "seed": 0,
+  "block_windows": 32
+}

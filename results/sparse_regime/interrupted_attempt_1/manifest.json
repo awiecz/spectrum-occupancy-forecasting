@@ -1,0 +1,31 @@
+{
+  "study": "sparse-regime",
+  "mode": "exploratory",
+  "status": "failed",
+  "started": "2026-10-05T23:28:20.253079+00:00",
+  "git": {
+    "commit": "1550cc7ef01913917e62e621f6c9698d9910ae7d",
+    "dirty": true
+  },
+  "source_fingerprint": "ef3bdfcdd68a7d34689cd00684f86caad4162279e4b9aaf3c96fa2534dae4203",
+  "config_sha256": "a1b4e7cdebdf92781271782fe40bc273a268c45270e576e98599076c659a8dac",
+  "protocol_sha256": "518e6563b0b844a39bbd2e348eaa85fd83d1fea079e78302ec85c944ce5aaf4c",
+  "delta": 0.2,
+  "CC2_accessed": false,
+  "inputs": {
+    "CC1": {
+      "file": "aerpaw_CC1_blocks5MHz.npz",
+      "sha256": "176d02097633a4c6c0917bef1a7578de26c5cb79ceac6f6826451730fc04d08b"
+    },
+    "LW1": {
+      "file": "aerpaw_LW1_blocks5MHz.npz",
+      "sha256": "b6f7f788c6a87da13f6b98ac113358b7b77d00c4552119f06f59c4d425d9fef3"
+    }
+  },
+  "attempt": "25f0d5a4eca64482802337a1ca9ba5c7",
+  "error": "<repo>\\results\\sparse_regime\\run\\_parts\\CC1__dropout_0.5__1",
+  "artifact_hashes": {
+    "config.yaml": "a1b4e7cdebdf92781271782fe40bc273a268c45270e576e98599076c659a8dac"
+  },
+  "note": "Local path removed from the stored error string. The registry row for this attempt is append-only and keeps the original text."
+}

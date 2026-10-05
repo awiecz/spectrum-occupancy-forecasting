@@ -1,0 +1,29 @@
+{
+  "outcome": {
+    "label": "honest_negative",
+    "delta": 0.2,
+    "tests": {
+      "cc1_lower_bound_at_least_delta": false,
+      "lw1_later_lower_bound_at_least_delta": false,
+      "lw1_all_folds_same_sign_and_half_delta": true,
+      "absolute_error_gain_positive_both": false,
+      "best_block_share_within_limit_both": false
+    },
+    "cc1": {
+      "gain": 0.13345806625053472,
+      "lower95": -0.3348108427805522,
+      "n_blocks": 13.71875
+    },
+    "lw1_later": {
+      "gain": -0.016390132577420828,
+      "lower95": -0.4196177406671357,
+      "n_blocks": 4.71875
+    },
+    "lw1_all": {
+      "gain": 0.21834911846743985,
+      "lower95": -0.04814140315416082
+    }
+  },
+  "delta": 0.2,
+  "synthetic": false
+}
