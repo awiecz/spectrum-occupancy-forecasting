@@ -1,8 +1,12 @@
-# Could these recordings have shown a learned gain?
+# Would these recordings have detected a small learned gain?
 
-**No, not a small one.** The saved forecasts can rule out large improvements over two-hour
-history, but a model that truly cut error by 5% would almost never have been confirmed on all
-three recordings. The earlier negative results say less about small gains than they appear to.
+**No.** A model that truly cut error by 5% would almost never have been confirmed on all three
+recordings. The saved forecasts can rule out *large* improvements over two-hour history, but
+not small ones, so the earlier negative results say less about small gains than they appear to.
+
+In everyday terms: if you flip a coin 20 times you cannot tell a fair coin from a slightly
+loaded one. Twelve days of radio recordings are similar. This page measures how big a
+difference these recordings could have revealed.
 
 This analysis reads only the saved operational-study forecasts. It fits no model, opens no
 new recording and adds no candidate to the experiment registry; CC2 is untouched.
@@ -16,22 +20,25 @@ squared error are, using the 8-hour block bootstrap of the operational study (4-
 for the later rural session, which has too few 8-hour blocks).
 
 The noise depends on how far a candidate moves away from history, so we report the spread
-across the 31 learned count-model candidates: **optimistic** (10th percentile standard error,
-candidates that stay near history), **typical** (median) and **aggressive** (90th percentile).
+across **31 candidate forecasts: 24 count-model settings and 7 history variants** (every
+non-baseline candidate in the saved operational study that differs from fixed history):
+**optimistic** (10th percentile standard error, candidates that stay near history),
+**typical** (median) and **aggressive** (90th percentile).
 
 ## Results
 
 ![Power by true gain and smallest reliably detectable gain](../results/power_analysis/power.png)
 
-*Left: probability that a one-sided 95% bound shows any improvement, by true MSE reduction.
-Right: the smallest true gain detected with 80% power. The vertical and horizontal reference
-lines mark the 5% rule and 80% power.*
+*What to notice: the curves climb slowly, so only large true gains are detected reliably.
+Left: probability that a one-sided 95% bound shows any improvement, by true MSE reduction.
+Right: the smallest true gain detected with 80% power. Reference lines mark the 5% rule and
+80% power.*
 
 | Recording | Windows (days) | Blocks | Top-decile share of error | Effective windows | Smallest detectable gain: optimistic / typical | Days needed for a true 5%: optimistic / typical |
 |---|---:|---:|---:|---:|---:|---:|
 | Urban first (CC1) | 439 (4.6) | 13.7 | 58% | 62 | 9.1% / 21.7% | 15 / 86 |
 | Rural first (LW1) | 239 (2.5) | 7.5 | 71% | 22 | 12.7% / 30.8% | 16 / 94 |
-| Rural later (LW1) | 81 (0.8) | 5.1 | 46% | 25 | 9.8% / 17.7% | 3 / 11 |
+| Rural later (LW1) | 81 (0.8) | 5.1 | 45% | 25 | 9.8% / 17.7% | 3 / 11 |
 
 Effective windows is (Σe²)² / Σe⁴ for squared errors e², the sample size left after a few large
 errors dominate. The rural-later row rests on five blocks and is rough. Against
@@ -40,11 +47,11 @@ independently selected history the detectable gains are similar (typical 17–21
 **If a model truly cut MSE by 5%, the chance of showing it on all three recordings was 3.5%
 (optimistic) or 0.3% (typical).** At a true 10% gain it was 44% or 2.5%; at 20%, 99% or 32%.
 A model with a true gain of 30% would typically have been seen on each recording
-(typical power 96%, 78% and 99%).
+(typical power 96%, 78% and 99.5%).
 
 Two further findings sharpen this:
 
-- **Most error sits in a few windows.** The worst tenth of windows carry 46–71% of squared
+- **Most error sits in a few windows.** The worst tenth of windows carry 45–71% of squared
   error, and effective sample sizes are 22–62 rather than 81–439.
 - **Hindsight winners did not carry over.** Among the 31 unselected candidates, ten beat fixed
   history on the first rural session at the 95% level (median gain 11.5%), yet none was
@@ -56,6 +63,23 @@ error expected if snapshots were independent coin flips at the forecast rate, bu
 on the later rural session (1.0). That is a rough sampling-noise heuristic, not a bound on
 what any forecaster can achieve. It does suggest that forecastable variation exists in the
 first sessions and little remains in the later one.
+
+## Sensitivity: count models only
+
+Seven of the 31 candidates are plain history variants rather than learned models. Restricting
+the noise estimate to the 24 count-model settings (rerun with `--candidates count`, saved under
+[`results/power_analysis/count_models_only/`](../results/power_analysis/count_models_only/))
+leaves every conclusion unchanged:
+
+| Recording | Smallest detectable gain, typical: 31 candidates | 24 count models |
+|---|---:|---:|
+| Urban first (CC1) | 21.7% | 21.8% |
+| Rural first (LW1) | 30.8% | 34.3% |
+| Rural later (LW1) | 17.7% | 16.3% |
+
+At a true 5% gain, the chance of showing it on all three recordings is 4.2% (optimistic) or
+0.3% (typical). Eight of the 24 count models beat fixed history on the first rural session at
+the 95% level, and none was better on the later rural session.
 
 ## What this means
 

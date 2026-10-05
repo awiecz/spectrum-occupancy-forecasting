@@ -140,7 +140,7 @@ reproduces numerical tables from saved forecasts and validation predictions with
 Filter updates and state snapshots additionally expose the delivered anchors and covariance.
 Synthetic runs are workflow checks and are not evidence of measurement-data performance.
 
-## Registered operational learning
+## Operational learning (declared in the registry)
 
 The [operational study](operational_learning.md) audits validation and controllers before
 testing one declared activity-count grid. Existing recordings are development data. These
@@ -199,11 +199,73 @@ original source-byte fingerprints are retained alongside them. The count fitting
 configuration fingerprint describes the declared 801-node starting specification, while its
 `artifact_hashes["configuration.json"]` verifies the resolved 1,601-node configuration.
 
+## Power analysis and the multi-band draft
+
+The [power analysis](power_analysis.md) reads the tracked saved forecasts only, so it needs no
+download. Output directories must be new:
+
+```bash
+uv run python scripts/power_analysis.py --out-dir reproductions/power_check
+uv run python scripts/power_analysis.py --candidates count --out-dir reproductions/power_count_only
+```
+
+The draft [multi-band planning tables](multiband_protocol.md) need the cached block files in
+`data/processed/` and fit no model:
+
+```bash
+uv run python scripts/multiband_inventory.py --out-dir reproductions/multiband_check
+```
+
+## Sparse-regime study
+
+The [sparse-regime study](sparse_regime.md) asks whether learned models help when most
+measurements are missing. Its [protocol](technical/sparse_regime_protocol.md) was fixed before the
+real run. The first three commands work from a fresh clone; the last two need the block files and
+write to the experiment registry:
+
+```bash
+uv run python scripts/run_sparse_regime.py --phase power --out-dir reproductions/sparse_power
+uv run python scripts/run_sparse_regime.py --phase matched --mode synthetic-rehearsal --out-dir reproductions/sparse_rehearsal
+uv run python scripts/run_sparse_regime.py --phase matched --mode report --out-dir results/sparse_regime/run
+```
+
+A real run (never repeat one without declaring it) is
+`--phase matched --mode exploratory --hypothesis "..."`; it appends to
+`results/experiment_registry.jsonl` and refuses an existing output directory unless `--resume`
+continues an interrupted one. Synthetic rehearsals are workflow checks, not evidence.
+
+## Rebuilding the cached learning inputs
+
+Several adaptive and operational modes read `reproductions/shared_learning_cache` (about 15 MB,
+Git-ignored). Rebuild it from the raw archives (about 32 GB of downloads) with:
+
+```bash
+uv run python scripts/extract_learning_features.py
+```
+
+To summarize a block file's sessions and busiest blocks before modelling, use
+`uv run python scripts/explore_blocks.py data/processed/aerpaw_CC1_blocks5MHz.npz`.
+
+## What works from a fresh clone
+
+| You want to | Works without data? |
+|---|---|
+| Run the synthetic demo and every `--mode synthetic-rehearsal` | Yes |
+| Rebuild reports from saved predictions (`--mode report`) | Yes |
+| Rerun the power analysis and the sparse-regime power phase | Yes |
+| Run tests, lint, link and claim checks | Yes |
+| Rerun an `exploratory` study from recordings | No: needs the processed block files |
+| Run `--mode audit` of the adaptive study | No: needs the local, Git-ignored `reproductions/adaptive_archive_initial` |
+| Use `--cache reproductions/shared_learning_cache` | No: rebuild it first (above) |
+
 ## Check the code
 
 ```bash
 uv run pytest
 uv run ruff check .
+uv run ruff format --check .
+uv run python scripts/check_links.py
+uv run python scripts/check_claims.py --check-table
 ```
 
 Tests use generated data and check causal timing, selection, fallback behavior, saved metrics

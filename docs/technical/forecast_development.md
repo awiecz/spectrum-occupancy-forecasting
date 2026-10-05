@@ -1,7 +1,7 @@
 # Exploratory forecast development
 
 This page records the earlier adaptive searches. The later declared
-[shared-training/fine-input study, summarized with adaptive development](../adaptive_learning.md) also failed to advance and completed
+[shared-training/fine-input study](../results.md#how-strong-is-the-evidence) (its outcomes are recorded in the [adaptive experiment ledger](../../results/adaptive_learning/experiment_ledger.csv)) also failed to advance and completed
 an unfavorable reserved later-LW1 assessment. Its evidence is kept separately; the historical
 mixture outputs and decisions below are unchanged. Later LW1 is now explicitly reused as
 development in the feedback-driven study; it is no longer reserved evidence.

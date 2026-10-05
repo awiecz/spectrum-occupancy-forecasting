@@ -13,7 +13,11 @@ versions of the repository.
 | Chronological model selection, leads and sensitivity | [Study results](followup_v2_results.md) | [Predictions, selections and figures](../../results/followup_v2/exploratory/) |
 | History mixture and adaptive development | [Development results](forecast_development.md) | [Mixture outputs and experiment ledger](../../results/followup_v2/history_mixture/) |
 | Local adaptation and prior transfer outcome | [Illustrated results](../adaptive_learning.md) | [Predictions, selections and audit](../../results/adaptive_learning/) |
-| Registered operational validation, controllers and activity counts | [Illustrated results](../operational_learning.md) | [Reviewed evidence and registry tables](../../results/operational_learning/) |
+| Residual diagnosis and state-space corrections | [Illustrated results](../residual_state_space.md) | [Diagnosis, predictions and audit](../../results/residual_state_space/) |
+| Operational validation, controllers and activity counts (declared in the registry) | [Illustrated results](../operational_learning.md) | [Reviewed evidence and registry tables](../../results/operational_learning/) |
+| Power analysis: what could these recordings detect? | [Power analysis](../power_analysis.md) | [Tables and figure](../../results/power_analysis/) |
+| Sparse-regime study (declared in the registry) | [Illustrated results](../sparse_regime.md), [protocol](sparse_regime_protocol.md) | [Predictions, tables and figures](../../results/sparse_regime/) |
+| Draft multi-band protocol (not run) | [Draft protocol](../multiband_protocol.md) | [Planning tables only](../../results/multiband/) |
 | Original urban-site development | [Development](dev_results.md) | [Original outputs](../../results/) |
 | Original urban-site test | [Test results](test_results.md) | [Protocol](test_protocol.md) |
 | Original rural-site evaluation | [Rural-site results](lw1_results.md) | [Protocol](lw1_protocol.md) |
@@ -22,8 +26,8 @@ versions of the repository.
 [Measurement checks](sanity_checks.md), [original-study commands](reproduction.md),
 [study artifact/command reference](followup_v2_reproduction.md), and
 [data attribution](../../DATA_ATTRIBUTION.md) provide supporting details.
-Planning-only notes and unused dataset investigations are retained locally rather than
-published as additional project guides. Detailed unsuccessful development runs are archived
+The power analysis and the draft multi-band protocol are published; other planning notes and
+unused dataset investigations (for example, a NIST access report) are retained locally. Detailed unsuccessful development runs are archived
 locally; the public ledger records their outcomes and identifiers.
 
 ## Provenance and pending evaluation

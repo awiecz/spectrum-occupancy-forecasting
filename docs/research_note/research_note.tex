@@ -6,8 +6,8 @@
 \setlength{\parindent}{0pt}\setlength{\parskip}{3pt}
 \renewcommand{\arraystretch}{1.05}
 
-\title{\vspace{-1.2em}\textbf{Forecasting short-term 2.4~GHz channel occupancy from sparse RF monitoring:\\
-an exploratory study on public AERPAW measurements}\vspace{-0.4em}}
+\title{\vspace{-1.2em}\textbf{Forecasting Wi-Fi channel occupancy from AERPAW spectrum recordings,\\
+including under simulated sparse monitoring:\\ an exploratory deep dive}\vspace{-0.4em}}
 \author{Art Wieczorkowski \quad\textit{Research note, October 2026}}
 \date{}
 
@@ -15,144 +15,83 @@ an exploratory study on public AERPAW measurements}\vspace{-0.4em}}
 \maketitle
 \vspace{-1.6em}
 
-\textbf{Historical study.} Using two public sweep sessions (urban node CC1 and rural node LW1, 87--6019~MHz,
-February 2022), I forecast the \emph{fraction of observed sweeps detected busy in the 2.4~GHz channel-6 band} (activity
-consistent with Wi-Fi, not decoded) over the next 5, 15 and 60 minutes, and measure how forecast quality
-degrades when evidence is dropped, interrupted or delayed. Three results matter most.
-(1)~\textbf{Evidence ages quickly}: for a short-memory estimator, skill halves when the newest sweep is
-45--80~min old. (2)~\textbf{``Busy'' depends on calibration}: a $\sim$1~dB noise-floor difference changes the
-busy prevalence by 2--25$\times$. (3)~Skill comes mostly from tracking the slowly varying activity level; learned
-models never clearly beat tuned moving averages, but they were trained on only 2--5 days and each evaluation
-set holds only about 33--72 effective independent windows, so this is weak evidence about learning itself.
-Protocols were written before the corresponding evaluations according to the project record;
-independent registration timestamps are not provided. LW1 channel selection overlaps its first scored fold; two of four, one of four and one of four planned predictions failed, and are reported as such.
+\textbf{Summary.} Using public AERPAW sweeps from an urban node (CC1, 7.0 days) and a rural node (LW1, 4.75 days,
+February 2022), I forecast the \emph{share of sweeps detected busy} in the 2437~MHz band (activity consistent with
+Wi-Fi channel~6; nothing is decoded) for the 15-minute window starting 15~minutes ahead.
+(1)~\textbf{With complete input, a two-hour average is very hard to beat}: six families of learned models were
+tried and none was reliably better. (2)~\textbf{These recordings could rule out large gains, not small ones}: a true
+5\,\% improvement would be confirmed on all three recordings only 3.5\,\% of the time under optimistic assumptions.
+(3)~\textbf{With about one sweep in 100 visible, learned models clearly beat plain history but not a simple
+baseline}: a pre-declared test returned an \emph{honest negative}. All results are exploratory on repeatedly inspected data;
+the independent test (recording CC2) has not been run.
 
-\section*{1\quad Question and scope}
-\textit{How accurately can short-term spectrum occupancy be predicted from real monitoring records, and
-how do observation age and missing measurements affect reliability?} The work stops at occupancy
-prediction: it involves no graph or multi-agent learning and no transmission. ``Busy'' means \emph{detected power above a
-threshold at one sensor}; it is not transmitter activity, interference elsewhere, or permission to
-transmit, and a predicted-idle channel is not evidence that using it would be harmless.
+\section*{1\quad Question, data and scope}
+\textit{How well do recent measurements, and models trained on them, forecast near-future channel activity, and what
+changes when measurements are missing or late?} ``Busy'' means detected power above a threshold at one sensor: not
+transmitter activity, decoded traffic or permission to transmit.
 
-\section*{2\quad Data and provenance}
-AERPAW fixed-node sub-6~GHz sweeps (Dryad \href{https://doi.org/10.5061/dryad.hmgqnk9zn}{10.5061/dryad.hmgqnk9zn},
-CC0): one SigMF pair per sweep, 98{,}868 bins, power in dBm per 60~kHz bin (calibration undocumented, so only
-relative levels are used). Archives were checked against the published SHA-256. CC1: 7.0~days gap-free,
-sweeps every 19~s; LW1: 4.75~days gap-free, every 30~s. The NIST COVID-19 occupancy release
-(doi:10.18434/mds2-2553) was my first choice because its sensing is natively sparse (77\,\% dead time),
-but its file server returned errors throughout the project, so it was not used. Consequently
-\textbf{sparsity here is simulated}, by degrading the predictor's inputs; labels always come from the
-intact stream. Synthetic data are used only for tests and a separate workflow demo. Controls (\href{../technical/sanity_checks.md}{measurement checks}): the busy rule fires on $\le0.06\,\%$ of sweeps in idle 5~GHz bands, receiver drift is $\approx0.1$~dB, and the busy state is a bump on the 2430--2445~MHz blocks ($+2.7$ to $+3.5$~dB) that vanishes outside the channel, as a $\sim$20~MHz emitter would produce; nothing was decoded, so ``Wi-Fi'' is an inference.
+Data are the AERPAW fixed-node sub-6~GHz sweeps (Dryad \href{https://doi.org/10.5061/dryad.hmgqnk9zn}{10.5061/dryad.hmgqnk9zn},
+CC0), cached in 5~MHz blocks; sweeps arrive about every 19~s (CC1) and 30~s (LW1). A sweep is busy when 20~MHz band power exceeds the
+noise floor, the 5th percentile of the recording's \emph{first 24 hours}, by 3~dB. The target is the busy share of
+a 15-minute window. A NIST occupancy release was considered as a second dataset but its file server was unreachable when
+tried, so it was not used. \textbf{Sparsity is therefore simulated}: sweeps are hidden from the forecaster while labels come from the
+complete stream.
 
-\section*{3\quad Target and protocol}
-Busy sweep: 20~MHz band-mean power (linear average) $>$ noise floor $+\,3$~dB, the floor being the 5th
-percentile of the \emph{training period} per channel. Target: fraction of observed sweeps labeled busy in the window
-$[o,o{+}W)$, $W\in\{5,15,60\}$~min, forecast at origin $o$ from sweeps that ended before $o$ (minus any
-delay). Features are causal and age-aware (decayed and windowed busy fractions, linear-mean power,
-time since the last sweep, cross-channel state; missing evidence is NaN plus an age, never zero power
-or ``idle''). Baselines: train mean, hour-of-day prior, busy fraction of the last 5~min / 30~min / 2~h,
-decayed history; learned: ridge, gradient boosting, and ``last 2~h + learned correction''.
-Chronological splits use an embargo of look-back plus $W$. CC1: development region = first 75\,\% of
-the week (three rolling one-day folds); the last 1.77~days were evaluated \emph{once} after freezing the
-design and writing predictions (\href{../technical/test_protocol.md}{test protocol}); a lock file and a code fingerprint
-guard the script. LW1 used the design fixed on CC1; its channel-selection period (first 60\,\%, to day 2.85) overlaps the first scored fold [2,3) days, limiting independent confirmation.
-Uncertainty: block bootstrap over 2~h blocks; robustness is averaged over five random masks. A transfer analysis fits models on one node (alone, or on both) and forecasts the other, with every node's training data cut at the same time so that simultaneous recordings cannot leak (\href{../technical/transfer_protocol.md}{transfer protocol}, predictions written beforehand).
+\section*{2\quad Method and discipline}
+Comparators: the busy share over the last two hours, tuned moving and decayed histories, the long-run average, and
+history pulled toward that average. Learned models: ridge, gradient boosting, residual versions, a history mixture,
+local adaptive corrections, state-space corrections and a five-minute count model. Splits are chronological with
+embargoes; features use only data available at forecast time. Uncertainty is a block bootstrap, because neighbouring windows
+are alike. An append-only registry records every declared attempt, including failures, and the final test (CC2) is
+frozen but unrun. Figures and numbers are traceable to saved files by an automated claim check.
 
-\section*{4\quad Results}
+\section*{3\quad With complete input: history holds}
 \begin{center}\small
-\begin{tabular}{@{}lccc@{}}\toprule
-RMSE of the 15-min busy-fraction forecast & CC1 dev (3 folds) & CC1 test & LW1 (3 folds)\\\midrule
-Train mean (climatology) & 0.121 & 0.170 & 0.101\\
-Last 2\,h average & \textbf{0.066} & 0.095 & 0.081\\
-Last 30\,min average & 0.066 & 0.080 & \textbf{0.073}\\
-Decayed history (15\,min) & 0.067 & \textbf{0.078} & 0.075\\
-Ridge & 0.092 & 0.083 & 0.074\\
-Gradient boosting & 0.085 & 0.126 & 0.077\\\bottomrule
+\begin{tabular}{@{}p{6.6cm}p{9.3cm}@{}}\toprule
+Attempt & Outcome\\\midrule
+Models chosen on earlier data (ridge, boosting) & 8.7\,\% (urban) and 5.5\,\% (rural) more error than selected history\\
+Learned mixture of eight history forecasts & 1.35\,\% / 6.80\,\% less error than selected history, but 7.63\,\% / 1.87\,\% more than the fixed two-hour average\\
+Shared training, finer inputs & 1.99\,\% / 4.36\,\% more error than fixed history; 160.45\,\% more on a reserved later rural session\\
+Local adaptation (145 declared settings) & best gain $+$0.30\,\% on first-session rural data; none met the 5\,\%-on-every-recording rule\\
+State-space residual corrections & urban error up 0.42\,\% and 0.22\,\%\\
+Five-minute activity counts & first-session rural error up 22.68\,\% against fixed history\\\bottomrule
 \end{tabular}\\[2pt]
-{\footnotesize Table 1. Lower is better. Windows: 307 / 169 / 261. Within-fold $R^2$ of the best method:
-0.51 / 0.79 / 0.22.}
+{\footnotesize Table 1. Squared-error differences on common windows; positive favours the learned model. Urban CC1, rural LW1.}
 \end{center}
+Activity persists (a window's busy share correlates 0.75 with the next one at the urban site), the busy definition
+matters (rural prevalence falls from 30.15\,\% to 0.70\,\% when the threshold moves from $+$2 to $+$4~dB), and a few windows dominate
+error: the worst tenth carry 58\,\% of urban squared error.
 
-\begin{center}\small
-\begin{tabular}{@{}lp{5.4cm}p{7.4cm}@{}}\toprule
- & Registered claim & Outcome\\\midrule
-CC1 H1 & No learned model beats the 2\,h average by $>0.10$ & \textbf{Rejected}: ridge $+0.24$
-[$+0.01,+0.33$], but boosting $-0.76$; the non-learned decayed history is best ($+0.33$)\\
-CC1 H2 & Hour-of-day prior has $R^2<0$ & \textbf{Rejected} ($+0.04$)\\
-CC1 H3 & Robustness ordering of methods & Supported (all parts)\\
-CC1 H4 & Test level higher than last dev day & Supported (0.191 vs 0.096)\\
-LW1 N1 & No learned model beats best simple history by $>0.10$ & Supported (ridge $-0.01$)\\
-LW1 N2 & Boosting worse than the 2\,h average & \textbf{Rejected} ($+0.10$ [$-0.34,+0.27$])\\
-LW1 N3 & Clean-trained ridge least robust & Supported (4 of 4 scenarios)\\
-LW1 N4 & LW1 quieter than CC1 & Supported (0.073 vs 0.17--0.20)\\
-Transfer T1 & History averages unaffected by training node & Supported (penalty 1.00)\\
-Transfer T2 & Ridge, boosting lose when trained on the other node & Supported (MSE $3.7\times$, $2.6\times$)\\
-Transfer T3 & Level-anchored (residual) models transfer better & Supported ($1.9\times$ vs $3.7\times$; $1.3\times$ vs $2.6\times$)\\
-Transfer T4 & Adding the other node gives no gain & \textbf{Rejected} (boosting $0.94$ [$0.85,1.03$])\\\bottomrule
-\end{tabular}\\[2pt]
-{\footnotesize Table 2. Skill is relative to the reference named in the claim; intervals are 95\,\% block-bootstrap.}
-\end{center}
+\section*{4\quad What could these recordings have shown?}
+A power analysis from the saved forecasts estimates the smallest true gain each comparison could reliably detect.
+For a typical candidate it is 21.7\,\% (urban), 30.8\,\% (first rural session) and 17.7\,\% (later rural session). A true 5\,\% gain would
+be confirmed on all three recordings 3.5\,\% of the time (optimistic) or 0.3\,\% (typical); roughly 86 independent urban days
+would be needed. The negative results of Section~3 therefore rule out large learned gains, not small ones.
+Pooling many frequency bands does not rescue this: errors in bands recorded together move together (correlation
+0.17--0.28), so the uncertainty floor barely falls. That plan remains a draft.
 
-\textbf{Findings.}
-(i)~\emph{Evidence ages within about an hour.} The 15-min-window skill (vs train mean) of the decayed-history
-estimator halves when the newest sweep is 78, 57 and 44~min old (CC1 dev, CC1 test, LW1); a 2\,h average halves at
-$>120$, 72 and 32~min, and boosting keeps most of its skill at 2\,h (it uses time of day).
-(ii)~\emph{Calibration.} Labelling a node with the \emph{other} node's absolute dBm thresholds (floors differ by
-$\sim$1~dB) changes its busy prevalence by 2--25$\times$.
-(iii)~\emph{Level tracking.} Single sweeps are nearly unpredictable (lag-1 autocorrelation $\approx0.15$); the window
-busy share is predictable mostly from the recent level (within-region $R^2$ of the best method 0.51 / 0.79 / 0.22).
-(iv)~\emph{Models vs averages.} Learned models never clearly beat the best simple history; boosting was clearly worse
-on CC1 but not on LW1 (cause unknown); the best memory length changed (2\,h on CC1 dev, 30\,min/decayed on CC1 test
-and LW1). The intervals are probably too narrow (window autocorrelation 0.57--0.67 at 15\,min and still 0.47 on CC1, 0.23 on LW1, at 2\,h).
-(v)~\emph{Robustness} (CC1 test): with 90\,\% of sweeps dropped the 2\,h average keeps skill $0.59$, ridge $0.37$; at
-99\,\% they are $-1.23$ and $-10.5$ while boosting stays at $+0.14$. Simple averages degrade gracefully; a
-clean-trained linear model is unstable.
-(vi)~\emph{Transfer} (CC1$\to$LW1, 15~min; \href{../technical/transfer_results.md}{transfer results}): history averages $1.00\times$ MSE, ridge
-$3.7\times$, boosting $2.6\times$, ``last 2\,h + correction'' $1.3$--$1.9\times$; pooling both nodes is about neutral;
-linear models transfer badly in both directions.
-
-\section*{5\quad Limits}
-Two nodes (CC1: 7.0 days; LW1: 4.75), one band; only 2--5 training days and roughly 33--72 effective
-independent evaluation windows. Rankings are unresolved and intervals may be too narrow. Sparsity
-is simulated; power is uncalibrated and sweep hop dwell is unknown. Sweep fractions are not measured
-duty cycles. Window targets, rolling folds and the 2\,h reference were chosen after viewing development
-scores. Equal-false-busy comparisons use evaluation-label oracle thresholds, not deployment thresholds.
-
-\clearpage
+\section*{5\quad When most measurements are missing}
 \begin{figure}[H]\centering
-\includegraphics[width=0.74\linewidth]{../../results/figures_test/fig2_method_comparison.pdf}
-\caption{\footnotesize Held-out CC1 test region: method comparison for 5/15/60-min windows
-(top: MSE skill vs train mean with 95\,\% CI; bottom: $R^2$ within the test region).}
+\includegraphics[width=0.93\linewidth]{../../results/sparse_regime/run/figures/main_comparison.png}
+\caption{\footnotesize Squared error with about one sweep in 100 visible (lower is better). Plain history collapses;
+pulling it toward the average removes most of the damage; the learned model is only slightly lower (urban) or no better (rural).}
 \end{figure}
-\begin{figure}[H]\centering
-\includegraphics[width=0.74\linewidth]{../../results/figures_test/fig3_robustness.pdf}
-\caption{\footnotesize Held-out CC1 test region: RMSE of the 15-min forecast under random sweep loss,
-delayed evidence and contiguous outages (mean of 5 masks, bars = SD).}
-\end{figure}
+Earlier exploratory runs suggested large learned gains at 99\,\% dropout, but against plain history and for models trained on complete
+input. A study with its decision rule written first trained and selected ridge, boosting and residual boosting for the \emph{same}
+degraded input and compared them with the strongest simple baseline, chosen on earlier data. Urban squared error: plain history
+0.0459, strongest simple baseline 0.0146, matched learned model 0.0126 (72.5\,\% better than plain history, 13.3\,\% better than the
+baseline, one-sided 95\,\% lower bound $-$33.5\,\%). Rural later folds: $-$1.6\,\% (lower bound $-$42.0\,\%). The rule demanded a lower bound of
+at least 20\,\% at both sites, so the label is \textbf{honest negative}. Training for the degraded view did help the learned model
+(error 0.0374 became 0.0126). Prediction ranges were not calibrated: the urban 80\,\% range captured 65.9\,\% of outcomes.
+The decision rule's power proxy was amended once, before any matched model was fitted, after its original form triggered; both versions are on record.
 
-\section*{6\quad Open questions}
-\begin{enumerate}
-\item \textbf{Occupancy semantics.} How would calibrated detection thresholds change labels and cross-site comparability?
-\item \textbf{Forecast interface.} Should controllers consume forecasts with uncertainty, or explicitly age-aware observations?
-\item \textbf{Non-stationarity.} Can adaptive memory, change-point methods or abstention handle shifting activity?
-\item \textbf{Native sparsity and multiple sites.} Do irregular real sampling and additional sites reproduce these findings?
-\end{enumerate}
+\section*{6\quad Limits}
+Three recordings at two sites in one month; simulated sparsity; roughly 5--14 independent eight-hour blocks per comparison; repeated
+inspection of all data, so every result is exploratory; uncertainty ranges do not account for the full history of searches. Rural
+uncertainty is especially weak. Labels measure detected energy only. \textbf{CC2, the one independent recording, has not been run.}
 
-\textbf{Chronological forecasting study.} A separate study predicts 15-min fractions starting 15~min ahead,
-using first-day calibration and earlier validation selection. On reused CC1/LW1 data, the selected
-learned strategy has 8.7\,\% / 5.5\,\% higher MSE than independently selected history. Eight-hour
-paired-block intervals include no difference (15 / 8 blocks; LW1 evidence is weak). Event calibration
-is insufficient in seven of eight folds; the one calibrated strategy misses all four positive
-windows. Lead, label, feature and degradation analyses are in \href{../technical/followup_v2_results.md}{detailed study results}.
-CC2 remains uninspected, pending independent timestamping of its frozen protocol.
-
-\textbf{Exploratory method development.} Subsequent adaptive reuse tested bounded corrections and
-history mixtures. The best balanced expanding mixture lowers MSE by 1.35\,\% / 6.80\,\% against
-selected history on common eligible CC1/LW1 folds and passes the declared degradation checks.
-It misses the 5\,\%-on-each-node advancement rule; its retrospective selection and short reused
-recordings do not establish learned superiority. All three mixture regimes and a ledger of
-unsuccessful experiments are reported in \href{../technical/forecast_development.md}{development report}.
-
-\textbf{Reproducibility.} Commands: \texttt{docs/reproduction.md}. Historical protocols and results are preserved;
-their dates are not independently registered. Raw data are not redistributed.
+\section*{7\quad Reproducibility and status}
+Code, protocols, saved predictions, the registry and a claim-to-evidence table are in the repository; commands are in
+\texttt{docs/reproduction.md}. Status labels: \emph{exploratory} (all results), \emph{declared in the registry} (not externally timestamped),
+\emph{frozen and pending} (CC2), \emph{draft} (multi-band). Raw data are not redistributed.
 \end{document}

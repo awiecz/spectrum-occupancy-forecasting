@@ -1,0 +1,322 @@
+# Headline numbers quoted in the documents, each recomputed from a saved result file.
+# `value` is the number as printed (after `transform` and rounding to `decimals`);
+# `cited_in` lists documents that must contain the printed number.
+claims:
+  # --- learned history mixture against history (development study) ---
+  - id: C01
+    statement: Urban error reduction of the learned mixture against validation-selected history
+    value: 1.35
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/followup_v2/history_mixture/common_summary.csv, column: mss_vs_selected, transform: pct, filter: {node: CC1, task: primary, scenario: clean, method: selected_learned, strategy_id: 36h_mixture_expanding}}
+    cited_in: [docs/results.md, README.md, docs/story.md, docs/research_note/research_note.tex]
+  - id: C02
+    statement: Rural error reduction of the learned mixture against validation-selected history
+    value: 6.80
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/followup_v2/history_mixture/common_summary.csv, column: mss_vs_selected, transform: pct, filter: {node: LW1, task: primary, scenario: clean, method: selected_learned, strategy_id: 36h_mixture_expanding}}
+    cited_in: [docs/results.md, README.md, docs/story.md, docs/research_note/research_note.tex]
+  - id: C03
+    statement: Urban error increase of the mixture against a fixed two-hour average
+    value: 7.63
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/followup_v2/history_mixture/common_summary.csv, column: mss_vs_fixed, transform: neg_pct, filter: {node: CC1, task: primary, scenario: clean, method: selected_learned, strategy_id: 36h_mixture_expanding}}
+    cited_in: [docs/results.md, docs/story.md, docs/research_note/research_note.tex]
+  - id: C04
+    statement: Rural error increase of the mixture against a fixed two-hour average
+    value: 1.87
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/followup_v2/history_mixture/common_summary.csv, column: mss_vs_fixed, transform: neg_pct, filter: {node: LW1, task: primary, scenario: clean, method: selected_learned, strategy_id: 36h_mixture_expanding}}
+    cited_in: [docs/results.md, docs/story.md, docs/research_note/research_note.tex]
+  - id: C05
+    statement: Urban forecast windows in the common mixture comparison
+    value: 351
+    decimals: 0
+    source: {kind: csv, file: results/followup_v2/history_mixture/common_summary.csv, column: n_windows, filter: {node: CC1, task: primary, scenario: clean, method: selected_learned, strategy_id: 36h_mixture_expanding}}
+    cited_in: [docs/results.md]
+  - id: C06
+    statement: Rural forecast windows in the common mixture comparison
+    value: 151
+    decimals: 0
+    source: {kind: csv, file: results/followup_v2/history_mixture/common_summary.csv, column: n_windows, filter: {node: LW1, task: primary, scenario: clean, method: selected_learned, strategy_id: 36h_mixture_expanding}}
+    cited_in: [docs/results.md]
+  # --- chronological model-selection study ---
+  - id: C07
+    statement: Urban error increase of the selected learned strategy against selected history
+    value: 8.7
+    unit: "%"
+    decimals: 1
+    source: {kind: csv, file: results/followup_v2/exploratory/summary.csv, column: mss_vs_selected, transform: neg_pct, filter: {node: CC1, task: primary, scenario: clean, method: selected_learned}}
+    cited_in: [docs/results.md, docs/story.md, docs/research_note/research_note.tex]
+  - id: C08
+    statement: Rural error increase of the selected learned strategy against selected history
+    value: 5.5
+    unit: "%"
+    decimals: 1
+    source: {kind: csv, file: results/followup_v2/exploratory/summary.csv, column: mss_vs_selected, transform: neg_pct, filter: {node: LW1, task: primary, scenario: clean, method: selected_learned}}
+    cited_in: [docs/results.md, docs/story.md, docs/research_note/research_note.tex]
+  # --- shared-training study and reserved later session ---
+  - id: C09
+    statement: Urban clean error increase of the shared-training challenger against fixed history
+    value: 1.99
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/adaptive_learning/experiment_ledger.csv, column: CC1_skill_fixed, transform: neg_pct, filter: {experiment: history_fine_900s_12h}}
+    cited_in: [docs/results.md, docs/story.md, docs/research_note/research_note.tex]
+  - id: C10
+    statement: Rural clean error increase of the shared-training challenger against fixed history
+    value: 4.36
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/adaptive_learning/experiment_ledger.csv, column: LW1_first_skill_fixed, transform: neg_pct, filter: {experiment: history_fine_900s_12h}}
+    cited_in: [docs/results.md, docs/story.md, docs/research_note/research_note.tex]
+  - id: C11
+    statement: Error increase on the reserved later rural session against fixed history
+    value: 160.45
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/adaptive_learning/references/later_assessment/summary.csv, column: mss_vs_fixed, transform: neg_pct, filter: {node: LW1, scenario: clean, method: selected_learned}}
+    cited_in: [docs/results.md, docs/adaptive_learning.md, docs/story.md, docs/research_note/research_note.tex]
+  # --- operational study ---
+  - id: C12
+    statement: First-session rural error increase of the count model against fixed history
+    value: 22.68
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/operational_learning/run/summary.csv, column: mss_vs_fixed, transform: neg_pct, filter: {recording: LW1_first, strategy: count, scenario: clean, method: adaptive}}
+    cited_in: [docs/results.md, docs/operational_learning.md, docs/story.md, README.md, docs/research_note/research_note.tex]
+  - id: C13
+    statement: First-session rural error increase of the count model against selected history
+    value: 45.68
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/operational_learning/run/summary.csv, column: mss_vs_selected, transform: neg_pct, filter: {recording: LW1_first, strategy: count, scenario: clean, method: adaptive}}
+    cited_in: [docs/results.md, docs/operational_learning.md]
+  # --- data study ---
+  - id: C14
+    statement: Rural busy share after calibration with a +2 dB threshold
+    value: 30.15
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/data_study/LW1_sensitivity.csv, column: prevalence, transform: pct, filter: {offset_db: 2, period: post_calibration}}
+    cited_in: [README.md, docs/story.md, docs/research_note/research_note.tex]
+  - id: C15
+    statement: Rural busy share after calibration with a +4 dB threshold
+    value: 0.70
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/data_study/LW1_sensitivity.csv, column: prevalence, transform: pct, filter: {offset_db: 4, period: post_calibration}}
+    cited_in: [README.md, docs/story.md, docs/research_note/research_note.tex]
+  # --- power analysis ---
+  - id: C16
+    statement: Share of urban squared error from the worst tenth of windows
+    value: 58
+    unit: "%"
+    decimals: 0
+    source: {kind: csv, file: results/power_analysis/loss_structure.csv, column: top_decile_error_share, transform: pct, filter: {recording: CC1_first}}
+    cited_in: [docs/power_analysis.md, docs/results.md, docs/research_note/research_note.tex]
+  - id: C17
+    statement: Share of first-session rural squared error from the worst tenth of windows
+    value: 71
+    unit: "%"
+    decimals: 0
+    source: {kind: csv, file: results/power_analysis/loss_structure.csv, column: top_decile_error_share, transform: pct, filter: {recording: LW1_first}}
+    cited_in: [docs/power_analysis.md]
+  - id: C18
+    statement: Share of later-session rural squared error from the worst tenth of windows
+    value: 45
+    unit: "%"
+    decimals: 0
+    source: {kind: csv, file: results/power_analysis/loss_structure.csv, column: top_decile_error_share, transform: pct, filter: {recording: LW1_later}}
+    cited_in: [docs/power_analysis.md]
+  - id: C19
+    statement: Smallest detectable urban gain, typical candidate
+    value: 21.7
+    unit: "%"
+    decimals: 1
+    source: {kind: csv, file: results/power_analysis/minimum_detectable_gain.csv, column: mde_typical, transform: pct, filter: {recording: CC1_first, baseline: fixed_history, primary: true}}
+    cited_in: [docs/power_analysis.md, docs/research_note/research_note.tex]
+  - id: C20
+    statement: Smallest detectable first-session rural gain, typical candidate
+    value: 30.8
+    unit: "%"
+    decimals: 1
+    source: {kind: csv, file: results/power_analysis/minimum_detectable_gain.csv, column: mde_typical, transform: pct, filter: {recording: LW1_first, baseline: fixed_history, primary: true}}
+    cited_in: [docs/power_analysis.md, docs/research_note/research_note.tex]
+  - id: C21
+    statement: Smallest detectable later-session rural gain, typical candidate
+    value: 17.7
+    unit: "%"
+    decimals: 1
+    source: {kind: csv, file: results/power_analysis/minimum_detectable_gain.csv, column: mde_typical, transform: pct, filter: {recording: LW1_later, baseline: fixed_history, primary: true}}
+    cited_in: [docs/power_analysis.md, docs/research_note/research_note.tex]
+  - id: C22
+    statement: Chance of showing a true 5% gain on all three recordings, optimistic candidate
+    value: 3.5
+    unit: "%"
+    decimals: 1
+    source: {kind: csv, file: results/power_analysis/joint_power.csv, column: all_three, transform: pct, filter: {kind: optimistic, true_gain: 0.05}}
+    cited_in: [docs/power_analysis.md, docs/story.md, README.md, docs/research_note/research_note.tex]
+  - id: C23
+    statement: Chance of showing a true 5% gain on all three recordings, typical candidate
+    value: 0.3
+    unit: "%"
+    decimals: 1
+    source: {kind: csv, file: results/power_analysis/joint_power.csv, column: all_three, transform: pct, filter: {kind: typical, true_gain: 0.05}}
+    cited_in: [docs/power_analysis.md, docs/story.md, docs/research_note/research_note.tex]
+  - id: C24
+    statement: Days of independent urban data needed to confirm a true 5% gain, typical candidate
+    value: 86
+    decimals: 0
+    source: {kind: csv, file: results/power_analysis/minimum_detectable_gain.csv, column: days_for_target_typical, filter: {recording: CC1_first, baseline: fixed_history, primary: true}}
+    cited_in: [docs/power_analysis.md, docs/research_note/research_note.tex]
+  # --- multi-band draft ---
+  - id: C25
+    statement: Urban 20 MHz bands eligible from first-day data
+    value: 73
+    decimals: 0
+    source: {kind: csv_count, file: results/multiband/band_inventory.csv, filter: {site: CC1, eligible: true}}
+    cited_in: [docs/multiband_protocol.md]
+  - id: C26
+    statement: Rural 20 MHz bands eligible from first-day data
+    value: 36
+    decimals: 0
+    source: {kind: csv_count, file: results/multiband/band_inventory.csv, filter: {site: LW1, eligible: true}}
+    cited_in: [docs/multiband_protocol.md]
+  # --- sparse-regime power step ---
+  - id: C27
+    statement: Original-rule typical detectable gain, urban primary cell (rule triggered)
+    value: 109
+    unit: "%"
+    decimals: 0
+    source: {kind: csv, file: results/sparse_regime/power/minimum_detectable_gain.csv, column: mde_typical, transform: pct, filter: {node: CC1, region: all_folds, scenario: dropout_0.99, loss: squared}}
+    cited_in: [docs/technical/sparse_regime_protocol.md]
+  - id: C28
+    statement: Amended-proxy typical detectable gain, urban primary cell
+    value: 13
+    unit: "%"
+    decimals: 0
+    source: {kind: csv, file: results/sparse_regime/power/minimum_detectable_gain.csv, column: scaled_mde_typical, transform: pct, filter: {node: CC1, region: all_folds, scenario: dropout_0.99, loss: squared}}
+    cited_in: [docs/technical/sparse_regime_protocol.md]
+  - id: C29
+    statement: Squared error of plain two-hour history at 99% dropout, urban
+    value: 0.054
+    decimals: 3
+    source: {kind: csv, file: results/sparse_regime/power/baseline_diagnostic.csv, column: fixed_history_loss, filter: {node: CC1, region: all_folds, scenario: dropout_0.99, loss: squared}}
+    cited_in: [docs/technical/sparse_regime_protocol.md]
+  - id: C30
+    statement: Squared error of always predicting the average at 99% dropout, urban
+    value: 0.015
+    decimals: 3
+    source: {kind: csv, file: results/sparse_regime/power/baseline_diagnostic.csv, column: climatology_loss, filter: {node: CC1, region: all_folds, scenario: dropout_0.99, loss: squared}}
+    cited_in: [docs/technical/sparse_regime_protocol.md]
+  # --- story-page numbers ---
+  - id: C31
+    statement: Urban busy-fraction correlation between a window and the one 15 minutes later
+    value: 0.75
+    decimals: 2
+    source: {kind: csv, file: results/data_study/CC1_autocorrelation.csv, column: correlation, filter: {lag_minutes: 15}}
+    cited_in: [docs/story.md, docs/research_note/research_note.tex]
+  - id: C32
+    statement: Squared error of the two-hour history forecast, urban first session
+    value: 0.0061
+    decimals: 4
+    source: {kind: csv, file: results/followup_v2/exploratory/summary.csv, column: mse, filter: {node: CC1, task: primary, scenario: clean, method: fixed_history}}
+    cited_in: [docs/story.md]
+  - id: C33
+    statement: Squared error of always predicting the long-run average, urban first session
+    value: 0.0151
+    decimals: 4
+    source: {kind: csv, file: results/followup_v2/exploratory/summary.csv, column: mse, filter: {node: CC1, task: primary, scenario: clean, method: climatology}}
+    cited_in: [docs/story.md]
+  - id: C34
+    statement: First-session rural gain of adaptive history aggregation against two-hour history
+    value: 0.30
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/adaptive_learning/run/summary.csv, column: mss_vs_fixed, transform: pct, filter: {recording: LW1_first, strategy: aggregation, scenario: clean, method: adaptive}}
+    cited_in: [docs/adaptive_learning.md, docs/story.md, docs/research_note/research_note.tex]
+  - id: C35
+    statement: Urban error increase of the local-level correction against two-hour history
+    value: 0.42
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/residual_state_space/run/summary.csv, column: mss_vs_fixed, transform: neg_pct, filter: {recording: CC1_first, strategy: level, scenario: clean, method: adaptive}}
+    cited_in: [docs/residual_state_space.md, docs/story.md, docs/research_note/research_note.tex]
+  - id: C36
+    statement: Urban error increase of the damped-trend correction against two-hour history
+    value: 0.22
+    unit: "%"
+    decimals: 2
+    source: {kind: csv, file: results/residual_state_space/run/summary.csv, column: mss_vs_fixed, transform: neg_pct, filter: {recording: CC1_first, strategy: trend, scenario: clean, method: adaptive}}
+    cited_in: [docs/residual_state_space.md, docs/story.md, docs/research_note/research_note.tex]
+  # --- sparse-regime study (about one sweep in 100 visible) ---
+  - id: C37
+    statement: Urban squared error of plain two-hour history at 99% dropout
+    value: 0.0459
+    decimals: 4
+    source: {kind: csv, file: results/sparse_regime/run/method_losses.csv, column: mse, filter: {node: CC1, region: all_folds, scenario: dropout_0.99, method: fixed_history}}
+    cited_in: [docs/sparse_regime.md, docs/story.md, README.md, docs/research_note/research_note.tex]
+  - id: C38
+    statement: Urban squared error of the strongest simple baseline at 99% dropout
+    value: 0.0146
+    decimals: 4
+    source: {kind: csv, file: results/sparse_regime/run/method_losses.csv, column: mse, filter: {node: CC1, region: all_folds, scenario: dropout_0.99, method: hstar}}
+    cited_in: [docs/sparse_regime.md, docs/story.md, README.md, docs/research_note/research_note.tex]
+  - id: C39
+    statement: Urban squared error of the matched-trained selected learned model at 99% dropout
+    value: 0.0126
+    decimals: 4
+    source: {kind: csv, file: results/sparse_regime/run/method_losses.csv, column: mse, filter: {node: CC1, region: all_folds, scenario: dropout_0.99, method: selected_learned}}
+    cited_in: [docs/sparse_regime.md, docs/story.md, README.md, docs/research_note/research_note.tex]
+  - id: C40
+    statement: Urban squared error of the clean-trained selected learned strategy at 99% dropout
+    value: 0.0374
+    decimals: 4
+    source: {kind: csv, file: results/followup_v2/exploratory/summary.csv, column: mse, filter: {node: CC1, task: primary, scenario: dropout_0.99, method: selected_learned}}
+    cited_in: [docs/sparse_regime.md, docs/research_note/research_note.tex]
+  - id: C41
+    statement: Urban gain of the matched learned model over the strongest simple baseline at 99% dropout
+    value: 13.3
+    unit: "%"
+    decimals: 1
+    source: {kind: csv, file: results/sparse_regime/run/gains.csv, column: gain, transform: pct, filter: {node: CC1, region: all_folds, scenario: dropout_0.99, loss: squared, learned: selected_learned, comparator: hstar}}
+    cited_in: [docs/sparse_regime.md, docs/story.md, README.md, docs/research_note/research_note.tex]
+  - id: C42
+    statement: Urban one-sided 95% lower bound of that gain
+    value: -33.5
+    unit: "%"
+    decimals: 1
+    source: {kind: csv, file: results/sparse_regime/run/gains.csv, column: lower95, transform: pct, filter: {node: CC1, region: all_folds, scenario: dropout_0.99, loss: squared, learned: selected_learned, comparator: hstar}}
+    cited_in: [docs/sparse_regime.md, docs/research_note/research_note.tex]
+  - id: C43
+    statement: Rural (later folds) gain of the matched learned model over the strongest simple baseline at 99% dropout
+    value: -1.6
+    unit: "%"
+    decimals: 1
+    source: {kind: csv, file: results/sparse_regime/run/gains.csv, column: gain, transform: pct, filter: {node: LW1, region: later_folds, scenario: dropout_0.99, loss: squared, learned: selected_learned, comparator: hstar}}
+    cited_in: [docs/sparse_regime.md, docs/story.md, docs/research_note/research_note.tex]
+  - id: C44
+    statement: Rural (later folds) one-sided 95% lower bound of that gain
+    value: -42.0
+    unit: "%"
+    decimals: 1
+    source: {kind: csv, file: results/sparse_regime/run/gains.csv, column: lower95, transform: pct, filter: {node: LW1, region: later_folds, scenario: dropout_0.99, loss: squared, learned: selected_learned, comparator: hstar}}
+    cited_in: [docs/sparse_regime.md, docs/research_note/research_note.tex]
+  - id: C45
+    statement: Urban gain of the matched learned model over plain two-hour history at 99% dropout
+    value: 72.5
+    unit: "%"
+    decimals: 1
+    source: {kind: csv, file: results/sparse_regime/run/gains.csv, column: gain, transform: pct, filter: {node: CC1, region: all_folds, scenario: dropout_0.99, loss: squared, learned: selected_learned, comparator: fixed_history}}
+    cited_in: [docs/sparse_regime.md, docs/story.md, docs/research_note/research_note.tex]
+  - id: C46
+    statement: Urban coverage of the learned quantile-boosting 80% interval at 99% dropout
+    value: 65.9
+    unit: "%"
+    decimals: 1
+    source: {kind: csv, file: results/sparse_regime/run/intervals_summary.csv, column: coverage_80, transform: pct, filter: {node: CC1, region: all_folds, scenario: dropout_0.99, method: qhgb}}
+    cited_in: [docs/sparse_regime.md, docs/research_note/research_note.tex]

@@ -1,10 +1,36 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "Spectrum Occupancy Forecasting: occupancy prediction under sparse RF monitoring"
+title: "Forecasting Wi-Fi channel occupancy from AERPAW spectrum recordings, including under simulated sparse monitoring"
 type: software
 license: MIT
 version: 0.1.0
+repository-code: "https://github.com/awiecz/spectrum-occupancy-forecasting"
+url: "https://github.com/awiecz/spectrum-occupancy-forecasting"
+abstract: >-
+  A deep dive into one public radio dataset (AERPAW fixed spectrum monitors, February 2022).
+  It asks how well recent measurements, and models trained on them, forecast the busy fraction
+  of a Wi-Fi channel 15 minutes ahead, and what happens when measurements are missing or late.
+  All results are exploratory; the one independent test (the CC2 recording) has not been run.
 authors:
   - family-names: "Wieczorkowski"
     given-names: "Art"
     alias: "awiecz"
+references:
+  - type: data
+    title: "AERPAW sub-6 GHz spectrum monitoring dataset: Fixed nodes CC1, CC2, LW1 (February 2022)"
+    authors:
+      - family-names: "Fahim Raouf"
+        given-names: "A. H."
+      - family-names: "Maeng"
+        given-names: "S. J."
+      - family-names: "Ozdemir"
+        given-names: "O."
+      - family-names: "Guvenc"
+        given-names: "I."
+      - family-names: "Sichitiu"
+        given-names: "M."
+    publisher:
+      name: "Dryad"
+    year: 2026
+    doi: "10.5061/dryad.hmgqnk9zn"
+    license: CC0-1.0

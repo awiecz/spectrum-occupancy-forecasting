@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "spectrum-occupancy-forecasting"
 version = "0.1.0"
-description = "Occupancy prediction under sparse RF monitoring, on public AERPAW measurements."
+description = "Forecasting Wi-Fi channel occupancy from public AERPAW spectrum recordings, including under simulated sparse monitoring."
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.11"

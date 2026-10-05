@@ -1,8 +1,9 @@
 # Multi-band shared learning: draft protocol
 
-Drafted 2026-10-05. **Draft: not frozen, not registered, no model fitted.** Stage A below is
-development-grade evidence on recordings that were already inspected. Nothing here is a
-confirmation, and CC2 is untouched.
+Drafted 2026-10-05. **Status: Draft. Future work, not run, not frozen, not declared in the
+registry, no model fitted.** It is not part of the current investigation's findings. Stage A
+below would be development-grade evidence on recordings that were already inspected. Nothing
+here is a confirmation, and CC2 is untouched.
 
 This protocol and [`configs/multiband.yaml`](../configs/multiband.yaml) are authoritative
 together. The planning numbers come from

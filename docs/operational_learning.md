@@ -136,7 +136,7 @@ The [saved evidence](../results/operational_learning/) includes predictions, val
 bin availability, delivered feedback, posterior summaries, numerical checks and original
 fitting manifests. Posterior arrays and detailed interrupted outputs remain locally archived.
 Reporting changes have separate provenance and do not replace historical fitting fingerprints.
-See [reproduction commands](reproduction.md#registered-operational-learning).
+See [reproduction commands](reproduction.md#operational-learning-declared-in-the-registry).
 
 ![Temporal-block sensitivity](../results/operational_learning/run/block_sensitivity.png)
 
