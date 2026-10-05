@@ -1,0 +1,23 @@
+{
+  "study": "residual-state-space",
+  "mode": "exploratory",
+  "started": "2026-10-05T18:54:57.847694+00:00",
+  "status": "completed",
+  "source_hash": "dc12217bed3547b29ed2fbb8689292ac61f4ef3d69379fb5df36fe7d0d052210",
+  "config_hash": "75742142a6a4eff25bbc027d825bc7b89bef389c15ae2cbdda5d429f392558f8",
+  "git": {
+    "commit": "13c2cb7b6995477942146209068744a664641483",
+    "dirty": true
+  },
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "CC2_accessed": false,
+  "all_results_exploratory": true,
+  "candidate_count": 19,
+  "gate_hash": "03bede4ded6019539ce3a6754c720dd7733042c9e26ce77f51a3571e6da8675a",
+  "cache_manifests": {
+    "CC1_session0_development": "5a7ac2a04d7625bcf22cce0eec3f00f3b1c063cb30d0e38f70f59ef311df23e6",
+    "LW1_session0_development": "e172ab5fcc6734db59c3932b70944b74b0ee3c859f327db516fc04743e20fd17",
+    "LW1_session2_assessment": "6d19585c64c535461e619173a8bc1ea161c7fbcf1bfb70b6b05f44b06d8f7215"
+  },
+  "finished": "2026-10-05T18:57:51.215487+00:00"
+}

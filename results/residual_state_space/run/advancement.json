@@ -1,0 +1,337 @@
+{
+  "status": "not_qualified",
+  "flagship": "history",
+  "all_results_exploratory": true,
+  "strategies": [
+    {
+      "strategy": "level",
+      "recordings": [
+        {
+          "recording": "CC1_first",
+          "clean_skill_fixed": -0.0042431404597924605,
+          "clean_skill_selected": 0.060227243733370295,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 5,
+          "fold_pass": false,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 1.0566118460086882,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.0252708625968503,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.0052691680236447,
+              "selected": 0.9499935955700629
+            },
+            "delay_60s": {
+              "fixed": 1.0048191590921802,
+              "selected": 0.9415103885358045
+            },
+            "delay_7200s": {
+              "fixed": 1.0357163626837396,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 1.0599984167474912,
+              "selected": 1.0000000000000002
+            },
+            "dropout_0.9": {
+              "fixed": 1.039227042749254,
+              "selected": 1.0000000000000002
+            },
+            "dropout_0.99": {
+              "fixed": 0.7495714620257038,
+              "selected": 1.0000000000000002
+            },
+            "outage_3600s": {
+              "fixed": 1.0181320345823337,
+              "selected": 0.9656573582193457
+            },
+            "outage_900s": {
+              "fixed": 1.0306874359785265,
+              "selected": 0.9646954835563943
+            }
+          },
+          "robustness_pass": true
+        },
+        {
+          "recording": "LW1_first",
+          "clean_skill_fixed": 0.0,
+          "clean_skill_selected": -0.1874532170619998,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 3,
+          "fold_pass": false,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 0.9594191243513405,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.1241967452284414,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.0,
+              "selected": 1.1497124788768682
+            },
+            "delay_60s": {
+              "fixed": 1.0,
+              "selected": 1.1758547625399118
+            },
+            "delay_7200s": {
+              "fixed": 1.2468307043604516,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 0.8549213847487246,
+              "selected": 0.9999999999999999
+            },
+            "dropout_0.9": {
+              "fixed": 0.9398968629536315,
+              "selected": 1.0
+            },
+            "dropout_0.99": {
+              "fixed": 0.3976687642629809,
+              "selected": 1.0
+            },
+            "outage_3600s": {
+              "fixed": 0.9572571460133206,
+              "selected": 1.1273059372261447
+            },
+            "outage_900s": {
+              "fixed": 0.9802281072717175,
+              "selected": 1.1320105881262366
+            }
+          },
+          "robustness_pass": false
+        },
+        {
+          "recording": "LW1_later",
+          "clean_skill_fixed": 0.0,
+          "clean_skill_selected": 0.018221078807192703,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 1,
+          "fold_pass": true,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 1.046619275854737,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.0496926621477427,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.0,
+              "selected": 0.9948667928150012
+            },
+            "delay_60s": {
+              "fixed": 1.0,
+              "selected": 0.9784434414757391
+            },
+            "delay_7200s": {
+              "fixed": 0.9228911702209288,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 0.9718579211868158,
+              "selected": 0.9884646628728545
+            },
+            "dropout_0.9": {
+              "fixed": 0.6759033914218721,
+              "selected": 0.9990116903178066
+            },
+            "dropout_0.99": {
+              "fixed": 0.18327787670026607,
+              "selected": 0.9994797388135953
+            },
+            "outage_3600s": {
+              "fixed": 0.9589972183899449,
+              "selected": 1.0016694573559095
+            },
+            "outage_900s": {
+              "fixed": 0.9888558662339566,
+              "selected": 0.9888884030060541
+            }
+          },
+          "robustness_pass": true
+        }
+      ],
+      "qualifies": false,
+      "failures_recorded": 0,
+      "minimum_clean_skill": -0.1874532170619998,
+      "mean_clean_skill": -0.06389878584059742
+    },
+    {
+      "strategy": "trend",
+      "recordings": [
+        {
+          "recording": "CC1_first",
+          "clean_skill_fixed": -0.0021663397091200576,
+          "clean_skill_selected": 0.06217071806447949,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 5,
+          "fold_pass": false,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 1.0566118460086882,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.0252708625968503,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.002661489403129,
+              "selected": 0.9475293023562709
+            },
+            "delay_60s": {
+              "fixed": 1.0027700836102882,
+              "selected": 0.9395904153389972
+            },
+            "delay_7200s": {
+              "fixed": 1.0357163626837396,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 1.0599984167474912,
+              "selected": 1.0000000000000002
+            },
+            "dropout_0.9": {
+              "fixed": 1.039227042749254,
+              "selected": 1.0000000000000002
+            },
+            "dropout_0.99": {
+              "fixed": 0.7495714620257038,
+              "selected": 1.0000000000000002
+            },
+            "outage_3600s": {
+              "fixed": 1.0173123158456479,
+              "selected": 0.9648798879081638
+            },
+            "outage_900s": {
+              "fixed": 1.0292638595431367,
+              "selected": 0.9633630546261688
+            }
+          },
+          "robustness_pass": true
+        },
+        {
+          "recording": "LW1_first",
+          "clean_skill_fixed": 0.0,
+          "clean_skill_selected": -0.1874532170619998,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 3,
+          "fold_pass": false,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 0.9594191243513405,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.1241967452284414,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.0,
+              "selected": 1.1497124788768682
+            },
+            "delay_60s": {
+              "fixed": 1.0,
+              "selected": 1.1758547625399118
+            },
+            "delay_7200s": {
+              "fixed": 1.2468307043604516,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 0.8549213847487246,
+              "selected": 0.9999999999999999
+            },
+            "dropout_0.9": {
+              "fixed": 0.9398968629536315,
+              "selected": 1.0
+            },
+            "dropout_0.99": {
+              "fixed": 0.3976687642629809,
+              "selected": 1.0
+            },
+            "outage_3600s": {
+              "fixed": 0.9572571460133206,
+              "selected": 1.1273059372261447
+            },
+            "outage_900s": {
+              "fixed": 0.9802281072717175,
+              "selected": 1.1320105881262366
+            }
+          },
+          "robustness_pass": false
+        },
+        {
+          "recording": "LW1_later",
+          "clean_skill_fixed": 0.0,
+          "clean_skill_selected": 0.018221078807192703,
+          "clean_pass": false,
+          "positive_fold_fraction": 0.0,
+          "fold_count": 1,
+          "fold_pass": true,
+          "scenario_ratios": {
+            "delay_1800s": {
+              "fixed": 1.046619275854737,
+              "selected": 1.0
+            },
+            "delay_3600s": {
+              "fixed": 1.0496926621477427,
+              "selected": 1.0
+            },
+            "delay_600s": {
+              "fixed": 1.0,
+              "selected": 0.9948667928150012
+            },
+            "delay_60s": {
+              "fixed": 1.0,
+              "selected": 0.9784434414757391
+            },
+            "delay_7200s": {
+              "fixed": 0.9228911702209288,
+              "selected": 1.0
+            },
+            "dropout_0.5": {
+              "fixed": 0.9718579211868158,
+              "selected": 0.9884646628728545
+            },
+            "dropout_0.9": {
+              "fixed": 0.6759033914218721,
+              "selected": 0.9990116903178066
+            },
+            "dropout_0.99": {
+              "fixed": 0.18327787670026607,
+              "selected": 0.9994797388135953
+            },
+            "outage_3600s": {
+              "fixed": 0.9589972183899449,
+              "selected": 1.0016694573559095
+            },
+            "outage_900s": {
+              "fixed": 0.9888558662339566,
+              "selected": 0.9888884030060541
+            }
+          },
+          "robustness_pass": true
+        }
+      ],
+      "qualifies": false,
+      "failures_recorded": 0,
+      "minimum_clean_skill": -0.1874532170619998,
+      "mean_clean_skill": -0.06320651892370661
+    }
+  ]
+}

@@ -54,6 +54,7 @@ def replay(
     active=None,
     checkpoint=None,
     stop_after=None,
+    bank_factory=None,
 ):
     """Replay every unscored/scored origin; queue immutable feature and expert snapshots."""
     deg = deg or Degradation()
@@ -62,7 +63,11 @@ def replay(
     initial_origins, initial_y, _ = node.training(cutoff, cfg["replay_stride_s"])
     mean = float(initial_y.mean())
     initial_features, initial_base = feature_frames(node, initial_origins, mean, Degradation(), 0)
-    bank = CandidateBank(cfg, initial_features)
+    bank = (
+        CandidateBank(cfg, initial_features)
+        if bank_factory is None
+        else bank_factory(cfg, initial_features, initial_y, initial_base)
+    )
     experts_initial = initial_features["history"].iloc[:, :8].to_numpy()
     vectors_initial = {
         name: processor.transform(initial_features[name])
@@ -88,14 +93,15 @@ def replay(
         None if active is None else frozenset(active),
     )
     if checkpoint is not None:
-        bank = CandidateBank.resume(checkpoint)
+        bank = bank.resume(checkpoint)
         if bank.replay_signature != signature:
             raise ValueError("checkpoint replay configuration mismatch")
         pending, records, feedback, begin_index = bank.replay_progress
     else:
         pending, records, feedback, begin_index = [], [], [], 0
     features, base = feature_frames(node, origins, mean, deg, seed)
-    bank.feature_snapshots = features["history_fine"].assign(origin_s=origins)
+    snapshot_features = getattr(bank, "snapshot_features", "history_fine")
+    bank.feature_snapshots = features[snapshot_features].assign(origin_s=origins)
     vectors = {
         name: processor.transform(features[name]) for name, processor in bank.preprocessing.items()
     }
@@ -125,6 +131,9 @@ def replay(
                 "update_reason": "updated" if value is not None else "insufficient_coverage",
             }
             feedback.append(event)
+            if bank_factory is not None:
+                event["issued_fixed_history"] = float(base[index])
+                event["delivered_residual"] = None if value is None else float(value - base[index])
             if value is not None:
                 bank.update(
                     release,
@@ -182,31 +191,59 @@ def replay(
     return pd.DataFrame(records), pd.DataFrame(feedback), bank
 
 
-def select(node, cfg, evaluation_origin):
+def select(
+    node,
+    cfg,
+    evaluation_origin,
+    *,
+    candidate_factory=candidates,
+    bank_factory=None,
+    strategies=None,
+):
     """Two six-hour validation replays with independent embargoed initialization."""
     end = evaluation_origin - cfg["selection_embargo_s"]
     begin = end - cfg["validation_hours"] * 3600
     validation, failures = [], []
+    strategies = STRATEGIES if strategies is None else strategies
+    grid = candidate_factory(cfg)
     for block in range(2):
         lo = begin + block * 21600
         hi = lo + 21600
         cutoff = lo - cfg["selection_embargo_s"]
         if lo < node.data.t0 + 86400 or cutoff <= node.data.t0 + 1800:
             return (
-                {name: candidates(cfg)[0].id for name in STRATEGIES},
+                {name: grid[0].id for name in strategies},
                 "recent_7200s",
                 [],
                 [],
                 "insufficient_validation",
             )
         origins = node.data.origins(lo, hi, 900, cfg["replay_stride_s"])
-        predictions, _, bank = replay(node, cfg, origins, training_cutoff=cutoff, start=lo)
+        predictions, _, bank = replay(
+            node, cfg, origins, training_cutoff=cutoff, start=lo, bank_factory=bank_factory
+        )
         scored_origins, y, count = node.data.dataset(origins, 900)
+        if not len(y):
+            return (
+                {name: grid[0].id for name in strategies},
+                "recent_7200s",
+                [],
+                [],
+                "insufficient_validation",
+            )
         labels = pd.DataFrame({"origin_s": scored_origins, "y": y, "target_count": count})
         predictions = predictions.merge(labels, on="origin_s", validate="many_to_one")
         predictions["block"] = block
         validation.append(predictions)
         failures.extend(bank.failures)
+        if predictions.empty:
+            return (
+                {name: grid[0].id for name in strategies},
+                "recent_7200s",
+                [],
+                [],
+                "insufficient_validation",
+            )
     frame = pd.concat(validation, ignore_index=True)
     frame["loss"] = (frame.prediction - frame.y) ** 2
     scores = frame.groupby(["candidate", "block"]).loss.mean().unstack()
@@ -223,7 +260,7 @@ def select(node, cfg, evaluation_origin):
     scores = frame.groupby(["candidate", "block"]).loss.mean().unstack()
     pooled = frame.groupby("candidate").loss.mean()
     chosen, rows = {}, []
-    for candidate in candidates(cfg):
+    for candidate in grid:
         eligible = candidate.family != "history" and not failures
         for reference in ("recent_7200s", history_id):
             eligible &= pooled[candidate.id] <= (1 - cfg["validation_margin"]) * pooled[reference]
@@ -241,12 +278,12 @@ def select(node, cfg, evaluation_origin):
                 "validation_end": end,
             }
         )
+        if bank_factory is not None:
+            rows[-1]["selection_blocked_by_failure"] = bool(failures)
     eligibility = {row["candidate"]: row["selection_eligible"] for row in rows}
-    for name, allow in STRATEGIES.items():
-        options = [c for c in candidates(cfg) if allow(c) and eligibility[c.id]]
+    for name, allow in strategies.items():
+        options = [c for c in grid if allow(c) and eligibility[c.id]]
         chosen[name] = (
-            min(options, key=lambda c: (pooled[c.id], c.tie)).id
-            if options
-            else candidates(cfg)[0].id
+            min(options, key=lambda c: (pooled[c.id], c.tie)).id if options else grid[0].id
         )
     return chosen, history_id, rows, frame.drop(columns="loss").to_dict("records"), failures

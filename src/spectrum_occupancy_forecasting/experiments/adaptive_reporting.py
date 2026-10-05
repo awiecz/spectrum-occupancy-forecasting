@@ -17,12 +17,13 @@ from .followup_models import operating_threshold
 from .followup_reporting import dependence, paired_intervals, point_metrics
 
 
-def verify_records(source, cfg):
+def verify_records(source, cfg, *, candidate_factory=candidates, strategies=None):
     """Recompute scores and conservative selections without fitting or replaying models."""
     validation = pd.read_parquet(source / "validation_predictions.parquet")
     scores = json.loads((source / "candidate_scores.json").read_text())
     selections = json.loads((source / "selections.json").read_text())
-    grid = {candidate.id: candidate for candidate in candidates(cfg)}
+    strategies = STRATEGIES if strategies is None else strategies
+    grid = {candidate.id: candidate for candidate in candidate_factory(cfg)}
     checked = 0
     for selection in selections:
         if selection["recording"] == "LW1_later" or selection["failure"]:
@@ -39,7 +40,7 @@ def verify_records(source, cfg):
             for row in scores
             if row["recording"] == selection["recording"] and row["fold"] == selection["fold"]
         ]
-        if len(saved) != 145:
+        if len(saved) != len(grid):
             raise ValueError("missing declared validation candidates")
         for row in saved:
             identifier = row["candidate"]
@@ -53,14 +54,16 @@ def verify_records(source, cfg):
                     atol=1e-15,
                 ):
                     raise ValueError("validation block score cannot be reproduced")
-            eligible = grid[identifier].family != "history"
+            eligible = grid[identifier].family != "history" and not row.get(
+                "selection_blocked_by_failure", False
+            )
             for reference in ("recent_7200s", selection["selected_history"]):
                 eligible &= pooled[identifier] <= (1 - cfg["validation_margin"]) * pooled[reference]
                 eligible &= bool((blocked.loc[identifier] < blocked.loc[reference]).all())
             if bool(eligible) != row["selection_eligible"]:
                 raise ValueError("conservative selection eligibility changed")
             checked += 1
-        for strategy, predicate in STRATEGIES.items():
+        for strategy, predicate in strategies.items():
             eligible = [
                 grid[row["candidate"]]
                 for row in saved
@@ -69,17 +72,19 @@ def verify_records(source, cfg):
             expected = (
                 min(eligible, key=lambda c: (pooled[c.id], c.tie)).id
                 if eligible
-                else candidates(cfg)[0].id
+                else candidate_factory(cfg)[0].id
             )
             if expected != selection["chosen"][strategy]:
                 raise ValueError("saved candidate selection is not reproducible")
     return {"candidate_scores_reproduced": checked, "selection_rules_verified": True}
 
 
-def regenerate(source, out, cfg):
+def regenerate(
+    source, out, cfg, *, candidate_factory=candidates, strategies=None, figure_function=None
+):
     source, out = Path(source), Path(out)
     predictions = pd.read_parquet(source / "predictions.parquet")
-    checks = verify_records(source, cfg)
+    checks = verify_records(source, cfg, candidate_factory=candidate_factory, strategies=strategies)
     if not predictions.prediction.between(0, 1).all():
         raise ValueError("forecast bounds violated")
     write_json(out / "prediction_audit.json", checks)
@@ -220,7 +225,7 @@ def regenerate(source, out, cfg):
             key=lambda d: (
                 -d["minimum_clean_skill"],
                 -d["mean_clean_skill"],
-                ["bias", "aggregation", "ridge_history", "ridge_fine"].index(d["strategy"]),
+                list(STRATEGIES if strategies is None else strategies).index(d["strategy"]),
             ),
         )
         if qualifying
@@ -256,7 +261,9 @@ def regenerate(source, out, cfg):
     )
     periods.to_csv(out / "period_summary.csv", index=False)
     event_report(source, out, predictions, cfg)
-    figures(predictions, summary, pd.DataFrame(intervals), out)
+    (figures if figure_function is None else figure_function)(
+        predictions, summary, pd.DataFrame(intervals), out
+    )
 
 
 def event_report(source, out, predictions, cfg):

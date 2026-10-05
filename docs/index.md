@@ -6,6 +6,7 @@
 | Explore the measurements | [Data study](data_study.md) |
 | Understand the findings | [Results overview](results.md) |
 | Inspect local learning and adaptation | [Adaptive forecasting](adaptive_learning.md) |
+| Inspect the targeted residual follow-up | [Residual diagnosis and state-space study](residual_state_space.md) |
 | Read the research summary | [Three-page PDF](research_note/research_note.pdf) |
 | Run the code | [Reproduction guide](reproduction.md) |
 | Check methods and evidence | [Technical reference](technical/index.md) |

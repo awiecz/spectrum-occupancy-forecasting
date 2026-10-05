@@ -1,0 +1,13 @@
+recording,fold,retrospective_best,mse
+CC1_first,0,aggregation_2_0_8_history_1,0.006241769214218405
+CC1_first,1,ridge_2_1_0_history_0.5,0.003914569621601736
+CC1_first,2,aggregation_24_0_8_history_1,0.00292893162403461
+CC1_first,3,ridge_24_100_0_history_fine_1,0.004905898076853035
+CC1_first,4,bias_2_0_0_history_1,0.009673556782741973
+CC1_first,pooled,aggregation_2_0_0.5_history_1,0.005637943048525681
+LW1_first,0,ridge_12_10_0_history_1,0.012308704297905792
+LW1_first,1,ridge_24_10_0_history_fine_0.5,0.0017582187587990566
+LW1_first,2,ridge_6_10_0_history_fine_1,0.0018259970795159127
+LW1_first,pooled,ridge_12_10_0_history_1,0.005879439464745832
+LW1_later,0,history_0_0_0_history_0,0.004884244374470978
+LW1_later,pooled,history_0_0_0_history_0,0.004884244374470978

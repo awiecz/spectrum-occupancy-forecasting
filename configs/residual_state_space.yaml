@@ -1,0 +1,12 @@
+study: residual-state-space
+base_config: adaptive_learning.yaml
+model_families: [level, trend]
+noise_coefficients: [0.01, 0.1, 1]
+state_strengths: [0.25, 0.5, 1]
+trend_half_life_h: 2
+minimum_initialization: 20
+variance_floor: 0.000001
+gate_headroom_skill: 0.02
+gate_correlation: 0.20
+gate_minimum_pairs: 80
+gate_policy: either

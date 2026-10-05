@@ -72,6 +72,11 @@ first-session and 81 later rural forecasts. No strategy meets the robust 5%-on-e
 promotion rule. Adaptive aggregation approximately matches fixed two-hour history and gains
 0.30% on first-session rural data. This is a small exploratory gain, not learned superiority.
 
+The [targeted residual follow-up](residual_state_space.md) found retrospective candidate
+headroom and persistent errors. Its declared level/trend study nevertheless increased urban
+MSE by 0.42%/0.22% against two-hour history and selected history-only on both rural recordings.
+Neither family qualifies; controller degradation penalties are reported separately from learning.
+
 The recordings are short, nearby forecasts are correlated, and the data were repeatedly
 inspected during development. The mixture's apparent improvements are exploratory; its
 uncertainty estimates do not account for the full adaptive search. Rural-site uncertainty

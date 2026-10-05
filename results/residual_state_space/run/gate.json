@@ -1,0 +1,54 @@
+{
+  "passes": true,
+  "policy": "either",
+  "headroom_pass": true,
+  "qualifying_existing_candidates": [
+    "aggregation_12_0_2_history_1",
+    "aggregation_2_0_0.5_history_1",
+    "aggregation_6_0_0.5_history_1",
+    "aggregation_6_0_2_history_1",
+    "aggregation_6_0_8_history_1"
+  ],
+  "persistence_pass": true,
+  "persistence": [
+    {
+      "recording": "CC1_first",
+      "n_pairs": 429,
+      "correlation": 0.27004414082959827,
+      "available": true,
+      "passes": true
+    },
+    {
+      "recording": "LW1_first",
+      "n_pairs": 233,
+      "correlation": 0.41068534887081953,
+      "available": true,
+      "passes": true
+    },
+    {
+      "recording": "LW1_later",
+      "n_pairs": 79,
+      "correlation": null,
+      "available": false,
+      "passes": false
+    }
+  ],
+  "specification_hash": "581a1a7861987d1aa57e71ab5b5f96a366ddf27f50f10f14947d964c813ab39d",
+  "source_hashes": {
+    "predictions.parquet": "ad2b53762b80857f4d2c0a02c35d7b881059cbf4cbf13b9dd4326a5d95b833c5",
+    "validation_predictions.parquet": "bd41fec6a0c20698f2f266e5137b70a016bcf11eb0a7d381e5cd0c8b2af23d51",
+    "feedback.parquet": "473a96aced43490a94e5cb96ca30961d7e3184f02794b794982bbce862ace04b",
+    "feature_snapshots.parquet": "fc40d40994ba1639256a380fcfdd4d370e2daeff172586081b4bc8bf0a15fe08",
+    "selections.json": "e2b2ece20a4d58d647ff9b4515297d08f1fe71e5a6a2980e86e4dcfe229dc47a",
+    "candidate_scores.json": "26b2d5f2d5ad1d05a4ce40699204a3746191f3de3d08962fc7640e5654444462",
+    "configuration.json": "3577f27e9428376943d64de95c26491aebbdecd37bc454c5ff45f8b789ebb0bc",
+    "failures.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "manifest.json": "d865a58108a9af7827e24f3f99d15ec34b86765c5109f0fd5994e0e0c00d6a0d",
+    "CC1_first_candidate_forecasts.parquet": "a26e37d2d24cf3f6bf21d72a61a7f0839a53c04786fe2e758f483c0e02d8f4a0",
+    "LW1_first_candidate_forecasts.parquet": "129302587b3c79cc66ea3c9f2d1917e9eaa871fc2c81a67390cfa34d6f5a4db6",
+    "LW1_later_candidate_forecasts.parquet": "3e5d6e50ec4cb9011fbca7f9f55e9d0d05f2a2badf47d3ea28a0e11277134931"
+  },
+  "all_results_exploratory": true,
+  "CC2_accessed": false,
+  "retrospective_global_candidate": "ridge_6_10_0_history_1"
+}

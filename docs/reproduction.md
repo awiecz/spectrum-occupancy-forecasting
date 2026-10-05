@@ -116,6 +116,30 @@ recorded report regeneration improved figure readability and interval-line color
 tables and advancement decisions agree. Use `results/adaptive_learning/publication_audit.json`
 for the current published-file checksums and `audit/report_manifest.json` for reporting provenance.
 
+## Residual diagnosis and state-space follow-up
+
+The [targeted follow-up](residual_state_space.md) starts with saved forecasts, not another
+model search. All output directories must be new. The first two commands need no recordings:
+
+```bash
+uv run python scripts/run_residual_state_space.py --mode diagnose --out-dir reproductions/residual_diagnosis
+uv run python scripts/run_residual_state_space.py --mode synthetic-rehearsal --out-dir reproductions/residual_demo
+```
+
+Real replay uses only the three existing verified caches described above. It requires a
+passing diagnosis whose specification and input hashes still match. The runner recomputes
+the gate before reading caches; it rejects CC2 and never reads raw archives or downloads data.
+
+```bash
+uv run python scripts/run_residual_state_space.py --mode exploratory --diagnosis-dir reproductions/residual_diagnosis --out-dir reproductions/residual_new
+uv run python scripts/run_residual_state_space.py --mode report --predictions-dir results/residual_state_space/run --out-dir reproductions/residual_report
+```
+
+`--config`, `--cache`, and `--source-adaptive-dir` accept explicit paths. Report mode
+reproduces numerical tables from saved forecasts and validation predictions without fitting.
+Filter updates and state snapshots additionally expose the delivered anchors and covariance.
+Synthetic runs are workflow checks and are not evidence of measurement-data performance.
+
 ## Check the code
 
 ```bash

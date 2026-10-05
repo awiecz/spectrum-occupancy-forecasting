@@ -1,0 +1,18 @@
+{
+  "study": "residual-state-space",
+  "mode": "report",
+  "started": "2026-10-05T18:59:36.747066+00:00",
+  "status": "completed",
+  "source_hash": "5cca1f179a20bc5e8743e3dcf0af36a7e49eade2897ffe35826e17ea572069dc",
+  "config_hash": "75742142a6a4eff25bbc027d825bc7b89bef389c15ae2cbdda5d429f392558f8",
+  "git": {
+    "commit": "13c2cb7b6995477942146209068744a664641483",
+    "dirty": true
+  },
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "CC2_accessed": false,
+  "all_results_exploratory": true,
+  "candidate_count": 19,
+  "input_prediction_hash": "738339b5db451a98ed57fc398de80fc756428042b7476c3e6584bcd1c76de37e",
+  "finished": "2026-10-05T19:01:00.656315+00:00"
+}

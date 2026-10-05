@@ -53,7 +53,9 @@ Missing and delayed inputs reduce useful evidence; these disruptions are simulat
 A [study of local adaptation](docs/adaptive_learning.md) tests whether completed measurements
 can improve later forecasts. It tested 145 settings for correcting bias, combining history
 forecasts and learning from history and power. None achieved robust 5% gains over both history references on all three
-inspected recordings. **History remains the recommended method.**
+inspected recordings. A [targeted residual follow-up](docs/residual_state_space.md) found
+predictable errors, but its 18 level/trend corrections also failed to improve reliably.
+**History remains the recommended method.**
 
 A learned mixture reduced mean squared error by **1.35% urban and 6.80% rural** against
 history selected using earlier validation. A fixed two-hour average still had lower error
