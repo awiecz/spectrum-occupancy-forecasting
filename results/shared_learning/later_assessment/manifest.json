@@ -1,0 +1,30 @@
+{
+  "mode": "publication",
+  "status": "completed",
+  "publication_utc": "2026-10-05T15:01:49.864077+00:00",
+  "original_mode": "assessment",
+  "original_manifest_sha256": "43ec4f61cb792c064ab325d9b6e0db8ca78fed7f2fdad2a78d6162472ba47ccb",
+  "source_fingerprint": "8ea61b908a320c088e42c64014c48247201919b1b5530856b1433ab458c3ce58",
+  "config_fingerprint": "c9e5b6638e6da64d1795473f286afcf28101ac4039add53c608a3a3d7874d246",
+  "interpretation": "Published subset; run_manifest.json preserves original fitting provenance. Detailed unselected validation remains local.",
+  "artifact_hashes": {
+    "advancement.json": "175d46b1fa1df0fc026d170aaf5747d49cc70d246b521dd0edd5f03f8e188463",
+    "bootstrap.csv": "665d4390086790d3c73e330e0dde15b63e937151a42f960dc9a056d82baf7a9c",
+    "bootstrap_sensitivity.png": "9dcd56fadc4af8160b58e21097dd9f5ad7eb80f77c9603dfd79604bc589d23a3",
+    "clean_comparison.png": "ff2a5ccf6ab4354c7d03bd99a178d0c12085912d5b26c1c6cbb9da9abce2fab7",
+    "common_summary.csv": "508f9909a8d0fcbdeab7d7dd35e5835fcc4963efaa4a3543faa589675d2d23a0",
+    "config.json": "6afec46c833c907436303811beae28d1b954333282259de0f6ab162edecd534f",
+    "daily.csv": "c921fd164be9237a01f5dc68ad4e0955370446bf337509e11cdee0dfe817d91c",
+    "dependence.csv": "35ebd58c036e021af238e41907025de6ff6f5749a3013cf059cc8e3edd2f3212",
+    "events.csv": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "later_forecasts.png": "ced8836a3a48ed50a7c908aefc47ebb874a54b47452df21b7f64c55ff7a67d0d",
+    "operating_thresholds.csv": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "oracle.csv": "8227db0233e72835a7c4c1ce3d022ae369f77a7a8517a7f25b6c34d034a2874d",
+    "paired_reference_bootstrap.csv": "c4ef7c8616da1ad67ab022ebd2dd9ac57812e0c690ed68cbe0c3f50e2cfb7ed0",
+    "predictions.parquet": "1f3c414823e84fcf717849708a1b396b9eb78b174ce7b4a6ac3fec4c355567fe",
+    "run_manifest.json": "43ec4f61cb792c064ab325d9b6e0db8ca78fed7f2fdad2a78d6162472ba47ccb",
+    "selections.json": "a776ee73cffdb998a4d98ae91c8ade8bef0925ae3065c0774382b918a3da0024",
+    "summary.csv": "57dde1b659c2b4c310c5266bb2dd57c12cb1bbf655bc362efc157b076f5daa61",
+    "summary.json": "34b197e6ba05c53ac19d9d1ed64020143f705391e68796a1e58f1991a8a4dfc4"
+  }
+}

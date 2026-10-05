@@ -60,6 +60,12 @@ did not solve this problem.
 
 ## How strong is the evidence?
 
+The [finer-input/shared-training study](shared_learning.md) found no qualifying improvement.
+Its globally selected challenger increased clean MSE by 1.99% urban and 4.36% rural against
+fixed two-hour history. After a local freeze, a single reserved later rural session showed
+160.45% higher error. That assessment is complete and unfavorable; it is separate from the
+still-pending CC2 confirmation. No model was tuned on its outcomes.
+
 The recordings are short, nearby forecasts are correlated, and the data were repeatedly
 inspected during development. The mixture's apparent improvements are exploratory; its
 uncertainty estimates do not account for the full adaptive search. Rural-site uncertainty

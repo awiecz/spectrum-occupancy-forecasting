@@ -1,0 +1,318 @@
+{
+  "qualifies": false,
+  "criteria": [
+    {
+      "node": "CC1",
+      "criterion": "common_folds",
+      "value": 4,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "clean_vs_fixed_history",
+      "value": 1.019917863980009,
+      "passed": false
+    },
+    {
+      "node": "CC1",
+      "criterion": "positive_folds_vs_fixed_history",
+      "value": 0.5,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "delay_1800s_vs_fixed_history",
+      "value": 1.0,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "delay_3600s_vs_fixed_history",
+      "value": 1.0,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "delay_600s_vs_fixed_history",
+      "value": 1.1578251057576954,
+      "passed": false
+    },
+    {
+      "node": "CC1",
+      "criterion": "delay_60s_vs_fixed_history",
+      "value": 1.0239212304336216,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "delay_7200s_vs_fixed_history",
+      "value": 1.0,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "dropout_0.5_vs_fixed_history",
+      "value": 0.9940734028533869,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "dropout_0.9_vs_fixed_history",
+      "value": 1.0,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "dropout_0.99_vs_fixed_history",
+      "value": 1.0,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "outage_3600s_vs_fixed_history",
+      "value": 1.0068857142431507,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "outage_900s_vs_fixed_history",
+      "value": 1.0091135475888986,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "clean_vs_selected_history",
+      "value": 0.9306287050067188,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "positive_folds_vs_selected_history",
+      "value": 0.75,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "delay_1800s_vs_selected_history",
+      "value": 0.9238702892052422,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "delay_3600s_vs_selected_history",
+      "value": 0.9547700748000104,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "delay_600s_vs_selected_history",
+      "value": 1.0711129318333437,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "delay_60s_vs_selected_history",
+      "value": 0.9361066610158125,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "delay_7200s_vs_selected_history",
+      "value": 0.9477673903829658,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "dropout_0.5_vs_selected_history",
+      "value": 0.9220872534264356,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "dropout_0.9_vs_selected_history",
+      "value": 0.9871539963285205,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "dropout_0.99_vs_selected_history",
+      "value": 2.001091726659731,
+      "passed": false
+    },
+    {
+      "node": "CC1",
+      "criterion": "outage_3600s_vs_selected_history",
+      "value": 0.9505653115482074,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "outage_900s_vs_selected_history",
+      "value": 0.9257626054752875,
+      "passed": true
+    },
+    {
+      "node": "CC1",
+      "criterion": "reported_failures",
+      "value": 0,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "common_folds",
+      "value": 2,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "clean_vs_fixed_history",
+      "value": 1.0436329416446974,
+      "passed": false
+    },
+    {
+      "node": "LW1",
+      "criterion": "positive_folds_vs_fixed_history",
+      "value": 0.5,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "delay_1800s_vs_fixed_history",
+      "value": 1.0,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "delay_3600s_vs_fixed_history",
+      "value": 1.0,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "delay_600s_vs_fixed_history",
+      "value": 3.6578270122422856,
+      "passed": false
+    },
+    {
+      "node": "LW1",
+      "criterion": "delay_60s_vs_fixed_history",
+      "value": 1.2050276730548537,
+      "passed": false
+    },
+    {
+      "node": "LW1",
+      "criterion": "delay_7200s_vs_fixed_history",
+      "value": 1.0,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "dropout_0.5_vs_fixed_history",
+      "value": 0.94444963822613,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "dropout_0.9_vs_fixed_history",
+      "value": 1.0,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "dropout_0.99_vs_fixed_history",
+      "value": 1.0,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "outage_3600s_vs_fixed_history",
+      "value": 1.0013040575502221,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "outage_900s_vs_fixed_history",
+      "value": 0.9940863217896568,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "clean_vs_selected_history",
+      "value": 1.0272011737610394,
+      "passed": false
+    },
+    {
+      "node": "LW1",
+      "criterion": "positive_folds_vs_selected_history",
+      "value": 0.5,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "delay_1800s_vs_selected_history",
+      "value": 0.980678128509604,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "delay_3600s_vs_selected_history",
+      "value": 0.9659353078923161,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "delay_600s_vs_selected_history",
+      "value": 3.627975389956922,
+      "passed": false
+    },
+    {
+      "node": "LW1",
+      "criterion": "delay_60s_vs_selected_history",
+      "value": 1.1858511815603123,
+      "passed": false
+    },
+    {
+      "node": "LW1",
+      "criterion": "delay_7200s_vs_selected_history",
+      "value": 0.9688847592744656,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "dropout_0.5_vs_selected_history",
+      "value": 0.9422588484893204,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "dropout_0.9_vs_selected_history",
+      "value": 1.1238868876811219,
+      "passed": false
+    },
+    {
+      "node": "LW1",
+      "criterion": "dropout_0.99_vs_selected_history",
+      "value": 1.9621308768370007,
+      "passed": false
+    },
+    {
+      "node": "LW1",
+      "criterion": "outage_3600s_vs_selected_history",
+      "value": 1.0040877435014746,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "outage_900s_vs_selected_history",
+      "value": 0.9891651273719089,
+      "passed": true
+    },
+    {
+      "node": "LW1",
+      "criterion": "reported_failures",
+      "value": 0,
+      "passed": true
+    }
+  ],
+  "interpretation": "exploratory; original decisions unchanged"
+}

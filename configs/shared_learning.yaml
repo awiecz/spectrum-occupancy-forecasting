@@ -1,0 +1,20 @@
+study: shared-learning
+base_config: followup_v2.yaml
+feature_sets: [history, history_fine]
+training_spacings_s: [180, 900]
+validation_hours: [12, 36]
+ridge_penalties: [1, 10, 100, 1000]
+shared_weights: [0, 0.25, 0.5, 0.75, 1]
+correction_strengths: [0.25, 0.5, 1]
+boosting_depths: [2, 3]
+boosting_leaf_sizes: [20, 40]
+correction_cap: 0.1
+minimum_predictor_coverage: 0.5
+maximum_correction_age_s: 900
+minimum_clean_skill: 0.05
+minimum_common_folds: 2
+minimum_positive_fold_fraction: 0.5
+maximum_degraded_ratio: 1.1
+cache_budget_bytes: 262144000
+later_session: 2
+later_calibration_s: 86400

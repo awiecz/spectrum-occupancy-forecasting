@@ -1,0 +1,5 @@
+node,task,variant,lead_s,offset_db,scenario,method,seed,interpretation,event_prevalence,auc,false_idle_at_fb10,false_idle_at_fb20
+LW1,primary,history_fine,900,3,clean,fixed_history,0,evaluation-label oracle,0.9876543209876543,0.575,0.4125,0.4125
+LW1,primary,history_fine,900,3,clean,history_mixture,0,evaluation-label oracle,0.9876543209876543,0.7,0.3,0.3
+LW1,primary,history_fine,900,3,clean,selected_history,0,evaluation-label oracle,0.9876543209876543,0.575,0.4125,0.4125
+LW1,primary,history_fine,900,3,clean,selected_learned,0,evaluation-label oracle,0.9876543209876543,0.55625,0.4375,0.4375

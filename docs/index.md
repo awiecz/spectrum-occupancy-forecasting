@@ -5,6 +5,7 @@
 | Understand the project | [README](../README.md) |
 | Explore the measurements | [Data study](data_study.md) |
 | Understand the findings | [Results overview](results.md) |
+| Inspect the latest learning experiment | [Shared training and finer inputs](shared_learning.md) |
 | Read the research summary | [Three-page PDF](research_note/research_note.pdf) |
 | Run the code | [Reproduction guide](reproduction.md) |
 | Check methods and evidence | [Technical reference](technical/index.md) |

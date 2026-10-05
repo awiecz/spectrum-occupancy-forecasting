@@ -80,6 +80,14 @@ For a download-free check of either pipeline, replace `--mode exploratory` with
 Commands for original window-width and transfer experiments are in the
 [original-study reference](technical/reproduction.md#3-run-independent-reproductions).
 
+## Shared training and fine inputs
+
+The [illustrated study](shared_learning.md#reproduce-and-inspect) documents the eight-profile
+experiment, compact raw-archive extraction, download-free rehearsal and prediction-only
+report regeneration. No additional downloads are needed if the original archives are present.
+Its reserved later-LW1 assessment has already run once; the lock prevents another assessment.
+Reproduction of the inspected first sessions remains exploratory. CC2 is still untouched.
+
 ## Check the code
 
 ```bash

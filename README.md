@@ -50,6 +50,10 @@ patterns and sensitivity through six figure groups and reproducible statistics.
 **Simple history is a strong baseline.** Trained models did not establish a reliable advantage.
 Missing and delayed inputs reduce useful evidence; these disruptions are simulated.
 
+A further [study of finer inputs and shared training](docs/shared_learning.md) also failed to
+beat history reliably. Its frozen later-session rural assessment showed substantial underprediction,
+reinforcing the limits of transferring a learned correction between short recordings.
+
 A learned mixture reduced mean squared error by **1.35% urban and 6.80% rural** against
 history selected using earlier validation. A fixed two-hour average still had lower error
 at both sites on that comparison's same windows. The mixture missed the declared 5%-per-site

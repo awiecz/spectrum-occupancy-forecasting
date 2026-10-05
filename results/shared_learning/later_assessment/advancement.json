@@ -1,0 +1,42 @@
+{
+  "qualifies": false,
+  "criteria": [
+    {
+      "node": "LW1",
+      "criterion": "common_folds",
+      "value": 1,
+      "passed": false
+    },
+    {
+      "node": "LW1",
+      "criterion": "clean_vs_fixed_history",
+      "value": 2.604472413129545,
+      "passed": false
+    },
+    {
+      "node": "LW1",
+      "criterion": "positive_folds_vs_fixed_history",
+      "value": 0.0,
+      "passed": false
+    },
+    {
+      "node": "LW1",
+      "criterion": "clean_vs_selected_history",
+      "value": 2.604472413129545,
+      "passed": false
+    },
+    {
+      "node": "LW1",
+      "criterion": "positive_folds_vs_selected_history",
+      "value": 0.0,
+      "passed": false
+    },
+    {
+      "node": "LW1",
+      "criterion": "reported_failures",
+      "value": 0,
+      "passed": true
+    }
+  ],
+  "interpretation": "exploratory; original decisions unchanged"
+}
