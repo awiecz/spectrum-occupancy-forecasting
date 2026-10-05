@@ -1,0 +1,30 @@
+[
+  {
+    "site": "CC1",
+    "eligible_bands": 73,
+    "evaluated_bands": 73,
+    "target_eligible": true,
+    "main_blocks": 14,
+    "correlation_blocks": 29,
+    "mean_loss_correlation": 0.1743441910311754,
+    "median_loss_correlation": 0.1454233075103452,
+    "target_relative_cv": 0.12803309800693977,
+    "single_band_se_optimistic": 0.28563800959071256,
+    "single_band_se_typical": 0.6830595437259366,
+    "single_band_se_aggressive": 2.2221956748384795
+  },
+  {
+    "site": "LW1",
+    "eligible_bands": 36,
+    "evaluated_bands": 34,
+    "target_eligible": true,
+    "main_blocks": 8,
+    "correlation_blocks": 16,
+    "mean_loss_correlation": 0.28097135653771943,
+    "median_loss_correlation": 0.18185171436873052,
+    "target_relative_cv": 0.4565760506310684,
+    "single_band_se_optimistic": 0.11199465781470735,
+    "single_band_se_typical": 0.2710082806570893,
+    "single_band_se_aggressive": 1.299643603179706
+  }
+]

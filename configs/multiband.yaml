@@ -1,0 +1,56 @@
+version: 1
+study: multiband-shared-learning
+base_config: followup_v2.yaml
+band_width_mhz: 20.0
+blocks_per_band: 4
+band_alignment_index: 0
+target_mhz: 2437.0
+sites: [CC1, LW1]
+calibration_s: 86400
+first_eval_s: 172800
+window_s: 900
+lead_s: 900
+history_s: 7200
+primary_offset_db: 3
+minimum_coverage: 0.8
+eligibility:
+  basis: first-24-hours-only
+  min_busy_share: 0.02
+  max_busy_share: 0.98
+  min_window_std: 0.05
+evaluation_eligibility:
+  min_reference_mse: 0.0001
+  min_blocks: 4
+band_groups_mhz: 100
+band_folds: 5
+band_guard_bands: 1
+embargo_s: 36000
+primary_features: history
+secondary_features: [history_context]
+reference_methods: [fixed_two_hour, selected_history_per_band]
+learned_grid: followup_v2
+estimand: mean_per_band_relative_mse_reduction
+bootstrap:
+  scheme: crossed-band-and-block
+  blocks_s: [14400, 28800, 43200]
+  main_block_s: 28800
+  resamples: 2000
+  seed: 0
+  minimum_blocks: 4
+  weak_evidence_blocks: 10
+advancement:
+  alpha: 0.05
+  margin: 0.03
+  require_each_site_positive: true
+  minimum_bands_per_site: 8
+  references: both
+power:
+  target_power: 0.8
+  correlation_block_s: 14400
+  correlation_multipliers: [0, 1, 2]
+  fixed_correlations: [0.2]
+  true_gains: [0.02, 0.03, 0.05, 0.10]
+  noise_levels: [optimistic, typical, aggressive]
+  noise_source: results/power_analysis/minimum_detectable_gain.csv
+controls: [synthetic_null_rehearsal, within_band_time_permutation, thinned_bands]
+stopping_rule: stop-after-declared-grid
