@@ -10,6 +10,13 @@ from .fine_spectrum import FINE_COLUMNS, sha, write_json
 
 def audit(root, nodes, out):
     archive = root / "reproductions/adaptive_archive_initial"
+    if not (archive / "inventory.json").exists():
+        raise FileNotFoundError(
+            f"{archive} is a local, Git-ignored archive that is not present in this checkout. "
+            "The historical audit was already applied and its outputs are saved under "
+            "results/adaptive_learning/audit; rebuild the report with --mode report "
+            "--predictions-dir results/adaptive_learning/run."
+        )
     inventory = json.loads((archive / "inventory.json").read_text())
     protected = json.loads((archive / "protected_hashes.json").read_text())
     for name, digest in inventory.items():

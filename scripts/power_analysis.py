@@ -14,12 +14,19 @@ import numpy as np
 import pandas as pd
 from scipy.stats import norm
 
+from spectrum_occupancy_forecasting.evaluation.power import (
+    ALPHA,
+    POWER,
+    Z,
+    relative_se,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 RUN = ROOT / "results/operational_learning/run"
 OUT = ROOT / "results/power_analysis"
 RECORDINGS = ("CC1_first", "LW1_first", "LW1_later")
 WINDOWS_PER_DAY = 96
-ALPHA, POWER, TARGET = 0.05, 0.80, 0.05
+TARGET = 0.05
 BLOCKS = (1, 16, 32, 48)  # windows of 15 minutes: independent, 4 h, 8 h (primary), 12 h
 PRIMARY = 32
 MIN_BLOCKS = 4  # the repository omits block intervals below four blocks
@@ -29,27 +36,6 @@ LEVELS = {"optimistic": "p10", "typical": "median", "aggressive": "p90"}
 def primary_block(n):
     """Eight-hour blocks, or four-hour blocks when eight hours leave fewer than four blocks."""
     return PRIMARY if n / PRIMARY >= MIN_BLOCKS else 16
-
-
-Z = norm.ppf(1 - ALPHA) + norm.ppf(POWER)
-
-
-def block_indices(n, length, replicates, rng):
-    """Moving-block bootstrap indices, shape (replicates, n)."""
-    count = -(-n // length)
-    starts = rng.integers(0, n - length + 1, size=(replicates, count))
-    return (starts[:, :, None] + np.arange(length)).reshape(replicates, -1)[:, :n]
-
-
-def relative_se(losses_difference, baseline_loss, length, replicates, rng):
-    """Block-bootstrap standard error of mean(difference) / mean(baseline loss).
-
-    ``losses_difference`` has shape (n, k): k candidate loss-difference series.
-    """
-    n = len(baseline_loss)
-    idx = block_indices(n, min(length, n), replicates, rng)
-    ratio = losses_difference[idx].mean(axis=1) / baseline_loss[idx].mean(axis=1)[:, None]
-    return ratio.std(axis=0, ddof=1)
 
 
 def scored_origins():
@@ -80,7 +66,7 @@ def tail_statistics(squared):
     )
 
 
-def analyse(replicates, seed):
+def analyse(replicates, seed, family="all"):
     rng = np.random.default_rng(seed)
     scored = scored_origins()
     rows, tails, candidate_rows = [], [], []
@@ -89,15 +75,15 @@ def analyse(replicates, seed):
         y = frame.y.to_numpy()
         predictions = candidate_forecasts(name).reindex(frame.index)
         learned = predictions.drop(columns="count_history")
+        if family == "count":
+            learned = learned[[c for c in learned.columns if c.startswith("count_")]]
         for baseline in ("fixed_history", "selected_history"):
             base = frame[baseline].to_numpy()
             base_loss = (y - base) ** 2
             if baseline == "fixed_history":
                 tails.append(dict(recording=name, n=len(y), **tail_statistics(base_loss)))
             difference = base_loss[:, None] - (y[:, None] - learned.to_numpy()) ** 2
-            active = (np.abs(difference).max(axis=0) > 0) & predictions.notna().all().drop(
-                "count_history"
-            ).to_numpy()
+            active = (np.abs(difference).max(axis=0) > 0) & learned.notna().all().to_numpy()
             difference = difference[:, active]
             gain = difference.mean(axis=0) / base_loss.mean()
             for length in BLOCKS:
@@ -252,9 +238,15 @@ def main():
     parser.add_argument("--replicates", type=int, default=4000)
     parser.add_argument("--seed", type=int, default=20261005)
     parser.add_argument("--out-dir", type=Path, default=OUT)
+    parser.add_argument(
+        "--candidates",
+        choices=["all", "count"],
+        default="all",
+        help="all: count models plus history variants; count: the 24 count-model settings only",
+    )
     args = parser.parse_args()
     args.out_dir.mkdir(parents=True, exist_ok=True)
-    table, tails, candidates = analyse(args.replicates, args.seed)
+    table, tails, candidates = analyse(args.replicates, args.seed, args.candidates)
     curves, joint = power_curves(table)
     floor = sampling_floor()
     table.to_csv(args.out_dir / "minimum_detectable_gain.csv", index=False)

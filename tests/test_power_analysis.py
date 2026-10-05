@@ -4,6 +4,8 @@ from pathlib import Path
 import numpy as np
 import pytest
 
+from spectrum_occupancy_forecasting.evaluation import power
+
 spec = importlib.util.spec_from_file_location(
     "power_analysis", Path(__file__).resolve().parents[1] / "scripts/power_analysis.py"
 )
@@ -12,7 +14,7 @@ spec.loader.exec_module(power_analysis)
 
 
 def test_block_indices_stay_in_range_and_have_requested_length():
-    idx = power_analysis.block_indices(100, 32, 50, np.random.default_rng(0))
+    idx = power.block_indices(100, 32, 50, np.random.default_rng(0))
     assert idx.shape == (50, 100)
     assert idx.min() >= 0 and idx.max() < 100
 
